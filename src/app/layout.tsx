@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/app/lib/utils";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-serif",
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={(playfairDisplay.variable, inter.variable)}
+      className={cn((playfairDisplay.variable, inter.variable), "font-sans", inter.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

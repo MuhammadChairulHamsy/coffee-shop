@@ -1,45 +1,74 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Search, ShoppingCart } from "lucide-react";
+import { NAV_LINKS } from "@/app/lib/constants";
+
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-center gap-10">
-      <div className="flex items-center gap-2">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6">
+      {/* Logo */}
+      <Link href="/" className="flex items-center gap-2 shrink-0">
         <Image
           src="/coffeo.svg"
-          alt="icon-coffeo"
-          width={30}
-          height={30}
-          className="object-cover"
+          alt="Coffeo logo"
+          width={28}
+          height={28}
+          className="object-contain"
         />
-        <span className="text-xl text-foreground font-bold">Coffeo</span>
-      </div>
+        <span className="text-sm md:text-lg font-bold tracking-tight text-foreground">
+          Coffeo
+        </span>
+      </Link>
 
-      <div className="flex gap-6 font-sans font-bold text-sm md:text-lg">
-        <Link href="/" className="px-2 py-1 text-foreground">
-          Product
-        </Link>
-        <Link
-          href="/special-offers"
-          className="px-2 py-1 font-sans text-foreground"
-        >
-          Special offers
-        </Link>
-        <Link
-          href="/the-process"
-          className="px-2 py-1 font-sans text-foreground"
-        >
-          The Process
-        </Link>
-        <Link href="/packing" className="px-2 py-1 font-sans text-foreground">
-          Packing
-        </Link>
-        <Link href="/about" className="px-2 py-1 font-sans text-foreground">
-          About
-        </Link>
+      {/* Nav Links */}
+      <ul className="hidden md:flex items-center gap-1">
+        {NAV_LINKS.map(({ href, label }) => (
+          <li key={href}>
+            <Link
+              href={href}
+              className="px-3 py-1.5 rounded-md font-bold text-sm md:text-lg text-foreground"
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
 
-        <Button className="">Sign in</Button>
+      {/* Actions */}
+      <div className="flex items-center gap-2">
+        {/* Search */}
+        <div className="flex items-center border-2 rounded-md overflow-hidden ">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none w-36 focus:w-48 cursor-pointer"
+          />
+          <button
+            type="submit"
+            className="px-2 py-1.5 "
+            aria-label="Search"
+          >
+            <Search size={18} />
+          </button>
+        </div>
+
+        {/* Cart */}
+        <button
+          className="p-2 rounded-md border-2 cursor-pointer"
+          aria-label="Shopping cart"
+        >
+          <ShoppingCart size={18} />
+        </button>
+
+        {/* Auth */}
+        <Button
+          variant="outline"
+          className="border-2 text-foreground bg-transparent hover:bg-amber-900 hover:text-amber-100 font-semibold text-sm transition-colors cursor-pointer"
+        >
+          Log in / Sign up
+        </Button>
       </div>
     </nav>
   );
