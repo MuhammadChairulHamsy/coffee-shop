@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 import { Search, ShoppingCart } from "lucide-react";
 import { NAV_LINKS } from "@/app/lib/constants";
 
-
 const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between px-6">
@@ -17,7 +16,7 @@ const Navbar = () => {
           height={28}
           className="object-contain"
         />
-        <span className="text-sm md:text-lg font-bold tracking-tight text-foreground">
+        <span className="text-sm md:text-lg font-playfair tracking-tight font-bold text-foreground ">
           Coffeo
         </span>
       </Link>
@@ -28,7 +27,7 @@ const Navbar = () => {
           <li key={href}>
             <Link
               href={href}
-              className="px-3 py-1.5 rounded-md font-bold text-sm md:text-lg text-foreground"
+              className="px-3 py-1.5 rounded-md font-inter text-sm md:text-lg text-foreground"
             >
               {label}
             </Link>
@@ -45,11 +44,7 @@ const Navbar = () => {
             placeholder="Search..."
             className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none w-36 focus:w-48 cursor-pointer"
           />
-          <button
-            type="submit"
-            className="px-2 py-1.5 "
-            aria-label="Search"
-          >
+          <button type="submit" className="px-2 py-1.5 " aria-label="Search">
             <Search size={18} />
           </button>
         </div>
