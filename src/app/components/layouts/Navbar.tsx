@@ -16,8 +16,8 @@ const Navbar = () => {
           height={28}
           className="object-contain"
         />
-        <span className="text-sm md:text-lg font-playfair tracking-tight font-bold text-foreground ">
-          Coffeo
+        <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground ">
+          Coffesy
         </span>
       </Link>
 
@@ -38,11 +38,11 @@ const Navbar = () => {
       {/* Actions */}
       <div className="flex items-center gap-2">
         {/* Search */}
-        <div className="flex items-center border-2 rounded-md overflow-hidden ">
+        <div className="flex items-center border-2  rounded-md overflow-hidden ">
           <input
             type="text"
             placeholder="Search..."
-            className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none w-36 focus:w-48 cursor-pointer"
+            className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none hidden lg:block lg:w-36 lg:focus:w-48 cursor-pointer"
           />
           <button type="submit" className="px-2 py-1.5 " aria-label="Search">
             <Search size={18} />
