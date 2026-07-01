@@ -41,7 +41,7 @@ const Hero = () => {
         </div>
         <div>
           <Image
-            src="/Coffee-shop.webp"
+            src="/image/Coffee-shop.webp"
             unoptimized
             priority
             width={400}
