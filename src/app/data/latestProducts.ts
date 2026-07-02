@@ -1,11 +1,4 @@
-export type LatestProductsProps = {
-  id: number;
-  image: string;
-  type: string;
-  title: string;
-  price: number;
-  like: boolean;
-};
+import {LatestProductsProps} from "../types/index"
 
 export const Latest_Products: LatestProductsProps[] = [
   {
