@@ -1,7 +1,7 @@
-import Navbar from "./components/layouts/navbar";
-import Hero from "./components/sections/Hero";
-import LatestProducts from "./components/sections/LatestProducts";
-import Marquee from "./components/ui/marquee";
+import Navbar from "@/components/layouts/navbar";
+import Hero from "@/components/sections/Hero";
+import LatestProducts from "@/components/sections/LatestProducts";
+import Marquee from "@/components/ui/marquee";
 
 export default function Page() {
   return (

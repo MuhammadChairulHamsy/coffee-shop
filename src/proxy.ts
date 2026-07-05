@@ -1,6 +1,6 @@
 // proxy.ts
 import { type NextRequest } from "next/server";
-import { updateSession } from "@/app/utils/supabase/middleware";
+import { updateSession } from "@/utils/supabase/middleware";
 
 export async function proxy(request: NextRequest) {
   return await updateSession(request);

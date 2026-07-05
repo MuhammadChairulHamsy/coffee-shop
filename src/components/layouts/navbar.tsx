@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Search, ShoppingCart } from "lucide-react";
-import { NAV_LINKS } from "@/app/lib/constants";
-import { createClient } from "@/app/utils/supabase/server";
-import NavbarAuth from "@/app/components/layouts/navbar-auth";
-import type { NavbarAuthProps } from "@/app/types/index";
+import { NAV_LINKS } from "@/lib/constants";
+import { createClient } from "@/utils/supabase/server";
+import NavbarAuth from "@/components/layouts/navbar-auth";
+import type { NavbarAuthProps } from "@/types/index";
 
 const Navbar = async () => {
   const supabase = await createClient();

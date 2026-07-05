@@ -1,6 +1,6 @@
 "use client"
 
-import { LoginForm } from "@/app/components/login-form"
+import { LoginForm } from "@/components/auth/login-form"
 import { Coffee } from "lucide-react"
 
 

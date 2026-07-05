@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { logout } from "@/app/actions/auth";
-import type { NavbarAuthProps } from "@/app/types";
+import type { NavbarAuthProps } from "@/types";
 
 const NavbarAuth = ({ user }: NavbarAuthProps) => {
   if (!user) {

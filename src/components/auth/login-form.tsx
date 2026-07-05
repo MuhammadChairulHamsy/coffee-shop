@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/app/lib/utils";
-import { Button } from "@/app/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { loginWithGoogle } from "@/app/actions/auth";
 
 export function LoginForm({
