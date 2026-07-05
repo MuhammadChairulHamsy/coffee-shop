@@ -1,36 +1,28 @@
-"use client";
+"use server";
 
 import { createClient } from "@/app/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export const login = async (formData: FormData) => {
+export const loginWithGoogle = async (formData: FormData) => {
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google", 
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      queryParams: {
+        access_type: "offline",
+        prompt: "select_account"
+      },
+    },
   });
 
-  if (error) return { error: error.message };
-
-  redirect("/dashboard");
-};
-
-export const signup = async (formData: FormData) => {
-  const supabase = await createClient();
-
-  const { error } = await supabase.auth.signUp({
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  });
-
-  if (error) return { error: error.message };
-
-  redirect("/login");
+  if (error) redirect("/login?error=oauth_failed");
+  if(data.url) redirect(data.url)
 };
 
 export const logout = async  () => {
     const supabase = await createClient();
-    await supabase.auth.signUp();
+    await supabase.auth.signOut();
     redirect("/login");
 }

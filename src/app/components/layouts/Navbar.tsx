@@ -3,10 +3,26 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Search, ShoppingCart } from "lucide-react";
 import { NAV_LINKS } from "@/app/lib/constants";
+import { createClient } from "@/app/utils/supabase/server";
+import NavbarAuth from "@/app/components/layouts/navbar-auth";
+import type { NavbarAuthProps } from "@/app/types/index";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  console.log("USER:", user);
+
+  const userData: NavbarAuthProps["user"] = user
+    ? {
+        name: user.user_metadata?.full_name ?? user.email ?? null,
+        avatar: user.user_metadata?.avatar_url ?? null,
+        email: user.email ?? null,
+      }
+    : null;
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6">
+     <nav className="sticky top-0 z-50 flex items-center justify-between px-6">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 shrink-0">
         <Image
@@ -16,7 +32,7 @@ const Navbar = () => {
           height={28}
           className="object-contain"
         />
-        <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground ">
+        <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground">
           Coffesy
         </span>
       </Link>
@@ -38,13 +54,13 @@ const Navbar = () => {
       {/* Actions */}
       <div className="flex items-center gap-2">
         {/* Search */}
-        <div className="flex items-center border-2  rounded-md overflow-hidden ">
+        <div className="flex items-center border-2 rounded-md overflow-hidden">
           <input
             type="text"
             placeholder="Search..."
             className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none hidden lg:block lg:w-36 lg:focus:w-48 cursor-pointer"
           />
-          <button type="submit" className="px-2 py-1.5 " aria-label="Search">
+          <button type="button" className="px-2 py-1.5" aria-label="Search">
             <Search size={18} />
           </button>
         </div>
@@ -57,13 +73,8 @@ const Navbar = () => {
           <ShoppingCart size={18} />
         </button>
 
-        {/* Auth */}
-        <Button
-          variant="outline"
-          className="border-2 text-foreground bg-transparent hover:bg-amber-900 hover:text-amber-100 font-semibold text-sm transition-colors cursor-pointer"
-        >
-          Log in / Sign up
-        </Button>
+        {/* Auth — kondisional */}
+        <NavbarAuth user={userData} />
       </div>
     </nav>
   );

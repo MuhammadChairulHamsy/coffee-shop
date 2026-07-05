@@ -1,0 +1,43 @@
+// src/app/auth/callback/route.ts
+import { createServerClient } from "@supabase/ssr";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
+
+  console.log("CALLBACK HIT, code:", code); // ← cek apakah route terpanggil
+
+  if (!code) {
+    return NextResponse.redirect(`${origin}/login?error=no_code`);
+  }
+
+  const response = NextResponse.redirect(`${origin}/`);
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
+        },
+      },
+    }
+  );
+
+  const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+  console.log("EXCHANGE ERROR:", error); // ← cek error spesifiknya
+
+  if (error) {
+    return NextResponse.redirect(`${origin}/login?error=callback_failed`);
+  }
+
+  return response;
+}

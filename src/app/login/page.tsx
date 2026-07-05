@@ -1,7 +1,7 @@
 "use client"
 
 import { LoginForm } from "@/app/components/login-form"
-import { GalleryVerticalEndIcon } from "lucide-react"
+import { Coffee } from "lucide-react"
 
 
 const LoginPage = () => {
@@ -11,9 +11,9 @@ const LoginPage = () => {
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEndIcon className="size-4" />
+              <Coffee className="size-4" />
             </div>
-            Acme Inc.
+            Coffesy.
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
@@ -24,7 +24,7 @@ const LoginPage = () => {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <img
-          src="/placeholder.svg"
+          src="/image/Coffee-shop.webp"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
