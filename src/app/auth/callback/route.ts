@@ -6,8 +6,6 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
 
-  console.log("CALLBACK HIT, code:", code); // ← cek apakah route terpanggil
-
   if (!code) {
     return NextResponse.redirect(`${origin}/login?error=no_code`);
   }
@@ -32,8 +30,6 @@ export async function GET(request: NextRequest) {
   );
 
   const { error } = await supabase.auth.exchangeCodeForSession(code);
-
-  console.log("EXCHANGE ERROR:", error); // ← cek error spesifiknya
 
   if (error) {
     return NextResponse.redirect(`${origin}/login?error=callback_failed`);

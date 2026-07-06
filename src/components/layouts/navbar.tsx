@@ -1,18 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { Search, ShoppingCart } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
 import { createClient } from "@/utils/supabase/server";
 import NavbarAuth from "@/components/layouts/navbar-auth";
+import NavbarMobile from "@/components/layouts/navbar-mobile";
 import type { NavbarAuthProps } from "@/types/index";
 
 const Navbar = async () => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  console.log("USER:", user);
+  const { data: { user } } = await supabase.auth.getUser();
 
   const userData: NavbarAuthProps["user"] = user
     ? {
@@ -21,8 +18,9 @@ const Navbar = async () => {
         email: user.email ?? null,
       }
     : null;
+
   return (
-     <nav className="sticky top-0 z-50 flex items-center justify-between px-6">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-2 bg-background border-b border-border">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 shrink-0">
         <Image
@@ -37,13 +35,13 @@ const Navbar = async () => {
         </span>
       </Link>
 
-      {/* Nav Links */}
+      {/* Nav Links — desktop */}
       <ul className="hidden md:flex items-center gap-1">
         {NAV_LINKS.map(({ href, label }) => (
           <li key={href}>
             <Link
               href={href}
-              className="px-3 py-1.5 rounded-md font-inter text-sm md:text-lg text-foreground"
+              className="px-3 py-1.5 rounded-md font-inter text-sm md:text-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               {label}
             </Link>
@@ -73,8 +71,13 @@ const Navbar = async () => {
           <ShoppingCart size={18} />
         </button>
 
-        {/* Auth — kondisional */}
-        <NavbarAuth user={userData} />
+        {/* Auth — desktop only */}
+        <div className="hidden md:block">
+          <NavbarAuth user={userData} />
+        </div>
+
+        {/* Hamburger — mobile only, pass user untuk drawer */}
+        <NavbarMobile user={userData} />
       </div>
     </nav>
   );

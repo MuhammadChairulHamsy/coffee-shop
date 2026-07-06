@@ -18,37 +18,40 @@ const LatestProducts = () => {
       </div>
 
       {/* Product Grid Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
         {Latest_Products.map((product) => (
           <div 
             key={product.id} 
-            className="group text-card-foreground border border-border/60 rounded-2xl p-3 w-full max-w-80 flex flex-col shadow-sm hover:shadow-md transition-shadow relative"
+            className="group text-card-foreground border border-border/60 rounded-2xl p-4 w-full max-w-80 flex flex-col shadow-sm hover:shadow-md transition-shadow relative"
           >
-            {/* === IMAGE CONTAINER DENGAN ANIMASI BAYANGAN === */}
-            <div className="relative w-full rounded-xl flex flex-col items-center justify-center overflow-visible">
+            {/* === IMAGE CONTAINER DENGAN TINGGI TETAP === */}
+            {/* Ditambahkan `h-64` agar semua wadah gambar tingginya seragam */}
+            <div className="relative w-full h-64 rounded-xl flex items-center justify-center overflow-visible">
               
-              {/* Pembungkus gambar agar melayang ke atas (-translate-y-4) saat di-hover */}
-              <div className="relative z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4 cursor-pointer">
+              {/* Pembungkus gambar melayang */}
+              {/* Menggunakan `w-full h-full` agar mengikuti kontainer induknya */}
+              <div className="relative w-full h-full z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4 cursor-pointer">
                 <Image
                   src={product.image}
                   alt={product.title}
-                  width={700}
-                  height={500}
-                  className="object-contain drop-shadow-sm"
+                  fill // Menggunakan fill agar ukuran responsif mengikuti div pembungkusnya
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  className="object-contain drop-shadow-sm p-4" // object-contain memastikan gambar tidak gepeng/terpotong
                   priority={product.id === 1}
                 />
               </div>
 
               {/* Elemen Bayangan Oval di bawah gambar */}
+              {/* Disesuaikan posisinya ke bottom-2 agar pas di bawah pouch */}
               <div 
                 className="
-                  absolute bottom-4 z-0 
-                  w-24 h-3 
-                  bg-black/15 
+                  absolute bottom-2 z-0 
+                  w-28 h-3 
+                  bg-black/10 
                   rounded-[100%] 
                   blur-[6px] 
                   transition-all duration-500 ease-out 
-                  group-hover:w-16 
+                  group-hover:w-20 
                   group-hover:opacity-50 
                   group-hover:scale-90
                   group-hover:blur-[5px]
@@ -57,11 +60,11 @@ const LatestProducts = () => {
             </div>
 
             {/* Product Info */}
-            <div className="space-y-1 flex-1 text-center">
+            <div className="space-y-1 flex-1 text-center pt-4">
               <span className="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
                 {product.type}
               </span>
-              <h3 className="font-bold text-xl text-foreground">
+              <h3 className="font-bold text-xl text-foreground line-clamp-1">
                 {product.title}
               </h3>
               <p className="text-2xl font-black text-foreground pt-1">
@@ -70,7 +73,7 @@ const LatestProducts = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pt-4">
               <Button variant="link" className="p-0 h-auto font-bold text-foreground hover:no-underline group/btn">
                 Add to cart <span className="inline-block transition-transform group-hover/btn:translate-x-1 ml-1">→</span>
               </Button>

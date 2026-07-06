@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
-const publicRoutes = ["/login", "/auth/callback"];
+const protectedRoutes = ["/cart", "/checkout", "/orders", "/profile"];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -30,12 +30,12 @@ export async function updateSession(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   const { pathname } = request.nextUrl;
 
-  const isPublicRoute = publicRoutes.some((route) =>
+  const isProtectedRoute  = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
   // Belum login → akses route manapun selain public → redirect login
-  if (!user && !isPublicRoute) {
+  if (!user && !isProtectedRoute ) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
