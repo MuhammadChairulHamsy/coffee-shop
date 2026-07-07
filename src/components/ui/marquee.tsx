@@ -30,7 +30,7 @@ const Marquee = () => {
   );
 
   return (
-    <section className="w-full mt-10 bg-primary mb-20 overflow-hidden py-5 shadow-sm">
+    <section className="w-full mt-24 bg-primary mb-20 overflow-hidden py-5 shadow-sm">
       {/* Kecepatan disetel 40s agar teks yang panjang nyaman dibaca */}
       <div className="marquee-wrapper animate-marquee" style={{ animationDuration: '40s' }}>
         

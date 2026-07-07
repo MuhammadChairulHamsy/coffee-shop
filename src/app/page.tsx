@@ -5,14 +5,15 @@ import Marquee from "@/components/ui/marquee";
 
 export default function Page() {
   return (
-    <div className="min-h-screen relative font-sans">
-      <header className="container mx-auto px-4 md:px-6 pt-5 md:pt-10 relative z-10 pb-10 md:pb-8">
+    <div className="min-h-screen relative">
+      <header className="sticky top-0 z-50 w-full">
         <Navbar />
       </header>
-      <main>
-        <Hero/>
-        <Marquee/>
-        <LatestProducts/>
+
+      <main className="container mx-auto pt-5 md:pt-10">
+        <Hero />
+        <Marquee />
+        <LatestProducts />
       </main>
     </div>
   );

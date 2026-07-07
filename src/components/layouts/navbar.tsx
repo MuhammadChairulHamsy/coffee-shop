@@ -6,10 +6,14 @@ import { createClient } from "@/utils/supabase/server";
 import NavbarAuth from "@/components/layouts/navbar-auth";
 import NavbarMobile from "@/components/layouts/navbar-mobile";
 import type { NavbarAuthProps } from "@/types/index";
+import { Button } from "../ui/button";
 
 const Navbar = async () => {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const userData: NavbarAuthProps["user"] = user
     ? {
@@ -20,8 +24,9 @@ const Navbar = async () => {
     : null;
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-2 bg-background border-b border-border">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-5 bg-background border-b border-border overflow-hidden">
       {/* Logo */}
+
       <Link href="/" className="flex items-center gap-2 shrink-0">
         <Image
           src="/coffeo.svg"
@@ -30,12 +35,14 @@ const Navbar = async () => {
           height={28}
           className="object-contain"
         />
+
         <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground">
           Coffesy
         </span>
       </Link>
 
       {/* Nav Links — desktop */}
+
       <ul className="hidden md:flex items-center gap-1">
         {NAV_LINKS.map(({ href, label }) => (
           <li key={href}>
@@ -50,33 +57,45 @@ const Navbar = async () => {
       </ul>
 
       {/* Actions */}
+
       <div className="flex items-center gap-2">
         {/* Search */}
+
         <div className="flex items-center border-2 rounded-md overflow-hidden">
           <input
             type="text"
             placeholder="Search..."
             className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none hidden lg:block lg:w-36 lg:focus:w-48 cursor-pointer"
           />
-          <button type="button" className="px-2 py-1.5" aria-label="Search">
+
+          <Button
+            variant="outline"
+            type="button"
+            className="px-2 py-1.5 border-none"
+            aria-label="Search"
+          >
             <Search size={18} />
-          </button>
+          </Button>
         </div>
 
         {/* Cart */}
-        <button
-          className="p-2 rounded-md border-2 cursor-pointer"
+
+        <Button
+          variant="outline"
+          className="p-2 rounded-md cursor-pointer"
           aria-label="Shopping cart"
         >
           <ShoppingCart size={18} />
-        </button>
+        </Button>
 
         {/* Auth — desktop only */}
+
         <div className="hidden md:block">
           <NavbarAuth user={userData} />
         </div>
 
         {/* Hamburger — mobile only, pass user untuk drawer */}
+
         <NavbarMobile user={userData} />
       </div>
     </nav>

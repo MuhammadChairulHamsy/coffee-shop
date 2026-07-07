@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
@@ -10,6 +10,18 @@ import Image from "next/image";
 
 const NavbarMobile = ({ user }: NavbarAuthProps) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -24,19 +36,19 @@ const NavbarMobile = ({ user }: NavbarAuthProps) => {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-0 z-40 bg-background border-t border-border">
+        <div className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 z-40 bg-background border-t border-border overflow-y-auto overscroll-contain">
           <div className="flex justify-between p-2 items-center gap-3">
             <div className="flex gap-2">
-            <Image
-              src="/coffeo.svg"
-              alt="Coffeo logo"
-              width={28}
-              height={28}
-              className="object-contain"
-            />
-            <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground">
-              Coffesy
-            </span>
+              <Image
+                src="/coffeo.svg"
+                alt="Coffeo logo"
+                width={28}
+                height={28}
+                className="object-contain"
+              />
+              <span className="text-lg lg:text-xl font-playfair tracking-tight font-bold text-foreground">
+                Coffesy
+              </span>
             </div>
 
             <button

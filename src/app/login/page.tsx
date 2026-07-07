@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { LoginForm } from "@/components/auth/login-form"
-import { Coffee } from "lucide-react"
-
+import { LoginForm } from "@/components/auth/login-form";
+import { Coffee } from "lucide-react";
+import Image from "next/image";
 
 const LoginPage = () => {
   return (
@@ -22,15 +22,19 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
-        <img
-          src="/image/Coffee-shop.webp"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="border-l-2 relative hidden bg-background lg:block">
+      <Image
+        src="/image/Coffee-shop.webp"
+        unoptimized
+        priority
+        width={400}
+        height={400}
+        alt="Hero Coffee"
+        className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+      />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default LoginPage;
