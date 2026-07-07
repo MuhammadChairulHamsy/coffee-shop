@@ -10,9 +10,15 @@ export async function createClient() {
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: (cookiesToSet) => {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // Bisa diabaikan — ini terjadi saat setAll dipanggil dari
+            // Server Component. Selama middleware (yang sudah diperbaiki
+            // di atas) berjalan dan me-refresh session, ini tidak masalah.
+          }
         },
       },
     }

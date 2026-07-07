@@ -35,7 +35,7 @@ export async function updateSession(request: NextRequest) {
   );
 
   // Belum login → akses route manapun selain public → redirect login
-  if (!user && !isProtectedRoute ) {
+  if (!user && isProtectedRoute ) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
