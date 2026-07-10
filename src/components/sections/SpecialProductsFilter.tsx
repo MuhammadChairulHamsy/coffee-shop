@@ -1,28 +1,23 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
+import { useFilteredProducts } from "@/hooks/use-filtered-products";
 
 const FILTERS = [
-  { label: "All",            value: "all" },
-  { label: "Accessories",    value: "accessories" },
-  { label: "Coffee Beans",   value: "coffee-beans" },
-  { label: "Apparel",        value: "apparel" },
+  { label: "All", value: "all" },
+  { label: "Accessories", value: "accessories" },
+  { label: "Coffee Beans", value: "coffee-beans" },
+  { label: "Apparel", value: "apparel" },
   { label: "Instant Coffee", value: "instant-coffee" },
-  { label: "Bundle",         value: "bundle" },
+  { label: "Bundle", value: "bundle" },
 ];
 
 const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
-  const [active, setActive] = useState("all");
-
-  // Filter dicocokkan berdasarkan properti product.category yang baru kamu tambahkan di DB
-  const filtered =
-    active === "all"
-      ? products
-      : products.filter((p) => p.category?.toLowerCase() === active.toLowerCase());
+  const { activeFilter, filteredProducts, handleLikeClick, setActiveFilter } =
+    useFilteredProducts(products);
 
   return (
     <>
@@ -31,28 +26,27 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
         {FILTERS.map((filter) => (
           <button
             key={filter.value}
-            onClick={() => setActive(filter.value)}
+            onClick={() => setActiveFilter(filter.value)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer border
               ${
-                active === filter.value
+                activeFilter === filter.value
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-transparent text-muted-foreground border-border hover:text-foreground"
               }`}
           >
-            {/* Tampilkan label yang ramah pengguna (contoh: Coffee Beans) */}
             {filter.label}
           </button>
         ))}
       </div>
 
       {/* Product Grid */}
-      {filtered.length === 0 ? (
+      {filteredProducts.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
           Tidak ada produk di kategori ini.
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          {filtered.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
               className="group text-card-foreground border border-border/60 rounded-2xl p-4 w-full max-w-80 flex flex-col shadow-sm hover:shadow-md transition-shadow relative"
@@ -95,14 +89,23 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
                     →
                   </span>
                 </Button>
+
+                {/* Tombol Heart Like/Unlike */}
                 <Button
                   variant="ghost"
                   size="icon"
                   className="rounded-full hover:bg-muted relative z-20 cursor-pointer"
-                  aria-label="Like product"
+                  aria-label={
+                    product.is_liked ? "Unlike product" : "Like product"
+                  }
+                  onClick={() => handleLikeClick(product.id, product.is_liked)}
                 >
                   <Heart
-                    className={`w-5 h-5 ${product.is_liked ? "fill-destructive text-destructive" : "text-muted-foreground"}`}
+                    className={`w-5 h-5 transition-transform active:scale-125 duration-150 ${
+                      product.is_liked
+                        ? "fill-destructive text-destructive"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
                   />
                 </Button>
               </div>

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Heart } from "lucide-react"; 
 import { getLatestProducts } from "@/data/products";
 
+
 const LatestProducts = async () => {
   const products = await getLatestProducts();
   return (
