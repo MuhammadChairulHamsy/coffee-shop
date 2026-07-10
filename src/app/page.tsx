@@ -1,6 +1,7 @@
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/Hero";
 import LatestProducts from "@/components/sections/LatestProducts";
+import SpecialProducts from "@/components/sections/SpecialProducts";
 import Marquee from "@/components/ui/marquee";
 
 export default function Page() {
@@ -14,6 +15,7 @@ export default function Page() {
         <Hero />
         <Marquee />
         <LatestProducts />
+        <SpecialProducts />
       </main>
     </div>
   );

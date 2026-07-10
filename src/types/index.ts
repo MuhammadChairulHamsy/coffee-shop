@@ -1,11 +1,18 @@
-export type LatestProductsProps = {
+export type Product = {
   id: number;
   image: string;
   type: string;
+  category: string;
   title: string;
   price: number;
-  like: boolean;
+  is_liked: boolean;
+  is_special: boolean;
+  created_at?: string; 
 };
+
+
+export type LatestProductsProps = Product;
+export type SpecialProducts = Product;
 
 export type NavbarAuthProps = {
   user: {
