@@ -1,6 +1,7 @@
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/hero";
 import LatestProducts from "@/components/sections/latest-products";
+import NewsletterSection from "@/components/sections/newsletter-section";
 import QualityProducts from "@/components/sections/quality-products";
 import SpecialProducts from "@/components/sections/special-products";
 import Marquee from "@/components/ui/marquee";
@@ -18,6 +19,7 @@ export default function Page() {
         <LatestProducts />
         <SpecialProducts />
         <QualityProducts />
+        <NewsletterSection/>
       </main>
     </div>
   );
