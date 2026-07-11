@@ -1,3 +1,4 @@
+import Footer from "@/components/layouts/footer";
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/hero";
 import LatestProducts from "@/components/sections/latest-products";
@@ -21,6 +22,8 @@ export default function Page() {
         <QualityProducts />
         <NewsletterSection/>
       </main>
+
+     <Footer/>
     </div>
   );
 }
