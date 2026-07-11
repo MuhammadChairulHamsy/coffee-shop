@@ -6,13 +6,6 @@ export type NavbarAuthProps = {
   } | null;
 };
 
-export type QualityProductProps = {
-  id: number;
-  icon: string;
-  title: string;
-  description: string;
-};
-
 export type Product = {
   id: number;
   image: string;

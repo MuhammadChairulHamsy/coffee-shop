@@ -31,27 +31,57 @@ const QUALITY_ITEMS = [
 
 const QualityProducts = () => {
   return (
-    <section className="container mx-auto mt-12 lg:mt-32 px-4 mb-20">
+    <section className="container mx-auto mt-12 lg:mt-32 mb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Side: Product / Beans Image */}
-        <div className="relative flex justify-center">
+        <div className="relative flex justify-center items-center">
+          {/* Gambar Biji Kopi Utama */}
           <Image
-            src="/image/Sign-up.webp"
+            src="/image/Seed-coffee-2-removebg-preview.webp"
             alt="Quality Coffee Beans"
-            width={500}
-            height={500}
-            className="object-contain drop-shadow-sm p-4"
+            width={700}
+            height={600}
+            className="object-contain drop-shadow-md"
           />
+
+          {/* Floating Testimonial Card (Glassmorphism Effect) */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-8 sm:left-auto sm:translate-x-0 sm:-right-6 sm:bottom-16 z-20 w-[90%] sm:w-auto">
+            <div className="flex items-center gap-3.5 p-2.5 pr-6 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border border-white/40 dark:border-zinc-800/50 rounded-full shadow-xl shadow-black/5">
+              {/* Avatar User */}
+              <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden shrink-0 shadow-sm">
+                <Image
+                  src="/image/Sign-up.webp"
+                  alt="Muhammad Chairul Hamsy"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Info Testimoni */}
+              <div className="flex flex-col">
+                <span className="text-foreground font-bold text-sm sm:text-base tracking-tight leading-snug">
+                  Muhammad Chairul Hamsy
+                </span>
+                <p className="max-w-56 sm:max-w-72 text-muted-foreground text-[11px] sm:text-xs leading-tight line-clamp-2">
+                  Coffeo is one of the most successful company... customer
+                  relationship is very good.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right Side: Quality Details */}
         <div className="flex flex-col space-y-6">
           <h2 className="text-primary font-bold text-3xl lg:text-5xl tracking-tight leading-tight">
-            We care about the quality of our <span className="font-extrabold">products</span>
+            We care about the quality of our{" "}
+            <span className="font-extrabold">products</span>
           </h2>
 
           <p className="max-w-[595px] text-muted-foreground font-medium text-sm lg:text-base leading-relaxed">
-            Drinking coffee is one of the most global things you do each day. Here I can spend a long and comfortable time with this workspace facilities.
+            Drinking coffee is one of the most global things you do each day.
+            Here I can spend a long and comfortable time with this workspace
+            facilities.
           </p>
 
           {/* Grid Feature Items */}
@@ -81,7 +111,10 @@ const QualityProducts = () => {
 
           {/* CTA Button */}
           <div className="pt-4">
-            <Button size="lg" className="rounded-full px-8 font-semibold cursor-pointer">
+            <Button
+              size="lg"
+              className="rounded-full px-8 font-semibold cursor-pointer"
+            >
               Explore our products →
             </Button>
           </div>
