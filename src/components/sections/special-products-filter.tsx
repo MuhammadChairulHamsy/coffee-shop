@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
-import { useFilteredProducts } from "@/hooks/use-filtered-products";
+import { useFilteredProducts } from "@/hooks/useFilteredProducts";
 
 const FILTERS = [
   { label: "All", value: "all" },

@@ -2,8 +2,15 @@ export type NavbarAuthProps = {
   user: {
     name: string | null;
     avatar: string | null;
-    email: string | null
+    email: string | null;
   } | null;
+};
+
+export type QualityProductProps = {
+  id: number;
+  icon: string;
+  title: string;
+  description: string;
 };
 
 export type Product = {
@@ -15,7 +22,7 @@ export type Product = {
   price: number;
   is_liked: boolean;
   is_special: boolean;
-  created_at?: string; 
+  created_at?: string;
 };
 export type LatestProductsProps = Product;
 export type SpecialProducts = Product;

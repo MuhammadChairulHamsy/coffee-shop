@@ -9,9 +9,9 @@ const Hero = () => {
           <h1 className="text-primary font-playfair font-extrabold text-5xl lg:text-8xl">
             COFFESY
           </h1>
-          <span className="text-foreground font-inter text-3xl font-bold lg:text-5xl">
+          <h2 className="text-foreground font-inter text-3xl font-bold lg:text-5xl">
             An online coffee store
-          </span>
+          </h2>
           <p className="max-w-4xl text-muted-foreground font-inter font-medium text-[15px] lg:text-2xl tracking-tight">
             Straight to your doorstep. We don't roast our beans until we have
             your order. Every order is roasted and shipped the same day.
