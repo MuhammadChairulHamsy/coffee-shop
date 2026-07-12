@@ -1,3 +1,4 @@
+import CurvedLoop from "@/components/ui/CurvedLoop";
 import Footer from "@/components/layouts/footer";
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/hero";
@@ -5,25 +6,35 @@ import LatestProducts from "@/components/sections/latest-products";
 import NewsletterSection from "@/components/sections/newsletter-section";
 import QualityProducts from "@/components/sections/quality-products";
 import SpecialProducts from "@/components/sections/special-products";
-import Marquee from "@/components/ui/marquee";
 
 export default function Page() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative flex flex-col justify-between">
+      {/* Header / Navbar */}
       <header className="sticky top-0 z-50 w-full">
         <Navbar />
       </header>
 
-      <main className="mx-auto pt-10">
+      {/* Main Content */}
+      <main className="flex-1 mx-auto w-full pt-10">
         <Hero />
-        <Marquee />
+
+        {/* Render CurvedLoop dengan prop array yang valid */}
+        <CurvedLoop
+          marqueeText="COFFESY ✦ FRESHLY BREWED ✦ 10% OFF FIRST CUP ✦"
+          speed={2}
+          curveAmount={250}
+          direction="right"
+          interactive
+          className="text-primary"
+        />
+
         <LatestProducts />
         <SpecialProducts />
         <QualityProducts />
-        <NewsletterSection/>
+        <NewsletterSection />
       </main>
-
-     <Footer/>
+      <Footer />
     </div>
   );
 }

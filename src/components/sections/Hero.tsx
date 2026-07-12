@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section className="container mt-3 lg:mt-10">
       <div className="flex flex-col items-center lg:flex-row justify-around">
-        <div className="flex flex-col space-y-5 px-10 lg:px-0 lg:space-y-7">
+        <div className="flex flex-col space-y-5 px-10 lg:px-5 lg:space-y-7">
           <h1 className="text-primary font-playfair font-extrabold text-5xl lg:text-8xl">
             COFFESY
           </h1>
