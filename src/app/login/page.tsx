@@ -24,7 +24,7 @@ const LoginPage = () => {
       </div>
       <div className="border-l-2 relative hidden bg-background lg:block">
       <Image
-        src="/image/Sign-up.webp"
+        src="/image/Sign-in.webp"
         unoptimized
         priority
         width={400}

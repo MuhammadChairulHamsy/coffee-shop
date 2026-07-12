@@ -41,13 +41,13 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-full max-w-[340px] sm:max-w-[480px] lg:max-w-[550px] aspect-square flex items-center justify-center">
+        <div className="relative w-full max-w-80 sm:max-w-[480px] lg:max-w-[550px] aspect-square flex items-center justify-center group">
           {/* Background Blobmaker SVG */}
           <div className="absolute inset-0 z-0 flex items-center justify-center">
             <svg
               viewBox="0 0 200 200"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full scale-110 opacity-90 drop-shadow-lg transition-transform duration-500 hover:scale-115"
+              className="w-full h-full scale-110 opacity-90 drop-shadow-lg transition-transform duration-500 group-hover:scale-115"
             >
               <path
                 fill="#BD6C2C"
@@ -58,14 +58,14 @@ const Hero = () => {
           </div>
 
           {/* Foreground Coffee Image */}
-          <div className="relative z-10 w-[85%] h-[85%] transition-transform duration-500 ease-out hover:-translate-y-2">
+          <div className="relative z-10 w-[85%] h-[85%] transition-transform duration-500 ease-out group-hover:-translate-y-2">
             <Image
               src="/image/Hero-coffee.webp"
               alt="Hero Coffee Product"
               fill
               priority
               sizes="(max-width: 640px) 280px, (max-width: 1024px) 420px, 500px"
-              className="object-contain drop-shadow-2xl"
+              className="object-contain drop-shadow-2xl cursor-pointer"
             />
           </div>
         </div>

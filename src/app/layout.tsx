@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import ScrollToTop from "@/components/ui/scroll-to-top";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap"
+  display: "swap",
 });
 
 const inter = Inter({
-  subsets:['latin'],
-  variable:'--font-inter',
-  display: "swap"
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -34,11 +35,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn(playfairDisplay.variable, inter.variable)}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={cn(playfairDisplay.variable, inter.variable)}>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   );
 }
