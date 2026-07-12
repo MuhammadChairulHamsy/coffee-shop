@@ -56,14 +56,18 @@ const SOCIAL_MEDIA = [
     icon: "/icons/facebook.webp",
     href: "https://facebook.com",
   },
-  { name: "YouTube", icon: "/icons/youtube.webp", href: "https://youtube.com" },
+  {
+    name: "YouTube",
+    icon: "/icons/youtube.webp",
+    href: "https://youtube.com",
+  },
 ];
 
 const Footer = () => {
   return (
-    <footer className="container mx-auto px-4 mb-12">
+    <footer className="container mx-auto mt-12 lg:mt-32">
       {/* Outer Card Container */}
-      <div className="bg-[#211816] text-[#e0d6d3] rounded-[2rem] overflow-hidden shadow-2xl">
+      <div className="bg-[#211816] text-[#e0d6d3] rounded-t-3xl overflow-hidden shadow-2xl">
         {/* Top Grid Area */}
         <div className="p-8 sm:p-12 lg:p-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Navigation Sections */}
@@ -94,7 +98,6 @@ const Footer = () => {
             </h3>
             <div className="flex items-center gap-4 pt-1">
               {SOCIAL_MEDIA.map((social) => {
-                const IconComponent = social.icon;
                 return (
                   <a
                     key={social.name}
@@ -109,7 +112,7 @@ const Footer = () => {
                       alt={social.name}
                       width={24}
                       height={24}
-                      className="w-6 h-6 object-contain"
+                      className="w-6 h-6 object-contain bg-white rounded-lg"
                     />
                   </a>
                 );
@@ -120,7 +123,7 @@ const Footer = () => {
 
         {/* Bottom Copyright Bar */}
         <div className="bg-[#2c201d] px-8 sm:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#a0928d]">
-          <p>Copyright © 2022, Coffeo.io</p>
+          <p>Copyright © 2026, Coffesy.io</p>
 
           <div className="flex items-center gap-2">
             <Link

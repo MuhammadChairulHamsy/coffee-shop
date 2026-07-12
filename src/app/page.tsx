@@ -14,7 +14,7 @@ export default function Page() {
         <Navbar />
       </header>
 
-      <main className="container mx-auto pt-5 md:pt-10">
+      <main className="mx-auto pt-10">
         <Hero />
         <Marquee />
         <LatestProducts />

@@ -41,7 +41,7 @@ const QualityProducts = () => {
             alt="Quality Coffee Beans"
             width={700}
             height={600}
-            className="object-contain drop-shadow-md"
+            className="w-full h-auto object-contain drop-shadow-md"
           />
 
           {/* Floating Testimonial Card (Glassmorphism Effect) */}
@@ -53,6 +53,7 @@ const QualityProducts = () => {
                   src="/image/Sign-up.webp"
                   alt="Muhammad Chairul Hamsy"
                   fill
+                  sizes="(max-width: 640px) 48px, 56px"
                   className="object-cover"
                 />
               </div>
@@ -72,20 +73,20 @@ const QualityProducts = () => {
         </div>
 
         {/* Right Side: Quality Details */}
-        <div className="flex flex-col space-y-6">
-          <h2 className="text-primary font-bold text-3xl lg:text-5xl tracking-tight leading-tight">
+        <div className="flex flex-col space-y-1 lg:space-y-5">
+          <h2 className="text-primary p-2 lg:p-0 font-bold text-2xl lg:text-5xl tracking-tight leading-tight">
             We care about the quality of our{" "}
             <span className="font-extrabold">products</span>
           </h2>
 
-          <p className="max-w-[595px] text-muted-foreground font-medium text-sm lg:text-base leading-relaxed">
+          <p className="max-w-[595px] text-muted-foreground font-medium text-sm p-3 lg:p-0 lg:text-base leading-relaxed">
             Drinking coffee is one of the most global things you do each day.
             Here I can spend a long and comfortable time with this workspace
             facilities.
           </p>
 
           {/* Grid Feature Items */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 mx-3 lg:mx-0">
             {QUALITY_ITEMS.map((item) => {
               const IconComponent = item.icon;
               return (
@@ -113,7 +114,7 @@ const QualityProducts = () => {
           <div className="pt-4">
             <Button
               size="lg"
-              className="rounded-full px-8 font-semibold cursor-pointer"
+              className="rounded-full mx-3 lg:mx-0 px-3 lg:px-8 font-semibold cursor-pointer"
             >
               Explore our products →
             </Button>

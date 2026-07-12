@@ -18,13 +18,13 @@ const NewsletterSection = () => {
     <section className="container mx-auto mt-12 lg:mt-32 px-4 mb-20">
       <div className="relative overflow-hidden rounded-3xl bg-[#f5e9e2] dark:bg-zinc-900 p-8 sm:p-12 md:p-16 flex flex-col items-center text-center">
         {/* Decorative Coffee Cup - Left */}
-        <div className="hidden lg:block absolute -left-28 top-1/2 -translate-y-1/2 ">
+        <div className="hidden lg:block absolute -left-16 top-1/2 -translate-y-1/2 ">
           <Image
             src="/image/Coffee-cup-removebg-preview.webp"
             alt="Coffee Cup"
             width={400}
             height={400}
-            className="object-contain"
+            className="w-full h-auto object-contain"
           />
         </div>
 
