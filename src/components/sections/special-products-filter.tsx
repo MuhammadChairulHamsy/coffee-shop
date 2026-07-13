@@ -57,6 +57,7 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
                     src={product.image}
                     alt={product.title}
                     fill
+                    loading="eager"
                     sizes="(max-width: 768px) 100vw, 25vw"
                     className="object-contain drop-shadow-sm p-4"
                     priority={product.id === 1}

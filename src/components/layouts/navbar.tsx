@@ -7,6 +7,7 @@ import NavbarAuth from "@/components/layouts/navbar-auth";
 import NavbarMobile from "@/components/layouts/navbar-mobile";
 import type { NavbarAuthProps } from "@/types/index";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const Navbar = async () => {
   const supabase = await createClient();
@@ -62,10 +63,10 @@ const Navbar = async () => {
         {/* Search */}
 
         <div className="flex items-center border-2 rounded-md overflow-hidden">
-          <input
+          <Input
             type="text"
             placeholder="Search..."
-            className="px-3 py-1.5 text-sm bg-transparent text-foreground outline-none hidden lg:block lg:w-36 lg:focus:w-48 cursor-pointer"
+            className="px-3 py-1.5 text-sm text-foreground outline-none border-none hidden lg:block lg:w-36 lg:focus:w-48 cursor-pointer focus-visible:ring-0"
           />
 
           <Button

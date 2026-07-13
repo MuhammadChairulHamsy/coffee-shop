@@ -1,18 +1,52 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import type {AuthChangeEvent, Session} from "@supabase/supabase-js"
 
 const Hero = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    let subscription: { unsubscribe: () => void } | undefined;
+
+    const initAuth = async () => {
+      const supabase = await createClient();
+
+      // 1. Cek session saat awal load
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsLoggedIn(!!session);
+
+      // 2. Pasang listener status perubahan auth
+      const { data } = supabase.auth.onAuthStateChange(
+        (_event: AuthChangeEvent, session: Session | null) => {
+          setIsLoggedIn(!!session);
+        }
+      );
+
+      subscription = data.subscription;
+    };
+
+    initAuth();
+
+    // Cleanup subscription saat komponen unmount
+    return () => {
+      if (subscription) subscription.unsubscribe();
+    };
+  }, []);
   return (
     <section className="container mt-3 lg:mt-10">
       <div className="flex flex-col items-center lg:flex-row justify-around">
         <div className="flex flex-col space-y-5 px-10 lg:px-5 lg:space-y-7">
-          <h1 className="text-primary font-playfair font-extrabold text-5xl lg:text-8xl">
+          <h1 className="text-primary font-playfair font-extrabold text-5xl sm:text-7xl lg:text-8xl">
             COFFESY
           </h1>
           <h2 className="text-foreground font-inter text-3xl font-bold lg:text-5xl">
             An online coffee store
           </h2>
-          <p className="max-w-[730px] text-muted-foreground font-inter font-medium text-[15px] lg:text-xl tracking-tight">
+          <p className="max-w-[730px] text-muted-foreground font-inter font-medium text-[15px] sm:text-lg lg:text-xl tracking-tight">
             Straight to your doorstep. We don't roast our beans until we have
             your order. Every order is roasted and shipped the same day.
           </p>
@@ -20,12 +54,16 @@ const Hero = () => {
             <Button className="bg-primary text-primary-foreground font-semibold rounded-2xl py-6 px-5 cursor-pointer hover:bg-primary/90">
               Explore our Products
             </Button>
-            <Button
-              variant="outline"
-              className="font-semibold rounded-2xl py-6 px-5 cursor-pointer border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-            >
-              Log in / sign up
-            </Button>
+            {!isLoggedIn && (
+              <Link href="/login">
+                <Button
+                  variant="outline"
+                  className="font-semibold rounded-2xl py-6 px-5 cursor-pointer border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+                >
+                  Log in / sign up
+                </Button>
+              </Link>
+            )}
           </div>
           <div className="flex gap-10">
             <div className="flex flex-col">

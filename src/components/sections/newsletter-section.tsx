@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
@@ -44,17 +45,16 @@ const NewsletterSection = () => {
           >
             <div className="relative w-full sm:w-80">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <input
+              <Input
                 type="email"
                 required
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 rounded-full bg-white dark:bg-zinc-800 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                className="w-full pl-11 pr-4 py-3 rounded-full bg-background dark:bg-zinc-800 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               />
             </div>
             <Button
-              type="submit"
               size="lg"
               className="rounded-full px-8 w-full sm:w-auto font-semibold cursor-pointer"
             >
@@ -68,8 +68,8 @@ const NewsletterSection = () => {
           <Image
             src="/image/Seed-coffee-test.webp"
             alt="Coffee Beans"
-           width={230}
-           height={230}
+            width={230}
+            height={230}
             className="object-contain"
           />
         </div>
