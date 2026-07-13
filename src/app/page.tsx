@@ -1,4 +1,4 @@
-import CurvedLoop from "@/components/ui/CurvedLoop";
+import CurvedLoop from "@/components/ui/curved-loop";
 import Footer from "@/components/layouts/footer";
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/hero";

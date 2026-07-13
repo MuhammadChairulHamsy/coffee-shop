@@ -2,7 +2,7 @@
 
 import { useState, useOptimistic, startTransition } from "react";
 import type { Product } from "@/types";
-import { toggleProductLike } from "@/app/actions/likes";
+import { toggleProductLike } from "@/actions/likes";
 
 export function useFilteredProducts(initialProducts: Product[]) {
   const [activeFilter, setActiveFilter] = useState("all");

@@ -1,67 +1,7 @@
+import { FOOTER_SECTIONS, SOCIAL_MEDIA } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
-const FOOTER_SECTIONS = [
-  {
-    id: 1,
-    title: "Privacy",
-    links: [
-      { label: "Terms of use", href: "/terms" },
-      { label: "Privacy policy", href: "/privacy" },
-      { label: "Cookies", href: "/cookies" },
-    ],
-  },
-  {
-    id: 2,
-    title: "Services",
-    links: [
-      { label: "Shop", href: "/shop" },
-      { label: "Order ahead", href: "/order" },
-      { label: "Menu", href: "/menu" },
-    ],
-  },
-  {
-    id: 3,
-    title: "About us",
-    links: [
-      { label: "Find a location", href: "/location" },
-      { label: "About us", href: "/about" },
-      { label: "Our story", href: "/story" },
-    ],
-  },
-  {
-    id: 4,
-    title: "Information",
-    links: [
-      { label: "Plans & pricing", href: "/pricing" },
-      { label: "Jobs", href: "/jobs" },
-      { label: "Sell your product", href: "/sell" },
-    ],
-  },
-];
-
-const SOCIAL_MEDIA = [
-  {
-    name: "Twitter",
-    icon: "/icons/twitter-bird.webp",
-    href: "https://twitter.com",
-  },
-  {
-    name: "Instagram",
-    icon: "/icons/instagram.webp",
-    href: "https://instagram.com",
-  },
-  {
-    name: "Facebook",
-    icon: "/icons/facebook.webp",
-    href: "https://facebook.com",
-  },
-  {
-    name: "YouTube",
-    icon: "/icons/youtube.webp",
-    href: "https://youtube.com",
-  },
-];
 
 const Footer = () => {
   return (

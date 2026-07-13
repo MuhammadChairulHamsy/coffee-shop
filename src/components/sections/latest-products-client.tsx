@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
-import { useFilteredProducts } from "@/hooks/useFilteredProducts";
+import { useFilteredProducts } from "@/hooks/use-filtered-products";
 import type { Product } from "@/types";
 
 const LatestProductsClient = ({ initialProducts }: { initialProducts: Product[] }) => {

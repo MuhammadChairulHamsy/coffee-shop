@@ -2,28 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, ShoppingCart } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
-import { createClient } from "@/utils/supabase/server";
 import NavbarAuth from "@/components/layouts/navbar-auth";
 import NavbarMobile from "@/components/layouts/navbar-mobile";
-import type { NavbarAuthProps } from "@/types/index";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { getAuthUser } from "@/lib/auth";
 
 const Navbar = async () => {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const userData: NavbarAuthProps["user"] = user
-    ? {
-        name: user.user_metadata?.full_name ?? user.email ?? null,
-        avatar: user.user_metadata?.avatar_url ?? null,
-        email: user.email ?? null,
-      }
-    : null;
-
+  const userData = await getAuthUser();
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-5 bg-background border-b border-border overflow-hidden">
       {/* Logo */}

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { loginWithGoogle } from "@/app/actions/auth";
+import { loginWithGoogle } from "@/actions/auth";
 
 export function LoginForm({
   className,

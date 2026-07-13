@@ -4,16 +4,9 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
-import { useFilteredProducts } from "@/hooks/useFilteredProducts";
+import { useFilteredProducts } from "@/hooks/use-filtered-products";
+import { PRODUCT_FILTERS } from "@/lib/constants";
 
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Accessories", value: "accessories" },
-  { label: "Coffee Beans", value: "coffee-beans" },
-  { label: "Apparel", value: "apparel" },
-  { label: "Instant Coffee", value: "instant-coffee" },
-  { label: "Bundle", value: "bundle" },
-];
 
 const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
   const { activeFilter, filteredProducts, handleLikeClick, setActiveFilter } =
@@ -23,7 +16,7 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
     <>
       {/* Filter Tabs */}
       <div className="flex flex-wrap justify-center gap-3 mb-8">
-        {FILTERS.map((filter) => (
+        {PRODUCT_FILTERS.map((filter) => (
           <button
             key={filter.value}
             onClick={() => setActiveFilter(filter.value)}
