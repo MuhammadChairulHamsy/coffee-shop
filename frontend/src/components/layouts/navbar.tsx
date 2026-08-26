@@ -30,18 +30,18 @@ const Navbar = async () => {
 
       {/* Nav Links — desktop */}
 
-      <ul className="hidden md:flex items-center gap-1">
+      <div className="hidden md:flex items-center gap-1">
         {NAV_LINKS.map(({ href, label }) => (
-          <li key={href}>
+          <div key={href}>
             <Link
               href={href}
               className="px-3 py-1.5 rounded-md font-inter text-sm md:text-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               {label}
             </Link>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {/* Actions */}
 

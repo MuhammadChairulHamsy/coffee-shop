@@ -69,6 +69,7 @@ const NewsletterSection = () => {
             src="/image/Seed-coffee-test.webp"
             alt="Coffee Beans"
             width={230}
+            loading="eager"
             height={230}
             className="object-contain"
           />

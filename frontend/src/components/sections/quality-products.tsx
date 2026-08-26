@@ -1,33 +1,7 @@
-import { MessageCircle, Box, PackageCheck, Layers } from "lucide-react";
+
 import Image from "next/image";
 import { Button } from "../ui/button";
-
-const QUALITY_ITEMS = [
-  {
-    id: 1,
-    icon: MessageCircle,
-    title: "Active community",
-    description: "You can reach out whenever you want!",
-  },
-  {
-    id: 2,
-    icon: Box,
-    title: "Best product design",
-    description: "We worked a lot to make a great experience",
-  },
-  {
-    id: 3,
-    icon: PackageCheck,
-    title: "Premium quality",
-    description: "A premium quality coffee is what our customers deserve",
-  },
-  {
-    id: 4,
-    icon: Layers,
-    title: "The best material",
-    description: "Our product is made by premium materials",
-  },
-];
+import { QUALITY_ITEMS } from "@/lib/constants";
 
 const QualityProducts = () => {
   return (
@@ -87,10 +61,9 @@ const QualityProducts = () => {
 
           {/* Grid Feature Items */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 mx-3 lg:mx-0">
-            {QUALITY_ITEMS.map((item) => {
-              const IconComponent = item.icon;
+            {QUALITY_ITEMS.map(({id, icon: IconComponent, title, description}) => {
               return (
-                <div key={item.id} className="flex items-start space-x-4">
+                <div key={id} className="flex items-start space-x-4">
                   {/* Circle Icon Badge */}
                   <div className="p-3 rounded-full bg-muted/60 text-foreground shrink-0">
                     <IconComponent className="w-6 h-6" />
@@ -99,10 +72,10 @@ const QualityProducts = () => {
                   {/* Text Content */}
                   <div className="space-y-1">
                     <h3 className="text-foreground font-bold text-base tracking-tight">
-                      {item.title}
+                      {title}
                     </h3>
                     <p className="text-muted-foreground text-xs leading-relaxed">
-                      {item.description}
+                      {description}
                     </p>
                   </div>
                 </div>

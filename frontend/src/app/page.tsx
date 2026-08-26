@@ -6,6 +6,7 @@ import LatestProducts from "@/components/sections/latest-products";
 import NewsletterSection from "@/components/sections/newsletter-section";
 import QualityProducts from "@/components/sections/quality-products";
 import SpecialProducts from "@/components/sections/special-products";
+// import ProductPage from "./(marketing)/product/page";
 
 export default function Page() {
   return (
@@ -33,6 +34,9 @@ export default function Page() {
         <SpecialProducts />
         <QualityProducts />
         <NewsletterSection />
+
+        {/* Marketing */}
+        {/* <ProductPage /> */}
       </main>
       <Footer />
     </div>

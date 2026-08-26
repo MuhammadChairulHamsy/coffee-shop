@@ -1,3 +1,10 @@
+import type { LucideIcon } from "lucide-react";
+
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
 export type NavbarAuthProps = {
   user: {
     name: string | null;
@@ -6,6 +13,12 @@ export type NavbarAuthProps = {
   } | null;
 };
 
+export interface QualityItem {
+  id: number;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
 
 export interface FooterLink {
   label: string;
