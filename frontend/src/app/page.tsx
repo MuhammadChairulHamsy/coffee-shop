@@ -2,10 +2,10 @@ import CurvedLoop from "@/components/ui/curved-loop";
 import Footer from "@/components/layouts/footer";
 import Navbar from "@/components/layouts/navbar";
 import Hero from "@/components/sections/hero";
-import LatestProducts from "@/components/sections/latest-products";
-import NewsletterSection from "@/components/sections/newsletter-section";
-import QualityProducts from "@/components/sections/quality-products";
-import SpecialProducts from "@/components/sections/special-products";
+import LatestProducts from "@/components/sections/latestProducts";
+import NewsletterSection from "@/components/sections/newsletterSection";
+import QualityProducts from "@/components/sections/qualityProducts";
+import SpecialProducts from "@/components/sections/specialProducts";
 // import ProductPage from "./(marketing)/product/page";
 
 export default function Page() {

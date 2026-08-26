@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
-import { useFilteredProducts } from "@/hooks/use-filtered-products";
+import { useFilteredProducts } from "@/hooks/useFilteredProducts";
 import { PRODUCT_FILTERS } from "@/lib/constants";
 
 
@@ -47,8 +47,8 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
               <div className="relative w-full h-64 rounded-xl flex items-center justify-center overflow-visible">
                 <div className="relative w-full h-full z-10 transition-transform duration-500 ease-out group-hover:-translate-y-4 cursor-pointer">
                   <Image
-                    src={product.image}
-                    alt={product.title}
+                    src={product.imageUrl}
+                    alt={product.name}
                     fill
                     loading="eager"
                     sizes="(max-width: 768px) 100vw, 25vw"
@@ -65,7 +65,7 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
                   {product.type}
                 </span>
                 <h3 className="font-bold text-xl text-foreground line-clamp-1">
-                  {product.title}
+                  {product.name}
                 </h3>
                 <p className="text-2xl font-black text-foreground pt-1">
                   ${product.price}

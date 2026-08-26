@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { logout } from "@/actions/auth";
 import type { NavbarAuthProps } from "@/types";
 
+// 1. Import signOut dari auth-client yang sudah kamu buat sebelumnya
+import { signOut } from "@/lib/authClient"; 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 const NavbarAuth = ({ user }: NavbarAuthProps) => {
+  const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   if (!user) {
     return (
       <Link href="/login">
@@ -19,6 +26,21 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
       </Link>
     );
   }
+
+  // 2. Buat fungsi handler untuk mengeksekusi logout
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      // Better Auth otomatis menembak Express untuk menghapus sesi dan cookie
+      await signOut(); 
+      
+      // Refresh halaman agar Server Component (yang mengambil getAuthUser) memperbarui UI
+      router.refresh(); 
+    } catch (error) {
+      console.error("Gagal logout:", error);
+      setIsLoggingOut(false);
+    }
+  };
 
   const userInitial = user.name?.charAt(0).toUpperCase() ?? "U";
 
@@ -44,16 +66,16 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
         </span>
       </div>
 
-      {/* Logout */}
-      <form action={logout}>
-        <Button
-          type="submit"
-          variant="outline"
-          className="text-foreground bg-transparent hover:bg-destructive hover:text-white font-semibold text-sm transition-colors cursor-pointer"
-        >
-          Logout
-        </Button>
-      </form>
+      {/* 3. Ubah form menjadi tombol biasa dengan event onClick */}
+      <Button
+        type="button"
+        onClick={handleLogout}
+        disabled={isLoggingOut}
+        variant="outline"
+        className="text-foreground bg-transparent hover:bg-destructive hover:text-white font-semibold text-sm transition-colors cursor-pointer"
+      >
+        {isLoggingOut ? "Keluar..." : "Logout"}
+      </Button>
     </div>
   );
 };

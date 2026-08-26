@@ -2,14 +2,15 @@
 
 import { useState, useOptimistic, startTransition } from "react";
 import type { Product } from "@/types";
-import { toggleProductLike } from "@/actions/likes";
+import { toggleProductLike } from "@/actions/toggleProductLike";
 
-export function useFilteredProducts(initialProducts: Product[]) {
+export function useFilteredProducts(initialProducts: Product[] = []) {
+  const safeProducts = initialProducts || [];
   const [activeFilter, setActiveFilter] = useState("all");
 
   // Logika Optimistic Update untuk Like/Unlike
   const [optimisticProducts, toggleOptimisticLike] = useOptimistic(
-    initialProducts,
+    safeProducts,
     (state, productId: number) =>
       state.map((p) =>
         p.id === productId ? { ...p, is_liked: !p.is_liked } : p

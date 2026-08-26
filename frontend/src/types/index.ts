@@ -39,11 +39,12 @@ export interface SocialMedia {
 
 export type Product = {
   id: number;
-  image: string;
+  name: string;
+  imageUrl: string
+  description: string | null
+  price: number;
   type: string;
   category: string;
-  title: string;
-  price: number;
   is_liked: boolean;
   is_special: boolean;
   created_at?: string;
