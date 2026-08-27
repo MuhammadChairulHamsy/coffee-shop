@@ -3,10 +3,10 @@
 import { useProducts } from "@/hooks/useProducts";
 import LatestProductsClient from "./latestProductsClient";
 
-const LatestProducts = async () => {
-  const { data: products, isLoading, isError, error } = useProducts();
+const LatestProducts = () => {
+  const { products, status} = useProducts();
 
-  if (isLoading) {
+  if (status.isLoading) {
     return (
       <div className="flex justify-center items-center py-20">
         <p className="text-muted-foreground animate-pulse">
@@ -16,10 +16,10 @@ const LatestProducts = async () => {
     );
   }
 
-  if (isError) {
+  if (status.isError) {
     return (
       <div className="text-center py-20 text-red-500">
-        <p>Gagal memuat produk: {error.message}</p>
+        <p>Gagal memuat produk:</p>
       </div>
     );
   }

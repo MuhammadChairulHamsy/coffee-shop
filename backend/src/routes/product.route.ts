@@ -1,9 +1,21 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma";
-import { auth } from "../lib/auth"; // Import konfigurasi Better Auth-mu
+import { auth } from "../lib/auth"; 
 import { fromNodeHeaders } from "better-auth/node";
 
 const productRouter = Router();
+
+productRouter.get("/", async (req, res) => {
+  try {
+    const products = await prisma.products.findMany({
+      orderBy: { id: "asc" },
+    });
+    res.json(products);
+  } catch (error) {
+    console.error("Failed to retrieve the product list:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // Endpoint untuk melakukan Like/Unlike
 productRouter.patch("/:id/like", async (req, res) => {
@@ -22,7 +34,7 @@ productRouter.patch("/:id/like", async (req, res) => {
     const { is_liked } = req.body;
 
     // 3. Update database menggunakan Prisma
-    const updatedProduct = await prisma.product.update({
+    const updatedProduct = await prisma.products.update({
       where: { id: productId },
       data: { is_liked },
     });

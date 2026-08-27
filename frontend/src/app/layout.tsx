@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import ScrollToTop from "@/components/ui/scroll-to-top";
+import QueryProvider from "@/providers/query-provider";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
@@ -37,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(playfairDisplay.variable, inter.variable)}>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {children}
+        <QueryProvider>{children}</QueryProvider>
         <ScrollToTop />
       </body>
     </html>

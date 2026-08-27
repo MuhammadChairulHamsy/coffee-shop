@@ -8,11 +8,10 @@ import { authRouter } from "./routes/auth.route";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/auth", authRouter);
 
 app.get("/", (req, res) => {
   res.json({
@@ -21,9 +20,12 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
-app.use("/api/products", productRouter);

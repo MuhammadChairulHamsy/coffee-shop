@@ -3,10 +3,10 @@
 import { useProducts } from "@/hooks/useProducts";
 import SpecialProductsFilter from "./specialProductsFilter";
 
-const SpecialProducts = async () => {
-  const { data: products, isLoading, isError, error } = useProducts();
+const SpecialProducts =  () => {
+  const { products, status} = useProducts();
 
-  if (isLoading) {
+  if (status.isLoading) {
     return (
       <div className="flex justify-center items-center py-20">
         <p className="text-muted-foreground animate-pulse">
@@ -16,10 +16,10 @@ const SpecialProducts = async () => {
     );
   }
 
-  if (isError) {
+  if (status.isError) {
     return (
       <div className="text-center py-20 text-red-500">
-        <p>Gagal memuat produk: {error.message}</p>
+        <p>Gagal memuat produk:</p>
       </div>
     );
   }

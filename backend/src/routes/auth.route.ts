@@ -3,6 +3,6 @@ import { Router } from "express";
 import { auth } from "../lib/auth";
 
 const authRouter = Router();
-authRouter.all("/*", toNodeHandler(auth));
+authRouter.use(toNodeHandler(auth));
 
 export { authRouter };
