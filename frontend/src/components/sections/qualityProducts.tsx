@@ -25,7 +25,7 @@ const QualityProducts = () => {
               {/* Avatar User */}
               <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden shrink-0 shadow-sm">
                 <Image
-                  src="/image/Sign-up.webp"
+                  src="/image/Sign-in.webp"
                   alt="Muhammad Chairul Hamsy"
                   fill
                   sizes="(max-width: 640px) 48px, 56px"

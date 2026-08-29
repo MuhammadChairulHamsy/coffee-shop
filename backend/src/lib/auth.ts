@@ -9,7 +9,7 @@ export const auth = betterAuth({
   }),
   baseURL: "http://localhost:3001",
   secret: process.env.BETTER_AUTH_SECRET,
-  trustedOrigins: ["http://localhost:3000"], // Ini saja sudah cukup
+  trustedOrigins: ["http://localhost:3000"],
   socialProviders: {
     google: { 
       clientId: process.env.GOOGLE_CLIENT_ID!,

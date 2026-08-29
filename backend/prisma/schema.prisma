@@ -12,7 +12,7 @@ datasource db {
 
 // Tambahkan model untuk database-nya di sini
 model User {
- id            String    @id @default(uuid())
+  id            String    @id @default(uuid())
   email         String    @unique
   name          String
   emailVerified Boolean   @default(false)
