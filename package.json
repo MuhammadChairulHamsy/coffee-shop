@@ -1,0 +1,19 @@
+{
+  "name": "coffee-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "cd frontend && pnpm dev",
+    "dev:backend": "cd backend && pnpm dev",
+    "prisma:studio": "cd backend && pnpm prisma studio",
+    "dev:all": "concurrently \"pnpm run dev:frontend\" \"pnpm run dev:backend\" \"pnpm run prisma:studio\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

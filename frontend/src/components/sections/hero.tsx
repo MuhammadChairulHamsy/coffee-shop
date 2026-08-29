@@ -9,10 +9,10 @@ const Hero = () => {
   const { isLoggedIn, isLoading } = useAuth();
 
   return (
-    <section className="container mt-3 lg:mt-10">
-      <div className="flex flex-col items-center lg:flex-row justify-around">
-        <div className="flex flex-col space-y-5 px-10 lg:px-5 lg:space-y-7">
-          <h1 className="text-primary font-playfair font-extrabold text-5xl sm:text-7xl lg:text-8xl">
+    <section className="container min-h-screen mt-3 lg:mt-10 ">
+      <div className="flex flex-col items-center lg:flex-row justify-between">
+        <div className="flex flex-col space-y-5 px-10 lg:ml-32 lg:px-5 lg:space-y-7">
+          <h1 className="text-primary font-playfair font-extrabold text-5xl sm:text-7xl lg:text-9xl">
             COFFESY
           </h1>
           <h2 className="text-foreground font-inter text-3xl font-bold lg:text-5xl">

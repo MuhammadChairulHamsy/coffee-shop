@@ -17,7 +17,7 @@ export default function Page() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 mx-auto w-full pt-10">
+      <main className="mx-auto w-full flex-1 pt-10">
         <Hero />
 
         {/* Render CurvedLoop dengan prop array yang valid */}

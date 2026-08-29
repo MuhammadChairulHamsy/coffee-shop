@@ -16,7 +16,7 @@ export function LoginForm({
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/", // Arahkan kembali ke halaman utama setelah sukses
+        callbackURL: "http://localhost:3000"
       });
     } catch (error) {
       console.error("Gagal login dengan Google", error);

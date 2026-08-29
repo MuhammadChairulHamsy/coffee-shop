@@ -54,6 +54,9 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  
+  // Tambahkan baris ini agar Better Auth bisa menyimpan data issuer Google
+  issuer                String?   
 }
 
 model Verification {

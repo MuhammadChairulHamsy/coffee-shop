@@ -14,6 +14,7 @@ const QualityProducts = () => {
             src="/image/Seed-coffee-2-removebg-preview.webp"
             alt="Quality Coffee Beans"
             width={700}
+            loading="eager"
             height={600}
             className="w-full h-auto object-contain drop-shadow-md"
           />

@@ -31,10 +31,7 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
-      // Better Auth otomatis menembak Express untuk menghapus sesi dan cookie
       await signOut(); 
-      
-      // Refresh halaman agar Server Component (yang mengambil getAuthUser) memperbarui UI
       router.refresh(); 
     } catch (error) {
       console.error("Gagal logout:", error);
@@ -54,6 +51,7 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
             alt={user.name ?? "avatar"}
             width={32}
             height={32}
+            unoptimized
             className="rounded-full object-cover border border-border"
           />
         ) : (

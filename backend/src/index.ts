@@ -1,17 +1,27 @@
+// src/index.ts
 import dotenv from "dotenv";
-import { productRouter } from "./routes/product.route";
 dotenv.config();
 
 import express from "express";
 import cors from "cors";
-import { authRouter } from "./routes/auth.route";
+import { productRouter } from "./routes/product.route";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth";
 
 const app = express();
 
-app.use(cors({origin: "http://localhost:3000", credentials: true}));
+// 1. CORS Paling Atas
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
+
+// 2. ROUTE AUTH HARUS DI SINI (Sebelum body parser)
+app.all("/api/auth/*path", toNodeHandler(auth));
+
+// 3. Body Parser di Bawah Auth
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.get("/", (req, res) => {
   res.json({
@@ -20,12 +30,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
-
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
