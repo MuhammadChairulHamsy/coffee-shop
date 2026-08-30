@@ -80,3 +80,9 @@ model Products {
   is_special  Boolean
   createdAt   DateTime @default(now())
 }
+
+// model Accessories {
+//   id    Int @id @default(autoincrement())
+//   name  String
+
+// }
