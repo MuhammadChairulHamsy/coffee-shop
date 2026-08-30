@@ -1,10 +1,10 @@
 "use client";
 
-import { useProducts } from "@/hooks/useProducts";
+import { useSpecialProducts } from "@/hooks/useProducts";
 import SpecialProductsFilter from "./specialProductsFilter";
 
 const SpecialProducts =  () => {
-  const { products, status} = useProducts();
+  const { specialProducts, status} = useSpecialProducts();
 
   if (status.isLoading) {
     return (
@@ -35,7 +35,7 @@ const SpecialProducts =  () => {
       </div>
 
       {/* Filter + Grid — Client Component */}
-      <SpecialProductsFilter products={products || []} />
+      <SpecialProductsFilter products={specialProducts || []} />
     </section>
   );
 };

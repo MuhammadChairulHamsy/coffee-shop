@@ -1,10 +1,10 @@
 "use client"
 
-import { useProducts } from "@/hooks/useProducts";
+import { useLatestProducts } from "@/hooks/useProducts";
 import LatestProductsClient from "./latestProductsClient";
 
 const LatestProducts = () => {
-  const { products, status} = useProducts();
+  const { latestProducts, status} = useLatestProducts();
 
   if (status.isLoading) {
     return (
@@ -37,7 +37,7 @@ const LatestProducts = () => {
       </div>
 
       {/* Product Grid Client Area dengan Fitur Like Aktif */}
-      <LatestProductsClient initialProducts={products || []} />
+      <LatestProductsClient initialProducts={latestProducts || []} />
     </section>
   );
 };
