@@ -11,7 +11,7 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
   const { activeFilter, filteredProducts, handleLikeClick, setActiveFilter } =
     useFilteredProducts(products);
 
-  // Format harga ke Rupiah
+  // Format harga ke dolar
   const formatDolar = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -67,7 +67,7 @@ const SpecialProductsFilter = ({ products }: { products: Product[] }) => {
                   />
                 </div>
                 {/* Dynamic Shadow */}
-                <div className="absolute bottom-4 z-0 w-32 h-4 bg-black/10 rounded-[100%] blur-[8px] transition-all duration-500 ease-out group-hover:w-24 group-hover:opacity-40 group-hover:scale-90 group-hover:blur-[6px]" />
+                <div className="absolute bottom-4 z-0 w-32 h-4 bg-black/10 rounded-[100%] blur-sm transition-all duration-500 ease-out group-hover:w-24 group-hover:opacity-40 group-hover:scale-90 group-hover:blur-[6px]" />
               </div>
 
               {/* Product Info */}

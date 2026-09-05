@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 // Hook untuk 4 produk terbaru
 export function useLatestProducts() {
   const query = useQuery<Product[]>({
-    queryKey: ["Products", "Latest"], // Penambahan key 'Latest' untuk memisahkan cache
+    queryKey: ["Products", "Latest"],
     queryFn: productService.getLatest,
     staleTime: 1000 * 60 * 5,
   });

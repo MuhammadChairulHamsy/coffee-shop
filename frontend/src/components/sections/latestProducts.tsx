@@ -4,13 +4,13 @@ import { useLatestProducts } from "@/hooks/useProducts";
 import LatestProductsClient from "./latestProductsClient";
 
 const LatestProducts = () => {
-  const { latestProducts, status} = useLatestProducts();
+  const { latestProducts, status } = useLatestProducts();
 
   if (status.isLoading) {
     return (
       <div className="flex justify-center items-center py-20">
         <p className="text-muted-foreground animate-pulse">
-          Memuat produk spesial...
+          Memuat produk terbaru...
         </p>
       </div>
     );
@@ -19,13 +19,13 @@ const LatestProducts = () => {
   if (status.isError) {
     return (
       <div className="text-center py-20 text-red-500">
-        <p>Gagal memuat produk:</p>
+        <p>Gagal memuat produk.</p>
       </div>
     );
   }
+
   return (
     <section className="container mx-auto mt-12 lg:mt-32 px-4 mb-20">
-      {/* Header Section */}
       <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
         <h3 className="text-primary font-bold text-3xl lg:text-5xl tracking-tight">
           Explore the recent products
@@ -36,8 +36,8 @@ const LatestProducts = () => {
         </p>
       </div>
 
-      {/* Product Grid Client Area dengan Fitur Like Aktif */}
-      <LatestProductsClient initialProducts={latestProducts || []} />
+      {/* Lempar data sebagai "products" */}
+      <LatestProductsClient products={latestProducts || []} />
     </section>
   );
 };

@@ -19,7 +19,7 @@ export function useFilteredProducts(initialProducts: Product[] = []) {
 
   // Logika Penyaringan Kategori berdasarkan kolom 'category'
   const filteredProducts =
-    activeFilter === "all"
+    activeFilter === "All"
       ? optimisticProducts
       : optimisticProducts.filter(
           (p) => p.category?.toLowerCase() === activeFilter.toLowerCase()
@@ -34,8 +34,8 @@ export function useFilteredProducts(initialProducts: Product[] = []) {
     try {
       await toggleProductLike(productId, isLiked);
     } catch (error) {
-      console.error("Gagal memperbarui like:", error);
-      alert("Gagal menyukai produk, silakan login terlebih dahulu.");
+      console.error("Failed to update like:", error);
+      alert("Failed to like the product, please log in first.");
     }
   };
 

@@ -11,12 +11,12 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const PRODUCT_FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Accessories", value: "accessories" },
-  { label: "Coffee Beans", value: "coffee-beans" },
-  { label: "Apparel", value: "apparel" },
-  { label: "Instant Coffee", value: "instant-coffee" },
-  { label: "Bundle", value: "bundle" },
+  { label: "All", value: "All" },
+  { label: "Accessories", value: "Accessories" },
+  { label: "Coffee Beans", value: "Coffee Beans" },
+  { label: "Apparel", value: "Apparel" },
+  { label: "Instant Coffee", value: "Instant Coffee" },
+  { label: "Bundle", value: "Bundle" },
 ] as const;
 
 export const QUALITY_ITEMS: QualityItem[] = [
