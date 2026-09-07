@@ -3,6 +3,22 @@ import * as productService from "../services/product.service";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth"; 
 
+export const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await productService.getAllProducts();
+    res.status(200).json({
+      success: true,
+      data: products
+    })
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve coffee menu data",
+    });
+  }
+}
+
 export const getSpecialProducts = async (req: Request, res: Response) => {
   try {
     const products = await productService.getSpecialProducts();

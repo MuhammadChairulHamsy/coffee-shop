@@ -1,7 +1,14 @@
 import { prisma } from "../lib/prisma";
 
+export const getAllProducts = async () => {
+  return await prisma.products.findMany()
+}
+
 export const getLatestProducts = async () => {
   const latests = await prisma.products.findMany({
+    where: {
+      is_special: false
+    },
     orderBy: {
       createdAt: "desc",
     },

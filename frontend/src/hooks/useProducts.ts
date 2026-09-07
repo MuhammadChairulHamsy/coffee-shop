@@ -1,8 +1,25 @@
-"use client"
+"use client";
 
 import { productService } from "@/services/productService";
 import { Product } from "@/types";
 import { useQuery } from "@tanstack/react-query";
+
+// Hook untuk SEMUA produk (Katalog Utama)
+export function useProducts() {
+  const query = useQuery<Product[]>({
+    queryKey: ["Products", "All"],
+    queryFn: productService.getAll,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  return {
+    products: query.data ?? [],
+    status: {
+      isLoading: query.isLoading,
+      isError: query.isError,
+    },
+  };
+}
 
 // Hook untuk 4 produk terbaru
 export function useLatestProducts() {
@@ -24,7 +41,7 @@ export function useLatestProducts() {
 // Hook untuk produk kategori spesial
 export function useSpecialProducts() {
   const query = useQuery<Product[]>({
-    queryKey: ["Products", "Special"], 
+    queryKey: ["Products", "Special"],
     queryFn: productService.getSpecial,
     staleTime: 1000 * 60 * 5,
   });

@@ -8,6 +8,12 @@ interface ApiResponse {
 }
 
 export const productService = {
+  // mengambil SEMUA produk di halaman katalog
+  getAll: async (): Promise<Product[]> => {
+    const respons = await api.get<ApiResponse>("/products");
+    return respons.data.data ?? [];
+  },
+
   // Fungsi untuk mengambil 4 produk terbaru
   getLatest: async (): Promise<Product[]> => {
     const response = await api.get<ApiResponse>("/products/latest");
