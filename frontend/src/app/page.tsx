@@ -8,7 +8,7 @@ import ProductPage from "./(marketing)/product/page";
 
 export default function Page() {
   return (
-    <div className="pt-10">
+    <>
       <Hero />
       <CurvedLoop
         marqueeText="COFFESY ✦ FRESHLY BREWED ✦ 10% OFF FIRST CUP ✦"
@@ -25,6 +25,6 @@ export default function Page() {
 
       {/* Marketing */}
       <ProductPage />
-    </div>
+    </>
   );
 }

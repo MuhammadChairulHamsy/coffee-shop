@@ -47,7 +47,7 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 w-full">
             <Navbar />
           </header>
-          <main className="mx-auto w-full flex-1">{children}</main>
+          <main className="w-full">{children}</main>
           <Footer />
         </QueryProvider>
         <ScrollToTop />
