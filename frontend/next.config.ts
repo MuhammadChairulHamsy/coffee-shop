@@ -1,4 +1,3 @@
-// next.config.ts
 import type { NextConfig } from "next";
 import path from "path";
 
@@ -10,9 +9,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com, res.cloudinary.com", 
+        hostname: "lh3.googleusercontent.com",
         port: "",
-        pathname: "/**"
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },

@@ -27,10 +27,10 @@ const ProductPage = () => {
     );
 
   return (
-    <section className="container mx-auto lg:mt-20  mb-20">
+    <section className="container mx-auto mt-10 lg:mt-20  mb-20">
       <div className="flex flex-col items-center lg:flex-col justify-between gap-5 lg: mb-5">
         <h1 className="text-primary font-playfair font-extrabold text-5xl sm:text-6xl lg:text-7xl">
-          Our Menu
+          OUR MENU
         </h1>
         <p className="text-muted-foreground font-medium text-sm lg:text-base">
           Temukan kopi favoritmu dari berbagai pilihan biji kopi premium kami.
@@ -68,7 +68,6 @@ const ProductPage = () => {
               key={product.id}
               className="group bg-card text-card-foreground border border-border/40 rounded-3xl p-5 w-full max-w-[320px] flex flex-col hover:shadow-xl hover:border-primary/30 transition-all duration-300"
             >
-
               <div className="relative w-full aspect-square rounded-2xl bg-secondary/40 flex items-center justify-center mb-6 overflow-visible">
                 <div className="relative w-full h-full z-10 transition-transform duration-500 ease-out group-hover:-translate-y-3 cursor-pointer">
                   <Image
@@ -93,23 +92,29 @@ const ProductPage = () => {
                   {formatDolar(product.price)}
                 </p>
               </div>
-               <div className="flex items-center gap-3 pt-5 mt-auto border-t border-border/50">
+              <div className="flex items-center gap-3 pt-5 mt-auto border-t border-border/50">
                 <Button className="flex-1 rounded-xl font-semibold cursor-pointer group/btn">
                   Add to cart
-                  <span className="inline-block transition-transform group-hover/btn:translate-x-1 ml-1">→</span>
+                  <span className="inline-block transition-transform group-hover/btn:translate-x-1 ml-1">
+                    →
+                  </span>
                 </Button>
 
                 <Button
                   variant="outline"
                   size="icon"
                   className={`rounded-xl shrink-0 cursor-pointer transition-colors ${
-                    product.is_liked ? "border-destructive bg-destructive/10" : "hover:bg-muted"
+                    product.is_liked
+                      ? "border-destructive bg-destructive/10"
+                      : "hover:bg-muted"
                   }`}
                   onClick={() => handleLikeClick(product.id, product.is_liked)}
                 >
                   <Heart
                     className={`w-5 h-5 transition-transform active:scale-125 duration-200 ${
-                      product.is_liked ? "fill-destructive text-destructive" : "text-muted-foreground"
+                      product.is_liked
+                        ? "fill-destructive text-destructive"
+                        : "text-muted-foreground"
                     }`}
                   />
                 </Button>

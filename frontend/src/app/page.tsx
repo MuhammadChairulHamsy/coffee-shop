@@ -4,7 +4,6 @@ import LatestProducts from "@/components/sections/latestProducts";
 import NewsletterSection from "@/components/sections/newsletterSection";
 import QualityProducts from "@/components/sections/qualityProducts";
 import SpecialProducts from "@/components/sections/specialProducts";
-import ProductPage from "./(marketing)/product/page";
 
 export default function Page() {
   return (
@@ -22,9 +21,6 @@ export default function Page() {
       <SpecialProducts />
       <QualityProducts />
       <NewsletterSection />
-
-      {/* Marketing */}
-      <ProductPage />
     </>
   );
 }

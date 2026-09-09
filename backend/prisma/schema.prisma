@@ -10,7 +10,7 @@ datasource db {
   provider = "postgresql"
 }
 
-// Tambahkan model untuk database-nya di sini
+// model untuk database
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
