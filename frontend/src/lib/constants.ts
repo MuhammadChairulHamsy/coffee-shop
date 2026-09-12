@@ -2,7 +2,7 @@ import type { QualityItem, FooterSection, SocialMedia, NavLink } from "@/types";
 import { MessageCircle, Box, PackageCheck, Layers } from "lucide-react";
 
 export const NAV_LINKS: NavLink[] = [
-  { href: "/", label: "" },
+  { href: "/", label: "Home" },
   { href: "/product", label: "Product" },
   { href: "/special-offers", label: "Special Offers" },
   { href: "/the-process", label: "The Process" },
