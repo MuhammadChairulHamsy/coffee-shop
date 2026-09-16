@@ -58,6 +58,7 @@ const AboutPage = () => {
                 height={550}
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 420px"
+                style={{ height: "auto" }}
                 className="w-full h-auto object-cover rounded-md shadow-lg"
               />
 
