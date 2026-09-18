@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
+import { ProductSkeleton } from "@/app/(marketing)/product/product-skeleton";
 
 const ProductPage = () => {
   const { products, status } = useProducts();
@@ -21,14 +22,14 @@ const ProductPage = () => {
     }).format(price);
   };
 
-  if (status?.isLoading)
-    return (
-      <div className="text-center py-20 animate-pulse">Memuat menu...</div>
-    );
+  if (status?.isLoading) return <ProductSkeleton />;
+
+  if (status?.isError)
+    return <div>Gagal mengambil data produk dari server.</div>;
 
   return (
     <section className="container mx-auto mt-10 lg:mt-20  mb-20">
-      <div className="flex flex-col items-center lg:flex-col justify-between gap-5 lg: mb-5">
+      <div className="flex flex-col items-center lg:flex-col justify-between gap-5 lg:mb-5">
         <h1 className="text-primary font-playfair font-extrabold text-5xl sm:text-6xl lg:text-7xl">
           OUR MENU
         </h1>
@@ -63,7 +64,7 @@ const ProductPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 justify-items-center">
-          {filteredProducts.map((product) => (
+          {filteredProducts.map((product, index) => (
             <div
               key={product.id}
               className="group bg-card text-card-foreground border border-border/40 rounded-3xl p-5 w-full max-w-[320px] flex flex-col hover:shadow-xl hover:border-primary/30 transition-all duration-300"
@@ -74,6 +75,7 @@ const ProductPage = () => {
                     src={product.imageUrl}
                     alt={product.name}
                     fill
+                    priority={index < 2}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     className="object-contain drop-shadow-xl p-6"
                   />

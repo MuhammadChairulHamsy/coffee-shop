@@ -1,8 +1,23 @@
+"use client"
+
 import Marquee from "@/components/ui/marquee";
 import { BadgeCheck } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { AboutSkeleton } from "@/app/(marketing)/about/about-skeleton";
 
 const AboutPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if(loading) {
+    return <AboutSkeleton/>
+  }
+  
   return (
     <section className="mt-10 lg:mt-24 mb-24">
       {/* Container utama untuk teks dan gambar */}
@@ -58,7 +73,7 @@ const AboutPage = () => {
                 height={550}
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 420px"
-                style={{ height: "auto" }}
+                style={{ width: "auto", height: "auto" }}
                 className="w-full h-auto object-cover rounded-md shadow-lg"
               />
 

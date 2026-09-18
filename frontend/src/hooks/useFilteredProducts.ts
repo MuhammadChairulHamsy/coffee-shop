@@ -6,7 +6,7 @@ import { toggleProductLike } from "@/actions/toggleProductLike";
 
 export function useFilteredProducts(initialProducts: Product[] = []) {
   const safeProducts = initialProducts || [];
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("All");
 
   // Logika Optimistic Update untuk Like/Unlike
   const [optimisticProducts, toggleOptimisticLike] = useOptimistic(
@@ -17,9 +17,9 @@ export function useFilteredProducts(initialProducts: Product[] = []) {
       )
   );
 
-  // Logika Penyaringan Kategori berdasarkan kolom 'category'
+  // 2. Logika Penyaringan Kategori (Gunakan case-insensitive check untuk aman)
   const filteredProducts =
-    activeFilter === "All"
+    activeFilter.toLowerCase() === "all"
       ? optimisticProducts
       : optimisticProducts.filter(
           (p) => p.category?.toLowerCase() === activeFilter.toLowerCase()
