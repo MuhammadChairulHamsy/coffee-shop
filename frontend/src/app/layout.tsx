@@ -7,6 +7,7 @@ import QueryProvider from "@/providers/query-provider";
 import ConditionalLayout from "@/components/layouts/conditional-layout";
 import Navbar from "@/components/layouts/navbar";
 import Footer from "@/components/layouts/footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
@@ -45,16 +46,18 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <QueryProvider>
-          <ConditionalLayout
-            navbar={
-              <header className="sticky top-0 z-50 w-full">
-                <Navbar />
-              </header>
-            }
-            footer={<Footer />}
-          >
-            {children}
-          </ConditionalLayout>
+          <TooltipProvider>
+            <ConditionalLayout
+              navbar={
+                <header className="sticky top-0 z-50 w-full">
+                  <Navbar />
+                </header>
+              }
+              footer={<Footer />}
+            >
+              {children}
+            </ConditionalLayout>
+          </TooltipProvider>
         </QueryProvider>
         <ScrollToTop />
       </body>

@@ -1,23 +1,28 @@
-"use client"
+"use client";
 
-import Marquee from "@/components/ui/marquee";
+import dynamic from "next/dynamic";
 import { BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AboutSkeleton } from "@/app/(marketing)/about/about-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AboutPage = () => {
   const [loading, setLoading] = useState(true);
+
+  const Marquee = dynamic(() => import("@/components/ui/marquee"), {
+    loading: () => <Skeleton className="h-14 w-full rounded-none" />,
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
-  if(loading) {
-    return <AboutSkeleton/>
+  if (loading) {
+    return <AboutSkeleton />;
   }
-  
+
   return (
     <section className="mt-10 lg:mt-24 mb-24">
       {/* Container utama untuk teks dan gambar */}
@@ -32,7 +37,9 @@ const AboutPage = () => {
 
             <h1 className="text-foreground font-playfair text-3xl sm:text-4xl lg:text-5xl xl:text-6xl lg:leading-[1.15] font-medium wrap-break-word">
               From selected beans, a <br className="hidden lg:block" />
-              <span className="italic text-primary">dedication to flavor</span>{" "}
+              <span className="italic text-primary">
+                dedication to flavor
+              </span>{" "}
               is born.
             </h1>
 
@@ -45,20 +52,36 @@ const AboutPage = () => {
 
             <div className="bg-sidebar-primary-foreground p-6 rounded-lg grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-playfair font-bold text-primary">100%</span>
-                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">DIRECT TRADE</span>
+                <span className="text-2xl font-playfair font-bold text-primary">
+                  100%
+                </span>
+                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
+                  DIRECT TRADE
+                </span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-playfair font-bold text-primary">12+</span>
-                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">FARMING PARTNERS</span>
+                <span className="text-2xl font-playfair font-bold text-primary">
+                  12+
+                </span>
+                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
+                  FARMING PARTNERS
+                </span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-playfair font-bold text-primary">88.5</span>
-                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">AVG SCA SCORE</span>
+                <span className="text-2xl font-playfair font-bold text-primary">
+                  88.5
+                </span>
+                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
+                  AVG SCA SCORE
+                </span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-2xl font-playfair font-bold text-primary">3 Lab</span>
-                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">ARTISAN CAFES</span>
+                <span className="text-2xl font-playfair font-bold text-primary">
+                  3 Lab
+                </span>
+                <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
+                  ARTISAN CAFES
+                </span>
               </div>
             </div>
           </div>

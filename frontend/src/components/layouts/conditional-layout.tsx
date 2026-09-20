@@ -15,6 +15,11 @@ export default function ConditionalLayout({
 }) {
   const pathname = usePathname();
   const hideLayout = disableNavbarFooter.includes(pathname);
+  const isDashboard = pathname.startsWith("/dashboard");
+
+  if(isDashboard) {
+    return <>{children}</>;
+  }
 
   return (
     <>
