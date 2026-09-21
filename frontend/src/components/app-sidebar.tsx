@@ -27,15 +27,8 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
+import { MenuItemProps } from "@/types";
 
-// Sub-komponen MenuItem dengan integrasi Next.js Active State
-interface MenuItemProps {
-  item: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-  };
-}
 
 function MenuItem({ item }: MenuItemProps) {
   const pathname = usePathname();
@@ -59,7 +52,6 @@ function MenuItem({ item }: MenuItemProps) {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // Struktur data navigasi khusus Toko Kopi Coffesy
   const navigationData = {
     main: [
       {
@@ -81,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Order List",
         url: "/dashboard/orders",
         icon: ShoppingBag,
-      },
+      }
     ],
     marketing: [
       {
@@ -112,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const userData = {
     name: "Admin Coffesy",
     email: "admin@coffesy.com",
-    avatar: "/avatars/admin.jpg",
+    avatar: "/coffeo.svg",
   };
 
   return (
@@ -122,7 +114,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {...props}
     >
       {/* --- HEADER SIDEBAR --- */}
-      <SidebarHeader className="py-4">
+      <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="hover:bg-transparent">
@@ -175,7 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
 
         {/* GROUP 3: SYSTEM */}
-        <SidebarGroup className="mt-auto">
+        <SidebarGroup>
           <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
             Sistem
           </SidebarGroupLabel>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import type { NavbarAuthProps } from "@/types";
+import type { NavbarAuthProps } from "@/types/navigation";
 
 // 1. Import signOut dari auth-client yang sudah kamu buat sebelumnya
 import { signOut } from "@/lib/authClient"; 

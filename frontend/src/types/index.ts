@@ -1,53 +1,68 @@
-import type { LucideIcon } from "lucide-react";
+// import type { LucideIcon } from "lucide-react";
 
-export interface NavLink {
-  href: string;
-  label: string;
-}
+// export interface NavLink {
+//   href: string;
+//   label: string;
+// }
 
-export type NavbarAuthProps = {
-  user: {
-    name: string | null;
-    avatar: string | null;
-    email: string | null;
-  } | null;
-};
+// export type NavbarAuthProps = {
+//   user: {
+//     name: string | null;
+//     avatar: string | null;
+//     email: string | null;
+//   } | null;
+// };
 
-export interface QualityItem {
-  id: number;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
+// export interface QualityItem {
+//   id: number;
+//   icon: LucideIcon;
+//   title: string;
+//   description: string;
+// }
 
-export interface FooterLink {
-  label: string;
-  href: string;
-}
+// export interface MenuItemProps {
+//   item: {
+//     title: string;
+//     url: string;
+//     icon: LucideIcon;
+//   };
+// }
 
-export interface FooterSection {
-  id: number;
-  title: string;
-  links: FooterLink[];
-}
+// export interface FooterLink {
+//   label: string;
+//   href: string;
+// }
 
-export interface SocialMedia {
-  name: string;
-  icon: string;
-  href: string;
-}
+// export interface FooterSection {
+//   id: number;
+//   title: string;
+//   links: FooterLink[];
+// }
 
-export type Product = {
-  id: number;
-  name: string;
-  imageUrl: string
-  description: string | null
-  price: number;
-  type: string;
-  category: string;
-  is_liked: boolean;
-  is_special: boolean;
-  created_at?: string;
-};
-export type LatestProductsProps = Product;
-export type SpecialProducts = Product;
+// export interface SocialMedia {
+//   name: string;
+//   icon: string;
+//   href: string;
+// }
+
+// export type Product = {
+//   id: number;
+//   name: string;
+//   imageUrl: string
+//   description: string | null
+//   price: number;
+//   type: string;
+//   category: string;
+//   is_liked: boolean;
+//   is_special: boolean;
+//   created_at?: string;
+// };
+// export type LatestProductsProps = Product;
+// export type SpecialProducts = Product;
+
+
+export * from "./navigation";
+export * from "./footer";
+export * from "./product";
+export * from "./dashboard";
+export * from "./overview";

@@ -4,23 +4,14 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart, ShoppingBag } from "lucide-react";
 import type { Product } from "@/types";
+import { formatDolar } from "@/utils/format-dolar";
 
-// Ubah nama prop dari initialProducts menjadi products agar lebih logis
 const LatestProductsClient = ({ products }: { products: Product[] }) => {
   
   // Fungsi ini WAJIB ada agar onClick tombol Heart tidak error
   const handleLikeClick = async (id: number, currentStatus: boolean) => {
     // TODO: Hubungkan dengan endpoint PATCH /api/products/:id/like yang kamu buat sebelumnya
     console.log(`Mengubah status like untuk produk ${id}`);
-  };
-
-  // Format harga ke dolar
-  const formatDolar = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-    }).format(price);
   };
 
   return (

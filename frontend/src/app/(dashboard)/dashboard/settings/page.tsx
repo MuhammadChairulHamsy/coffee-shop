@@ -1,14 +1,14 @@
-export default function OrdersPage() {
+export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Daftar Pesanan</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Pengaturan Toko</h1>
         <p className="text-sm text-muted-foreground">
-          Pantau status transaksi dan pesanan masuk dari pelanggan.
+          Konfigurasi profil toko, metode pembayaran, dan integrasi API.
         </p>
       </div>
       <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
-        Tabel pesanan pelanggan akan ditampilkan di sini.
+        Form pengaturan toko akan ditampilkan di sini.
       </div>
     </div>
   );

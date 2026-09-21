@@ -1,14 +1,14 @@
-export default function OrdersPage() {
+export default function CategoriesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Daftar Pesanan</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Kategori Produk</h1>
         <p className="text-sm text-muted-foreground">
-          Pantau status transaksi dan pesanan masuk dari pelanggan.
+          Atur kategori seperti Coffee Beans, Accessories, dan Apparel.
         </p>
       </div>
       <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
-        Tabel pesanan pelanggan akan ditampilkan di sini.
+        Daftar kategori produk akan ditampilkan di sini.
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Heart, ShoppingBag } from "lucide-react";
 import type { Product } from "@/types";
 import { toggleProductLike } from "@/actions/toggleProductLike"; 
+import { formatDolar } from "@/utils/format-dolar";
 
 const SpecialProductsClient = ({ products }: { products: Product[] }) => {
   
@@ -16,13 +17,6 @@ const SpecialProductsClient = ({ products }: { products: Product[] }) => {
     }
   };
 
-  const formatDolar = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <>

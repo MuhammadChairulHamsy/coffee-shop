@@ -1,14 +1,14 @@
-export default function OrdersPage() {
+export default function SpecialOffersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Daftar Pesanan</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Promo & Diskon</h1>
         <p className="text-sm text-muted-foreground">
-          Pantau status transaksi dan pesanan masuk dari pelanggan.
+          Kelola kupon potongan harga dan penawaran spesial.
         </p>
       </div>
       <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
-        Tabel pesanan pelanggan akan ditampilkan di sini.
+        Daftar promo akan ditampilkan di sini.
       </div>
     </div>
   );
