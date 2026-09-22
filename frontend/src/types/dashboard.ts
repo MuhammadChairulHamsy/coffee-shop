@@ -1,11 +1,13 @@
-import type { LucideIcon } from "lucide-react";
+export type TrendDirection = "positive" | "warning" | "neutral";
 
-export interface SidebarMenuItem {
+export interface DashboardStatCard {
+  id: string;
   title: string;
-  url: string;
-  icon: LucideIcon;
-}
-
-export interface MenuItemProps {
-  item: SidebarMenuItem;
+  value: string;
+  badgeText: string;
+  trend: TrendDirection;
+  progressValue?: number;
+  progressLabel?: string;
+  footerLabel?: string;
+  footerValue?: string;
 }

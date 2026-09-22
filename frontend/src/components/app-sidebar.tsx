@@ -137,7 +137,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       {/* --- CONTENT SIDEBAR --- */}
-      <SidebarContent className="px-2 overflow-hidden">
+      <SidebarContent className="overflow-hidden">
         {/* GROUP 1: MAIN */}
         <SidebarGroup>
           <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
@@ -154,7 +154,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         {/* GROUP 2: OPERATIONAL */}
         <SidebarGroup>
-          <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2 mt-2">
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2 mt-2">
             Manajemen Operasional
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -168,7 +168,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         {/* GROUP 3: SYSTEM */}
         <SidebarGroup>
-          <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
             Sistem
           </SidebarGroupLabel>
           <SidebarGroupContent>

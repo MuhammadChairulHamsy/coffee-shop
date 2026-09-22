@@ -5,7 +5,6 @@ import { Wallet, ShoppingBag, Boxes, Award, LucideIcon } from "lucide-react";
 import { OverviewCardItem } from "@/types/overview";
 import { cn } from "@/lib/utils";
 
-// Mapping string nama ikon ke komponen Lucide
 const iconMap: Record<OverviewCardItem["iconName"], LucideIcon> = {
   Wallet,
   ShoppingBag,
@@ -26,7 +25,7 @@ export const OverviewCard = React.memo<OverviewCardItem>(({
   const Icon = iconMap[iconName] || Wallet;
 
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md">
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/60 bg-sidebar p-5 shadow-xs transition-all duration-300 hover:shadow-md">
       <div
         className={cn(
           "absolute -right-6 -bottom-6 h-24 w-24 rounded-full opacity-10 blur-xl transition-opacity group-hover:opacity-20",
