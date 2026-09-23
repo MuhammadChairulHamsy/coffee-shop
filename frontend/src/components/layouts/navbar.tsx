@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Search, ShoppingCart } from "lucide-react";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS } from "@/constants/navbar-links";
 import NavbarAuth from "@/components/layouts/navbar-auth";
 import NavbarMobile from "@/components/layouts/navbar-mobile";
 import { Button } from "../ui/button";

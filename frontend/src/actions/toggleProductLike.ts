@@ -25,18 +25,18 @@ export async function toggleProductLike(productId: number, isCurrentlyLiked: boo
     // 3. Tangani respons dari backend dengan aman
     if (!response.ok) {
       if (response.status === 401) {
-        return { success: false, message: "Harap login terlebih dahulu untuk menyukai produk." };
+        return { success: false, message: "Please log in first to like the product." };
       }
-      return { success: false, message: "Gagal memperbarui status favorit." };
+      return { success: false, message: "Failed to update favorite status." };
     }
 
     // 4. Perbarui cache tampilan Next.js
     revalidatePath("/");
     
-    return { success: true, message: "Status favorit berhasil diperbarui." };
+    return { success: true, message: "Favorite status successfully updated." };
 
   } catch (error) {
     console.error("Action toggleProductLike error:", error);
-    return { success: false, message: "Terjadi kesalahan pada server." };
+    return { success: false, message: "A server error occurred." };
   }
 }

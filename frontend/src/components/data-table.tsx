@@ -74,7 +74,6 @@ import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -102,10 +101,8 @@ import {
   Columns3Icon,
   ChevronDownIcon,
   PlusIcon,
-  ChevronsLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronsRightIcon,
   ClockIcon,
   XCircleIcon,
   TrendingUpIcon,
@@ -398,8 +395,8 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
         </div>
       </div>
 
-      <TabsContent value="all" className="relative flex flex-col gap-4 overflow-auto px-2">
-        <div className="overflow-hidden rounded-lg border bg-card">
+      <TabsContent value="all" className="relative  flex flex-col gap-4 overflow-auto px-2">
+        <div className="overflow-hidden rounded-lg border bg-sidebar">
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}

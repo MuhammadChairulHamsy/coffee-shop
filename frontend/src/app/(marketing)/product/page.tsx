@@ -1,7 +1,7 @@
 "use client";
 
 import { useFilteredProducts } from "@/hooks/useFilteredProducts";
-import { PRODUCT_FILTERS } from "@/lib/constants";
+import { PRODUCT_FILTERS } from "@/constants/product-filters";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag } from "lucide-react";

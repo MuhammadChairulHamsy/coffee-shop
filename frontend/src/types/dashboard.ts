@@ -1,4 +1,5 @@
 export type TrendDirection = "positive" | "warning" | "neutral";
+export type LatestOrderStatus = "Selesai" | "Diproses" | "Siap Kirim";
 
 export interface DashboardStatCard {
   id: string;
@@ -10,4 +11,12 @@ export interface DashboardStatCard {
   progressLabel?: string;
   footerLabel?: string;
   footerValue?: string;
+}
+
+export interface LatestOrderItem {
+  id: string;
+  customerName: string;
+  productDetail: string;
+  price: string;
+  status: LatestOrderStatus;
 }

@@ -58,9 +58,9 @@ interface SectionCardsProps {
 
 export function SectionCards({ stats = INITIAL_DASHBOARD_STATS }: SectionCardsProps) {
   return (
-    <div className="grid grid-cols-1 gap-4 px-4 lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-2">
       {stats.map((item) => (
-        <Card key={item.id} className="@container/card relative overflow-hidden bg-card shadow-xs">
+        <Card key={item.id} className="@container/card relative overflow-hidden bg-sidebar shadow-xs">
           <CardHeader>
             <CardDescription className="text-[11px] font-bold tracking-wider text-muted-foreground uppercase">
               {item.title}
@@ -118,10 +118,10 @@ export function SectionCards({ stats = INITIAL_DASHBOARD_STATS }: SectionCardsPr
             ) : (
               // Case 2: Dua kolom kiri dan kanan persis seperti di gambar
               <div className="flex w-full items-center justify-between text-muted-foreground">
-                <span className="text-[11px] font-medium leading-tight max-w-[100px]">
+                <span className="text-[11px] font-medium leading-tight max-w-25">
                   {item.footerLabel}
                 </span>
-                <span className="text-[11px] font-bold text-foreground text-right leading-tight max-w-[100px]">
+                <span className="text-[11px] font-bold text-foreground text-right leading-tight max-w-25">
                   {item.footerValue}
                 </span>
               </div>

@@ -4,56 +4,8 @@ import * as React from "react";
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import { SectionCards } from "@/components/section-cards";
 import { DataTable } from "@/components/data-table";
-import { Order } from "@/types/order";
-
-
-// Contoh Mock Data Pesanan Terbaru Coffesy untuk DataTable
-const recentOrdersData: Order[] = [
-  {
-    id: "ORD-7001",
-    customer: "Budi Santoso",
-    email: "budi@gmail.com",
-    product: "Ethiopia Yirgacheffe",
-    quantity: 2,
-    amount: "$36.00",
-    status: "Completed",
-    paymentMethod: "QRIS",
-    date: "2026-09-22",
-  },
-  {
-    id: "ORD-7002",
-    customer: "Siti Rahma",
-    email: "siti.rahma@yahoo.com",
-    product: "Colombia Supremo",
-    quantity: 3,
-    amount: "$48.00",
-    status: "Processing",
-    paymentMethod: "Credit Card",
-    date: "2026-09-22",
-  },
-  {
-    id: "ORD-7003",
-    customer: "Ahmad Dahlan",
-    email: "ahmad.d@outlook.com",
-    product: "Gayo Honey Process",
-    quantity: 1,
-    amount: "$25.00",
-    status: "Pending",
-    paymentMethod: "Bank Transfer",
-    date: "2026-09-21",
-  },
-  {
-    id: "ORD-7004",
-    customer: "Dewi Lestari",
-    email: "dewi.l@gmail.com",
-    product: "V60 Dripper Ceramic",
-    quantity: 1,
-    amount: "$30.00",
-    status: "Completed",
-    paymentMethod: "QRIS",
-    date: "2026-09-20",
-  },
-];
+import { recentOrdersData } from "@/constants/recent-order-data";
+import { LatestOrdersCard } from "./components/latest-order-card";
 
 export default function DashboardPage() {
   const [formattedDate, setFormattedDate] = React.useState<string>("");
@@ -74,7 +26,7 @@ export default function DashboardPage() {
       {/* --- PAGE HEADER --- */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
-          <h1 className="font-playfair text-3xl font-bold tracking-tight">
+          <h1 className="font-playfair text-3xl font-bold tracking-wider">
             Overview
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -93,12 +45,17 @@ export default function DashboardPage() {
         <SectionCards />
 
         {/* 2. INTERACTIVE CHART */}
-        <div className="rounded-xl border bg-card text-card-foreground shadow-2xs">
-          <ChartAreaInteractive />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-5">
+          <div className="lg:col-span-7 flex flex-col gap-4 rounded-xl border bg-sidebar text-card-foreground shadow-2xs">
+            <ChartAreaInteractive />
+          </div>
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <LatestOrdersCard />
+          </div>
         </div>
 
         {/* 3. RECENT ORDERS DATA TABLE */}
-        <div className="rounded-xl border bg-card p-4 text-card-foreground shadow-2xs md:p-6">
+        <div className="rounded-xl border bg-sidebar p-4 text-card-foreground shadow-2xs md:p-6">
           <div className="mb-4">
             <h2 className="text-lg font-bold tracking-tight">
               Pesanan Terbaru

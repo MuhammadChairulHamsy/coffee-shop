@@ -1,4 +1,5 @@
-import { FOOTER_SECTIONS, SOCIAL_MEDIA } from "@/lib/constants";
+import { FOOTER_SECTIONS } from "@/constants/footer-sections";
+import { SOCIAL_MEDIA} from "@/constants/social-media";
 import Image from "next/image";
 import Link from "next/link";
 

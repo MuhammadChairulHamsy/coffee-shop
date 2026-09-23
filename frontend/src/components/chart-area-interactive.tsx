@@ -162,13 +162,13 @@ export function ChartAreaInteractive() {
   });
 
   return (
-    <Card className="@container/card">
+    <Card className="@container/card bg-sidebar">
       <CardHeader>
-        <CardTitle> Analisis Penjualana Pendapatan</CardTitle>
+        <CardTitle>Analisis Penjualana Pendapatan</CardTitle>
         <CardDescription>
-          <span className="hidden @[540px]/card:block">
+          <p className="hidden @[540px]/card:block">
             korelasi batch sangrai roastrey vs e-commerce <br /> direct order
-          </span>
+          </p>
           <span className="@[540px]/card:hidden">Last 3 months</span>
         </CardDescription>
         <CardAction>
@@ -217,7 +217,7 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
+          className="aspect-auto h-64 w-full"
         >
           <AreaChart data={filteredData}>
             <defs>

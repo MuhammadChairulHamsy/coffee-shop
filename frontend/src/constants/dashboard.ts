@@ -1,4 +1,4 @@
-import { DashboardStatCard } from "@/types/dashboard";
+import { DashboardStatCard, LatestOrderItem } from "@/types/dashboard";
 
 export const INITIAL_DASHBOARD_STATS: DashboardStatCard[] = [
   {
@@ -36,5 +36,43 @@ export const INITIAL_DASHBOARD_STATS: DashboardStatCard[] = [
     trend: "neutral",
     footerLabel: "Cupping mingguan",
     footerValue: "Q-Grader #402",
+  },
+];
+
+export const INITIAL_LATEST_ORDERS: LatestOrderItem[] = [
+  {
+    id: "8942",
+    customerName: "Budi Santoso",
+    productDetail: "2x Ethiopia Guji Natural 250g",
+    price: "$28.50",
+    status: "Selesai",
+  },
+  {
+    id: "8941",
+    customerName: "Jessica Tan",
+    productDetail: "1x Gayo Anaerobic Slow Dr...",
+    price: "$34.00",
+    status: "Diproses",
+  },
+  {
+    id: "8940",
+    customerName: "Hendra Kusuma",
+    productDetail: "3x Flores Bajawa Washed ...",
+    price: "$42.00",
+    status: "Siap Kirim",
+  },
+  {
+    id: "8939",
+    customerName: "Maya Putri",
+    productDetail: "1x Kerinci Natural Single Orig...",
+    price: "$16.50",
+    status: "Selesai",
+  },
+  {
+    id: "8938",
+    customerName: "Kopi Kenangan R&D",
+    productDetail: "5kg House Blend Espresso ...",
+    price: "$115.00",
+    status: "Diproses",
   },
 ];

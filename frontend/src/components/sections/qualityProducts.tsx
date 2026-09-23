@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { QUALITY_ITEMS } from "@/lib/constants";
+import { QUALITY_ITEMS } from "@/constants/quality-items";
 
 const QualityProducts = () => {
   return (
