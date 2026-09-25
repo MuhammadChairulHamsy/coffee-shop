@@ -27,7 +27,7 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
           <h1 className="font-playfair text-3xl font-bold tracking-wider">
-            Overview
+            Dashboard
           </h1>
           <p className="text-sm text-muted-foreground">
             Operational summary of roasting activities, coffee bean sales

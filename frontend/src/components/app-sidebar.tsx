@@ -12,7 +12,6 @@ import {
   Star,
   Users,
   Settings,
-  LucideIcon,
 } from "lucide-react";
 import {
   Sidebar,
@@ -27,7 +26,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
-import { MenuItemProps } from "@/types";
+import { MenuItemProps } from "@/types/dashboard";
 
 
 function MenuItem({ item }: MenuItemProps) {
@@ -55,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigationData = {
     main: [
       {
-        title: "Overview",
+        title: "Dashboard",
         url: "/dashboard",
         icon: LayoutDashboard,
       },

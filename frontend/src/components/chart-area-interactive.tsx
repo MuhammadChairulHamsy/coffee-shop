@@ -164,7 +164,7 @@ export function ChartAreaInteractive() {
   return (
     <Card className="@container/card bg-sidebar">
       <CardHeader>
-        <CardTitle>Analisis Penjualana Pendapatan</CardTitle>
+        <CardTitle>Analisis Penjualan Pendapatan</CardTitle>
         <CardDescription>
           <p className="hidden @[540px]/card:block">
             korelasi batch sangrai roastrey vs e-commerce <br /> direct order

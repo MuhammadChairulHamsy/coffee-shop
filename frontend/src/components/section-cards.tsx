@@ -58,7 +58,7 @@ interface SectionCardsProps {
 
 export function SectionCards({ stats = INITIAL_DASHBOARD_STATS }: SectionCardsProps) {
   return (
-    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-4 @5xl/main:grid-cols-4">
       {stats.map((item) => (
         <Card key={item.id} className="@container/card relative overflow-hidden bg-sidebar shadow-xs">
           <CardHeader>

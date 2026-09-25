@@ -9,37 +9,34 @@ const Hero = () => {
   const { isLoggedIn, isLoading } = useAuth();
 
   return (
-    // Penambahan overflow-hidden agar elemen SVG raksasa tidak menyebabkan horizontal scroll
-    <section className="container mx-auto min-h-[90vh] flex items-center mt-10 lg:mt-0 overflow-hidden px-4 sm:px-8">
+    <section className="container mx-auto min-h-[90vh] flex items-center lg:mt-0 overflow-hidden px-4 md:px-10">
       <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-12 lg:gap-8 xl:gap-16">
         
         {/* --- BAGIAN TEKS --- */}
-        <div className="flex w-full lg:w-[55%] xl:w-[60%] flex-col space-y-6 lg:space-y-8 mt-10 lg:mt-0 z-10">
-          
-          {/* Judul raksasa dengan custom ukuran (10rem) di layar ekstra besar */}
-          <h1 className="text-primary font-playfair font-extrabold text-6xl sm:text-8xl lg:text-[7rem] xl:text-[9.5rem] leading-[0.9] tracking-tight">
+        <div className="flex w-full lg:w-[55%] xl:w-[60%] flex-col space-y-5 lg:space-y-6 mt-10 lg:mt-0 z-10">
+          <h1 className="text-primary font-playfair font-extrabold text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tight">
             COFFESY
           </h1>
           
-          <h2 className="text-foreground font-inter text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold">
+          <h2 className="text-foreground font-inter text-3xl lg:text-4xl xl:text-5xl font-bold">
             An online coffee store
           </h2>
           
-          <p className="max-w-[800px] text-muted-foreground font-inter font-medium text-base sm:text-lg lg:text-xl xl:text-2xl tracking-tight leading-relaxed">
+          <p className="max-w-3xl text-muted-foreground font-inter font-medium text-base lg:text-lg xl:text-xl tracking-tight leading-relaxed">
             Straight to your doorstep. We don&apos;t roast our beans until we have
             your order. Every order is roasted and shipped the same day.
           </p>
           
           {/* Tombol diperbesar agar seimbang dengan teks raksasa */}
-          <div className="flex flex-wrap gap-4 pt-2">
-            <Button className="bg-primary text-primary-foreground font-semibold rounded-2xl py-7 px-8 text-lg cursor-pointer hover:bg-primary/90 transition-transform hover:scale-105">
+          <div className="flex  flex-wrap gap-4 pt-2">
+            <Button className="bg-primary text-primary-foreground font-semibold rounded-2xl py-6 px-5 text-lg cursor-pointer hover:bg-primary/90 transition-colors duration-500 ease-out">
               Explore our Products
             </Button>
             {!isLoggedIn && !isLoading && (
               <Link href="/login">
                 <Button
                   variant="outline"
-                  className="font-semibold rounded-2xl py-7 px-8 text-lg cursor-pointer border-border text-foreground hover:bg-accent hover:text-accent-foreground transition-transform hover:scale-105"
+                  className="font-semibold rounded-2xl py-6 px-5 text-lg cursor-pointer border-border text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-500 ease-out"
                 >
                   Log in / sign up
                 </Button>
@@ -52,14 +49,14 @@ const Hero = () => {
               <span className="text-muted-foreground text-sm lg:text-base uppercase tracking-wider">
                 Our products
               </span>
-              <span className="text-foreground font-extrabold text-2xl lg:text-4xl">+1000</span>
+              <span className="text-foreground font-extrabold text-2xl lg:text-2xl">+1000</span>
             </div>
             <div className="border-l-2 border-border/50"></div>
             <div className="flex flex-col gap-1">
               <span className="text-muted-foreground text-sm lg:text-base uppercase tracking-wider">
                 Total sales
               </span>
-              <span className="text-foreground font-extrabold text-2xl lg:text-4xl">+340k</span>
+              <span className="text-foreground font-extrabold text-2xl lg:text-2xl">+340k</span>
             </div>
           </div>
         </div>
@@ -67,7 +64,7 @@ const Hero = () => {
         {/* --- BAGIAN GAMBAR --- */}
         <div className="w-full lg:w-[45%] xl:w-[40%] flex justify-center lg:justify-end">
           {/* Wrapper gambar didorong hingga 800px di layar lebar */}
-          <div className="relative w-[90%] sm:w-[80%] lg:w-full max-w-96 lg:max-w-[650px] xl:max-w-[800px] aspect-square flex items-center justify-center group shrink-0">
+          <div className="relative w-[90%] sm:w-[80%] lg:w-full max-w-96 lg:max-w-2xl xl:max-w-4xl aspect-square flex items-center justify-center group shrink-0">
             
             {/* Background Blobmaker SVG */}
             <div className="absolute inset-0 z-0 flex items-center justify-center">

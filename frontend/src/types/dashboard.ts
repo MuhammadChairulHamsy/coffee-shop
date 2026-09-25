@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export type TrendDirection = "positive" | "warning" | "neutral";
 export type LatestOrderStatus = "Selesai" | "Diproses" | "Siap Kirim";
 
@@ -13,6 +15,15 @@ export interface DashboardStatCard {
   footerValue?: string;
 }
 
+export interface MenuItemProps {
+  item: {
+    title: string;
+    url: string;
+    icon: LucideIcon;
+  };
+}
+
+
 export interface LatestOrderItem {
   id: string;
   customerName: string;
@@ -20,3 +31,4 @@ export interface LatestOrderItem {
   price: string;
   status: LatestOrderStatus;
 }
+
