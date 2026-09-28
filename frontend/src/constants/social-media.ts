@@ -1,4 +1,4 @@
-import type { SocialMedia } from "@/types";
+import type { SocialMedia } from "@/types/footer";
 
 export const SOCIAL_MEDIA: SocialMedia[] = [
   {

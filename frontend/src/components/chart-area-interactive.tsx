@@ -164,7 +164,7 @@ export function ChartAreaInteractive() {
   return (
     <Card className="@container/card bg-sidebar">
       <CardHeader>
-        <CardTitle>Analisis Penjualan Pendapatan</CardTitle>
+        <CardTitle>Sales Revenue Analysis</CardTitle>
         <CardDescription>
           <p className="hidden @[540px]/card:block">
             korelasi batch sangrai roastrey vs e-commerce <br /> direct order
@@ -217,7 +217,7 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-64 w-full"
+          className="aspect-auto h-80 w-full"
         >
           <AreaChart data={filteredData}>
             <defs>

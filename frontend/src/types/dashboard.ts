@@ -32,3 +32,6 @@ export interface LatestOrderItem {
   status: LatestOrderStatus;
 }
 
+export interface LatestOrdersCardProps {
+  orders?: LatestOrderItem[];
+}

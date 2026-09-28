@@ -6,19 +6,13 @@ import { SectionCards } from "@/components/section-cards";
 import { DataTable } from "@/components/data-table";
 import { recentOrdersData } from "@/constants/recent-order-data";
 import { LatestOrdersCard } from "./components/latest-order-card";
+import { FormatDate } from "@/utils/format-date";
 
 export default function DashboardPage() {
   const [formattedDate, setFormattedDate] = React.useState<string>("");
 
   React.useEffect(() => {
-    setFormattedDate(
-      new Date().toLocaleDateString("id-ID", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-    );
+    setFormattedDate(new Date().toISOString());
   }, []);
 
   return (
@@ -35,7 +29,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="w-fit rounded-full border bg-muted/40 px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-2xs">
-          {formattedDate || <span className="opacity-0">placeholder</span>}
+          {formattedDate ? FormatDate(formattedDate) : "Memuat tanggal..."}
         </div>
       </div>
 
@@ -46,7 +40,7 @@ export default function DashboardPage() {
 
         {/* 2. INTERACTIVE CHART */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 gap-5">
-          <div className="lg:col-span-7 flex flex-col gap-4 rounded-xl border bg-sidebar text-card-foreground shadow-2xs">
+          <div className="lg:col-span-7 flex flex-col gap-4 rounded-xl text-card-foreground shadow-2xs">
             <ChartAreaInteractive />
           </div>
           <div className="lg:col-span-3 flex flex-col gap-4">
@@ -57,11 +51,9 @@ export default function DashboardPage() {
         {/* 3. RECENT ORDERS DATA TABLE */}
         <div className="rounded-xl border bg-sidebar p-4 text-card-foreground shadow-2xs md:p-6">
           <div className="mb-4">
-            <h2 className="text-lg font-bold tracking-tight">
-              Pesanan Terbaru
-            </h2>
+            <h2 className="text-lg font-bold tracking-tight">Latest Orders</h2>
             <p className="text-xs text-muted-foreground">
-              Daftar transaksi dan status pemesanan terkini di toko Coffesy.
+              List of transactions and latest order status at the Coffesy store.
             </p>
           </div>
           <DataTable data={recentOrdersData} />

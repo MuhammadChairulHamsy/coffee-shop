@@ -1,4 +1,4 @@
-import type { QualityItem} from "@/types"
+import type { QualityItem} from "@/types/product"
 import { MessageCircle, Box, PackageCheck, Layers } from "lucide-react";
 
 export const QUALITY_ITEMS: QualityItem[] = [

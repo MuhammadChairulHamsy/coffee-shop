@@ -351,9 +351,9 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
     <Tabs defaultValue="all" className="w-full flex-col justify-start gap-4">
       <div className="flex items-center justify-between px-2">
         <TabsList className="flex">
-          <TabsTrigger value="all">Semua Pesanan</TabsTrigger>
-          <TabsTrigger value="processing">Diproses</TabsTrigger>
-          <TabsTrigger value="completed">Selesai</TabsTrigger>
+          <TabsTrigger value="all">All Orders</TabsTrigger>
+          <TabsTrigger value="processing">Being processed</TabsTrigger>
+          <TabsTrigger value="completed">Finished</TabsTrigger>
         </TabsList>
 
         <div className="flex items-center gap-2">
@@ -390,7 +390,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
 
           <Button size="sm" onClick={() => toast.success("Membuka form pesanan baru")}>
             <PlusIcon className="mr-1 size-4" />
-            <span className="hidden lg:inline">Buat Pesanan</span>
+            <span className="hidden lg:inline">Place an Order</span>
           </Button>
         </div>
       </div>
@@ -434,7 +434,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      Belum ada data pesanan.
+                      There is no order data yet.
                     </TableCell>
                   </TableRow>
                 )}
