@@ -9,7 +9,7 @@ export const AboutSkeleton = () => {
           <Skeleton className="h-7 w-64 rounded-full" />
 
           <div className="space-y-3">
-            <Skeleton className="h-10 sm:h-12 lg:h-14 w-full max-w-[500px]" />
+            <Skeleton className="h-10 sm:h-12 lg:h-14 w-full max-w-[31.25rem]" />
             <Skeleton className="h-10 sm:h-12 lg:h-14 w-[85%]" />
           </div>
 

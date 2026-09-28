@@ -35,7 +35,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="w-fit rounded-full border bg-muted/40 px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-2xs">
-          {formattedDate || "Memuat tanggal..."}
+          {formattedDate || <span className="opacity-0">placeholder</span>}
         </div>
       </div>
 
