@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "dev": "nodemon --exec tsx src/index.ts",
+    "dev": "nodemon --exec tsx src/app.ts",
     "build": "prisma generate && tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/app.js",
     "postinstall": "prisma generate",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
@@ -24,7 +24,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

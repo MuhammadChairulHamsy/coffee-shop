@@ -1,34 +1,40 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { router } from "./routes/product.route.js";
 import { toNodeHandler } from "better-auth/node";
+
+import { router as productRouter } from "./routes/product.route.js";
 import { auth } from "./lib/auth.js";
+import { errorHandler } from "./middlewares/error-handler.js";
 
 const app = express();
 
-// 1. CORS Paling Atas
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
-}));
+// 1. CORS
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  }),
+);
 
-// 2. ROUTE AUTH HARUS DI SINI (Sebelum body parser)
+// 2. Auth handler HARUS sebelum body parser
 app.all("/api/auth/*path", toNodeHandler(auth));
 
-// 3. Body Parser di Bawah Auth
+// 3. Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.json({
     success: true,
     message: "🚀 Coffee Shop API is running smoothly!",
   });
 });
 
-app.use("/api/products", router);
+app.use("/api/products", productRouter);
+
+// 4. Error handler PALING AKHIR
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

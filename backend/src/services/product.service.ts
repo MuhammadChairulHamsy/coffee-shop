@@ -1,32 +1,49 @@
 import { prisma } from "../lib/prisma.js";
+import { NotFoundError } from "../lib/errors.js";
 
 export const getAllProducts = async () => {
-  return await prisma.products.findMany()
-}
+  return prisma.products.findMany({ orderBy: { createdAt: "desc" } });
+};
 
 export const getLatestProducts = async () => {
-  const latests = await prisma.products.findMany({
-    where: {
-      is_special: false
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
+  return prisma.products.findMany({
+    where: { is_special: false },
+    orderBy: { createdAt: "desc" },
     take: 4,
   });
-  return latests;
 };
 
 export const getSpecialProducts = async () => {
-  const products = await prisma.products.findMany({
+  return prisma.products.findMany({
     where: { is_special: true },
+    orderBy: { createdAt: "desc" },
   });
-  return products;
 };
 
-export const UpdateProductLike = async (id: number, is_liked: boolean) => {
-  return await prisma.products.update({
+export const setProductLike = async (id: number, isLiked: boolean) => {
+  const exists = await prisma.products.findUnique({
     where: { id },
-    data: { is_liked },
+    select: { id: true },
+  });
+  if (!exists) throw new NotFoundError("Produk tidak ditemukan");
+
+  return prisma.products.update({
+    where: { id },
+    data: { is_liked: isLiked },
+  });
+};
+
+export const toggleProductLike = async (id: number) => {
+  return prisma.$transaction(async (tx) => {
+    const product = await tx.products.findUnique({
+      where: { id },
+      select: { is_liked: true },
+    });
+    if (!product) throw new NotFoundError("Produk tidak ditemukan");
+
+    return tx.products.update({
+      where: { id },
+      data: { is_liked: !product.is_liked },
+    });
   });
 };
