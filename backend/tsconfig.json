@@ -12,8 +12,7 @@
     "lib": ["esnext"],
     "types": ["node"],
 
-    /* Path Aliases (Opsional - Sangat Berguna) */
-    "baseUrl": ".",
+    /* BaseUrl & Path Aliases */
     "paths": {
       "@/*": ["./src/*"]
     },

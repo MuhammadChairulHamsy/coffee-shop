@@ -9,6 +9,7 @@ import { ProductSort, ProfileFilter, ViewMode } from "@/types/product-filter";
 import { FilterSelect } from "../components/filter-select";
 import { PROFILE_OPTIONS, SORT_OPTIONS } from "@/constants/product-filters";
 import { ViewToggle } from "../components/view-toggle";
+import ProductTable from "../components/product/product-table";
 
 export default function ProductsPage() {
   const [search, setSearch] = useState("");
@@ -66,8 +67,8 @@ export default function ProductsPage() {
         <ViewToggle value={view} onChange={setView} />
       </div>
       {/* Tempat komponen tabel/list produk */}
-      <div className="rounded-lg border border-border p-8 text-center text-muted-foreground">
-        Tabel daftar produk akan ditampilkan di sini.
+      <div>
+        <ProductTable />
       </div>
     </div>
   );

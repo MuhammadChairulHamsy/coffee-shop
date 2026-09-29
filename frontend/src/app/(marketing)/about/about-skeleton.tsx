@@ -9,7 +9,7 @@ export const AboutSkeleton = () => {
           <Skeleton className="h-7 w-64 rounded-full" />
 
           <div className="space-y-3">
-            <Skeleton className="h-10 sm:h-12 lg:h-14 w-full max-w-[31.25rem]" />
+            <Skeleton className="h-10 sm:h-12 lg:h-14 w-full max-w-[50%]" />
             <Skeleton className="h-10 sm:h-12 lg:h-14 w-[85%]" />
           </div>
 
@@ -31,8 +31,8 @@ export const AboutSkeleton = () => {
 
         {/* --- SKELETON KANAN: GAMBAR & BADGE --- */}
         <div className="w-full lg:w-[45%] flex justify-center mt-12 lg:mt-0 relative">
-          <div className="relative w-[90%] sm:w-[70%] lg:w-[420px] max-w-full">
-            <Skeleton className="w-full h-[500px] rounded-md shadow-md" />
+          <div className="relative w-[90%] sm:w-[70%] lg:w-[60%] max-w-full">
+            <Skeleton className="w-full h-[50%] rounded-md shadow-md" />
 
             <div className="absolute bottom-4 left-4 right-4 bg-background/80 p-4 rounded-sm flex items-center justify-between">
               <Skeleton className="h-4 w-36" />

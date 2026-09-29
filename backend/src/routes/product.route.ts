@@ -1,16 +1,16 @@
-import { Router } from "express";
+import { Router, type IRouter } from "express";
 import { 
   getSpecialProducts, 
   getLatestProducts, 
   toggleLike, 
   getAllProducts
-} from "../controllers/product.controller";
+} from "../controllers/product.controller.js";
 
-const productRouter = Router();
+const router: IRouter = Router();
 
-productRouter.get("/", getAllProducts);
-productRouter.get("/special", getSpecialProducts);
-productRouter.get("/latest", getLatestProducts);
-productRouter.patch("/:id/like", toggleLike);
+router.get("/", getAllProducts);
+router.get("/special", getSpecialProducts);
+router.get("/latest", getLatestProducts);
+router.patch("/:id/like", toggleLike);
 
-export { productRouter };
+export { router };

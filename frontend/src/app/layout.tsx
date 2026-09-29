@@ -45,7 +45,10 @@ export default function RootLayout({
       className={cn(playfairDisplay.variable, inter.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col justify-between">
+      <body
+        className="min-h-full flex flex-col justify-between"
+        suppressHydrationWarning
+      >
         <QueryProvider>
           <TooltipProvider>
             <ConditionalLayout

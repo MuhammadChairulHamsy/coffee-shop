@@ -88,7 +88,7 @@ const AboutPage = () => {
 
           {/* --- BAGIAN KANAN: GAMBAR & BADGE MELAYANG --- */}
           <div className="w-full lg:w-[45%] flex justify-center mt-12 lg:mt-0 relative">
-            <div className="relative w-[90%] sm:w-[70%] lg:w-[420px] max-w-full z-10">
+            <div className="relative w-[90%] sm:w-[70%] lg:w-[60%] max-w-full z-10">
               <Image
                 src="/image/Image-Profile-About-Coffee.png"
                 alt="Image Profile About Coffee"

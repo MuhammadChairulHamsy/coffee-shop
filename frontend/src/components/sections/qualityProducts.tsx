@@ -54,7 +54,7 @@ const QualityProducts = () => {
             <span className="font-extrabold">products</span>
           </h2>
 
-          <p className="max-w-[595px] text-muted-foreground font-medium text-sm p-3 lg:p-0 lg:text-base leading-relaxed">
+          <p className="max-w-[50%] text-muted-foreground font-medium text-sm p-3 lg:p-0 lg:text-base leading-relaxed">
             Drinking coffee is one of the most global things you do each day.
             Here I can spend a long and comfortable time with this workspace
             facilities.

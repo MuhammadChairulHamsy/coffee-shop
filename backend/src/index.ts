@@ -2,9 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import cors from "cors";
-import { productRouter } from "./routes/product.route";
+import { router } from "./routes/product.route.js";
 import { toNodeHandler } from "better-auth/node";
-import { auth } from "./lib/auth";
+import { auth } from "./lib/auth.js";
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/products", productRouter);
+app.use("/api/products", router);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
