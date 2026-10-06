@@ -2,13 +2,14 @@ import "dotenv/config";
 import express, { type Express } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
-
 import { router as productRouter } from "./routes/product.route.js";
 import { auth } from "./lib/auth.js";
 import { errorHandler } from "./middlewares/error-handler.js";
 import { apiLimiter } from "./middlewares/rate-limit.js";
 import { pinoHttp } from "pino-http";
-import {logger} from "./lib/logger.js"
+import { logger } from "./lib/logger.js";
+import helmet from "helmet";
+import { prisma } from "./lib/prisma.js";
 
 const app: Express = express();
 
@@ -43,7 +44,20 @@ app.use(errorHandler);
 app.use("/api", apiLimiter);
 
 // 6. Request Logger
-app.use(pinoHttp({logger}));
+app.use(pinoHttp({ logger }));
+
+// 7. Security Headers (Helmet)
+app.use(helmet());
+
+// 8. Health Check Endpoint
+app.get("/health", async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: "Ok", db: "connected" });
+  } catch {
+    res.status(503).json({ status: "error", db: "disconnected" });
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
