@@ -7,6 +7,8 @@ import { router as productRouter } from "./routes/product.route.js";
 import { auth } from "./lib/auth.js";
 import { errorHandler } from "./middlewares/error-handler.js";
 import { apiLimiter } from "./middlewares/rate-limit.js";
+import { pinoHttp } from "pino-http";
+import {logger} from "./lib/logger.js"
 
 const app: Express = express();
 
@@ -39,6 +41,9 @@ app.use(errorHandler);
 
 // 5. Rate Limit
 app.use("/api", apiLimiter);
+
+// 6. Request Logger
+app.use(pinoHttp({logger}));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
