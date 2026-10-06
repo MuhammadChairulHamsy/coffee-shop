@@ -36,7 +36,7 @@ export default function ProductsPage() {
           </Button>
           <Button>
             <PlusIcon className="mr-1 size-4" />
-            Add New Product
+            New Product
           </Button>
         </div>
       </div>

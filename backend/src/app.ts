@@ -1,13 +1,14 @@
 import "dotenv/config";
-import express from "express";
+import express, { type Express } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 
 import { router as productRouter } from "./routes/product.route.js";
 import { auth } from "./lib/auth.js";
 import { errorHandler } from "./middlewares/error-handler.js";
+import { apiLimiter } from "./middlewares/rate-limit.js";
 
-const app = express();
+const app: Express = express();
 
 // 1. CORS
 app.use(
@@ -36,7 +37,12 @@ app.use("/api/products", productRouter);
 // 4. Error handler PALING AKHIR
 app.use(errorHandler);
 
+// 5. Rate Limit
+app.use("/api", apiLimiter);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
+export default app;
