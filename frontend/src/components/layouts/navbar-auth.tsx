@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import type { NavbarAuthProps } from "@/types/navigation";
-import { signOut } from "@/lib/authClient";
+import { signOut } from "@/lib/auth-client";
 
 const NavbarAuth = ({ user }: NavbarAuthProps) => {
   const router = useRouter();

@@ -7,6 +7,9 @@ const envSchema = z.object({
     BETTER_AUTH_SECRET: z.string().min(32),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    CLOUDINARY_CLOUD_NAME: z.string(),
+    CLOUDINARY_API_KEY: z.number(),
+    CLOUDINARY_API_SECRET: z.string(),
     PORT: z.coerce.number().default(3001),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 })

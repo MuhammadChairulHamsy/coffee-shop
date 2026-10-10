@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/lib/authClient"; // Import dari klien Better Auth
+import { signIn } from "@/lib/auth-client"; // Import dari klien Better Auth
 import { useState } from "react";
 
 export function LoginForm({

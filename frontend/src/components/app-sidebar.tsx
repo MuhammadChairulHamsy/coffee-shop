@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
 import { MenuItemProps } from "@/types/dashboard";
-
+import { AuthUser } from "@/types/auth";
 
 function MenuItem({ item }: MenuItemProps) {
   const pathname = usePathname();
@@ -50,7 +50,9 @@ function MenuItem({ item }: MenuItemProps) {
   );
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { user: AuthUser }) {
   const navigationData = {
     main: [
       {
@@ -72,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Order List",
         url: "/dashboard/orders",
         icon: ShoppingBag,
-      }
+      },
     ],
     marketing: [
       {
@@ -182,7 +184,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       {/* --- FOOTER SIDEBAR --- */}
       <SidebarFooter className="border-t border-border/50 p-2">
-        <NavUser user={userData} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

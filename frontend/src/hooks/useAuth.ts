@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from "@/lib/authClient"; 
+import { useSession } from "@/lib/auth-client"; 
 
 export const useAuth = () => {
   // Better Auth menangani fetching, caching, dan state otomatis

@@ -6,7 +6,7 @@ import NavbarAuth from "@/components/layouts/navbar-auth";
 import NavbarMobile from "@/components/layouts/navbar-mobile";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { getAuthUser } from "@/lib/auth";
+import { getAuthUser } from "@/lib/auth-server";
 
 const Navbar = async () => {
   const userData = await getAuthUser();

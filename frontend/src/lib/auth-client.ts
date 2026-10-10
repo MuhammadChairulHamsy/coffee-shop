@@ -1,8 +1,9 @@
 import { createAuthClient } from "better-auth/react";
+import { API_URL } from "./config";
 
 // Inisialisasi klien Better Auth untuk frontend Next.js
 export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001", 
+  baseURL: API_URL
 });
 
 // Ekspor fungsi-fungsi bawaan agar mudah dipanggil di komponen

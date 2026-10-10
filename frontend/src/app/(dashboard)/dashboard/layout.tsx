@@ -1,17 +1,24 @@
-"use client";
-
 import React from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import QueryProvider from "@/providers/query-provider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { getAuthUser } from "@/lib/auth-server";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({
+export const dynamic = "force-dynamic";
+
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getAuthUser();
+
+  if (!user) {
+    redirect("/login");
+  }
   return (
     <QueryProvider>
       <SidebarProvider
@@ -22,7 +29,7 @@ export default function DashboardLayout({
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" />
+        <AppSidebar variant="inset"  user={user}/>
         <SidebarInset>
           <SiteHeader />
           <div className="flex flex-1 flex-col">

@@ -14,6 +14,7 @@ export function ViewToggle({ value, onChange }: ViewToggleProps) {
       <button
         type="button"
         aria-label="Tampilan daftar"
+        suppressHydrationWarning
         onClick={() => onChange("list")}
         className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors cursor-pointer ${
           value === "list"
