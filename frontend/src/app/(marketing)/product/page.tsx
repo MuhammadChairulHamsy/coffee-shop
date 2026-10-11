@@ -43,6 +43,7 @@ const ProductPage = () => {
         {PRODUCT_FILTERS.map((filter) => (
           <button
             key={filter.value}
+            suppressHydrationWarning
             onClick={() => setActiveFilter(filter.value)}
             className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border
               ${

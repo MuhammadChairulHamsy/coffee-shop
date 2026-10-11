@@ -20,15 +20,15 @@ export default function DashboardPage() {
       {/* --- PAGE HEADER --- */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
-          <h1 className="font-playfair text-3xl font-bold tracking-wider">
+          <h1 className="font-playfair text-sidebar-foreground text-3xl font-bold tracking-wider">
             Dashboard
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-sidebar-foreground">
             Operational summary of roasting activities, coffee bean sales
             performance, and direct order flow for Coffesy Hub.
           </p>
         </div>
-        <div className="w-fit rounded-full border bg-muted/40 px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-2xs">
+        <div className="w-fit rounded-full border bg-muted/40 px-4 py-1.5 text-xs font-medium text-sidebar-foreground shadow-2xs">
           {formattedDate ? FormatDate(formattedDate) : "Memuat tanggal..."}
         </div>
       </div>

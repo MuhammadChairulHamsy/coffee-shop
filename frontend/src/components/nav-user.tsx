@@ -20,7 +20,7 @@ import { AuthUser } from "@/types/auth";
 import { EllipsisVerticalIcon, LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export function NavUser({user}: { user: AuthUser}) {
+export function NavUser({ user }: { user: AuthUser }) {
   const { isMobile } = useSidebar();
   const router = useRouter();
 
@@ -32,7 +32,7 @@ export function NavUser({user}: { user: AuthUser}) {
       router.push("/login");
       router.refresh();
     } catch (error) {
-       console.error("Gagal logout:", error);
+      console.error("Gagal logout:", error);
     }
   };
   return (
@@ -44,13 +44,15 @@ export function NavUser({user}: { user: AuthUser}) {
               <SidebarMenuButton size="lg" className="aria-expanded:bg-muted" />
             }
           >
-            <Avatar className="size-8 rounded-lg grayscale">
+            <Avatar className="size-8">
               <AvatarImage src={user.avatar ?? undefined} alt={user.name} />
-              <AvatarFallback className="rounded-lg">{userInitial}</AvatarFallback>
+              <AvatarFallback className="rounded-lg">
+                {userInitial}
+              </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">{user.name}</span>
-              <span className="truncate text-xs text-foreground/70">
+              <span className="truncate text-xs text-sidebar-foreground/70">
                 {user.email}
               </span>
             </div>
@@ -66,8 +68,13 @@ export function NavUser({user}: { user: AuthUser}) {
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="size-8">
-                    <AvatarImage src={user.avatar ?? undefined} alt={user.name} />
-                    <AvatarFallback className="rounded-lg">{userInitial}</AvatarFallback>
+                    <AvatarImage
+                      src={user.avatar ?? undefined}
+                      alt={user.name}
+                    />
+                    <AvatarFallback className="rounded-lg">
+                      {userInitial}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">{user.name}</span>

@@ -102,12 +102,6 @@ export function AppSidebar({user,
     ],
   };
 
-  const userData = {
-    name: "Admin Coffesy",
-    email: "admin@coffesy.com",
-    avatar: "/coffeo.svg",
-  };
-
   return (
     <Sidebar
       collapsible="icon"
@@ -120,14 +114,14 @@ export function AppSidebar({user,
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="hover:bg-transparent">
               <Link href="/dashboard" className="flex items-center gap-3">
-                <div className="bg-primary shadow-md shadow-primary/20 size-9 rounded-xl flex items-center justify-center shrink-0">
-                  <Coffee className="text-primary-foreground size-5" />
+                <div className="bg-sidebar-foreground shadow-md shadow-primary/20 size-9 rounded-xl flex items-center justify-center shrink-0">
+                  <Coffee className="text-sidebar-primary size-5" />
                 </div>
                 <div className="flex flex-col gap-0.5 overflow-hidden text-left">
                   <span className="font-bold text-sidebar-foreground text-base leading-none font-playfair">
                     Coffesy.
                   </span>
-                  <span className="text-[10px] uppercase tracking-wider font-medium text-muted-foreground">
+                  <span className="text-[10px] uppercase tracking-wider font-medium text-sidebar-foreground/60">
                     Admin Portal
                   </span>
                 </div>
@@ -141,7 +135,7 @@ export function AppSidebar({user,
       <SidebarContent className="overflow-hidden">
         {/* GROUP 1: MAIN */}
         <SidebarGroup>
-          <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
+          <SidebarGroupLabel className="px-2 text-[11px] font-bold uppercase tracking-widest text-sidebar-foreground/70 mb-2">
             Ringkasan
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -155,7 +149,7 @@ export function AppSidebar({user,
 
         {/* GROUP 2: OPERATIONAL */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2 mt-2">
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-sidebar-foreground/70 mb-2 mt-2">
             Manajemen Operasional
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -169,7 +163,7 @@ export function AppSidebar({user,
 
         {/* GROUP 3: SYSTEM */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 mb-2">
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-widest text-sidebar-foreground/70 mb-2">
             Sistem
           </SidebarGroupLabel>
           <SidebarGroupContent>
