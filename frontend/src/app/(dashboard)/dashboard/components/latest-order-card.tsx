@@ -42,7 +42,7 @@ export function LatestOrdersCard({
   orders = INITIAL_LATEST_ORDERS,
 }: LatestOrdersCardProps) {
   return (
-    <Card className="flex flex-col justify-between rounded-2xl border border-border/60 bg-sidebar p-5 shadow-xs">
+    <Card className="flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-xs">
       {/* --- HEADER CARDS --- */}
       <CardHeader className="p-0 pb-4 flex flex-row items-center justify-between space-y-0">
         <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export function LatestOrdersCard({
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
-          <CardTitle className="font-serif text-xl font-bold tracking-tight text-foreground">
+          <CardTitle className="font-serif text-xl font-bold tracking-tight text-sidebar-foreground">
             Recent Orders
           </CardTitle>
         </div>
@@ -67,26 +67,26 @@ export function LatestOrdersCard({
         {orders.map((item) => (
           <div
             key={item.id}
-            className="flex items-center justify-between rounded-xl bg-slate-50/80 p-3 dark:bg-muted/40 border border-border/35 transition-all hover:border-border/60"
+            className="flex items-center justify-between rounded-xl bg-card p-3 dark:bg-muted/40 border border-border/35 transition-all hover:border-border/60"
           >
             {/* Kiri: Nama & Produk */}
             <div className="space-y-0.5 max-w-52">
               <div className="flex items-center gap-1.5">
-                <span className="font-semibold text-sm text-foreground truncate">
+                <span className="font-semibold text-sm text-sidebar-foreground truncate">
                   {item.customerName}
                 </span>
-                <span className="text-[11px] text-muted-foreground font-mono">
+                <span className="text-[11px] text-sidebar-foreground font-mono">
                   #{item.id}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground truncate">
+              <p className="text-xs text-sidebar-foreground truncate">
                 {item.productDetail}
               </p>
             </div>
 
             {/* Kanan: Harga & Badge Status */}
             <div className="flex flex-col items-end gap-1 shrink-0">
-              <span className="font-bold text-sm text-foreground">
+              <span className="font-bold text-sm text-sidebar-foreground">
                 {item.price}
               </span>
               <StatusBadge status={item.status} />

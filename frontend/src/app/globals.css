@@ -51,12 +51,13 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-
 :root {
   --background: oklch(0.982 0.018 85);
   --foreground: oklch(0.15 0.04 55);
-  --card: oklch(0.96 0.015 80);
-  --card-foreground: oklch(0.15 0.04 55);
+  --card: oklch(0.145 0 0); 
+  --card-border: oklch(0.25 0 0); 
+  --card-foreground: oklch(0.985 0 0);
+  --card-muted: oklch(0.708 0 0);
   --popover: oklch(0.96 0.015 80);
   --popover-foreground: oklch(0.15 0.04 55);
   --primary: oklch(0.58 0.12 65);
@@ -137,7 +138,6 @@
   will-change: transform;
   -webkit-animation: marquee 10s linear infinite;
 }
-
 
 @keyframes marquee {
   0% {

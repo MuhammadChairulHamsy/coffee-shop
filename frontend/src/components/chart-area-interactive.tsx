@@ -162,11 +162,11 @@ export function ChartAreaInteractive() {
   });
 
   return (
-    <Card className="@container/card bg-sidebar">
+    <Card className="@container/card bg-card border">
       <CardHeader>
         <CardTitle>Sales Revenue Analysis</CardTitle>
         <CardDescription>
-          <p className="hidden @[540px]/card:block">
+          <p className="hidden @[540px]/card:block text-sidebar-foreground">
             korelasi batch sangrai roastrey vs e-commerce <br /> direct order
           </p>
           <span className="@[540px]/card:hidden">Last 3 months</span>

@@ -36,19 +36,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       className={cn(playfairDisplay.variable, inter.variable)}
       suppressHydrationWarning
     >
-      <body
-        className="min-h-full flex flex-col justify-between"
-        suppressHydrationWarning
-      >
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <QueryProvider>
           <TooltipProvider>
             <ConditionalLayout

@@ -11,66 +11,99 @@ import {
 } from "@/components/ui/card";
 import {
   TrendingUpIcon,
+  TrendingDownIcon,
   AlertTriangleIcon,
   Wallet,
   ShoppingBag,
   Grid2X2,
   CheckCircle2,
 } from "lucide-react";
-import { DashboardStatCard } from "@/types/dashboard";
+import type { DashboardStatCard } from "@/types/dashboard";
 import { INITIAL_DASHBOARD_STATS } from "@/constants/dashboard";
 
-// Render Ikon Kanan Atas sesuai jenis card
 function CardHeaderIcon({ id }: { id: string }) {
-  switch (id) {
-    case "revenue":
-      return (
-        <div className="flex size-9 items-center justify-center rounded-xl bg-orange-100 text-orange-700">
-          <Wallet className="size-4" />
-        </div>
-      );
-    case "orders":
-      return (
-        <div className="flex size-9 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700">
-          <ShoppingBag className="size-4" />
-        </div>
-      );
-    case "stock":
-      return (
-        <div className="flex size-9 items-center justify-center rounded-xl bg-orange-100 text-orange-700">
-          <Grid2X2 className="size-4" />
-        </div>
-      );
-    case "sca_score":
-      return (
-        <div className="flex size-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-          <CheckCircle2 className="size-4" />
-        </div>
-      );
-    default:
-      return null;
-  }
+  const styles: Record<
+    string,
+    { bg: string; fg: string; Icon: typeof Wallet }
+  > = {
+    revenue: { bg: "bg-orange-500/15", fg: "text-orange-400", Icon: Wallet },
+    orders: {
+      bg: "bg-indigo-500/15",
+      fg: "text-indigo-400",
+      Icon: ShoppingBag,
+    },
+    stock: { bg: "bg-orange-500/15", fg: "text-orange-400", Icon: Grid2X2 },
+    sca_score: {
+      bg: "bg-emerald-500/15",
+      fg: "text-emerald-400",
+      Icon: CheckCircle2,
+    },
+  };
+  const config = styles[id];
+  if (!config) return null;
+  const { bg, fg, Icon } = config;
+  return (
+    <div
+      className={`flex size-9 items-center justify-center rounded-xl ${bg} ${fg}`}
+    >
+      <Icon className="size-4" />
+    </div>
+  );
+}
+
+type Trend = "positive" | "negative" | "warning" | "neutral";
+
+function TrendBadge({ trend, text }: { trend: Trend; text: string }) {
+  const styles: Record<Trend, string> = {
+    positive: "text-emerald-400 border-emerald-400/30 bg-emerald-400/5",
+    negative: "text-rose-400 border-rose-400/30 bg-rose-400/5",
+    warning: "text-orange-400 border-orange-400/30 bg-orange-400/5",
+    neutral: "text-muted-foreground border-border bg-muted/30",
+  };
+  return (
+    <Badge
+      variant="outline"
+      className={`gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${styles[trend]}`}
+    >
+      {trend === "positive" && <TrendingUpIcon className="size-3" />}
+      {trend === "negative" && <TrendingDownIcon className="size-3" />}
+      {trend === "warning" && <AlertTriangleIcon className="size-3" />}
+      {text}
+    </Badge>
+  );
 }
 
 interface SectionCardsProps {
   stats?: DashboardStatCard[];
 }
 
-export function SectionCards({ stats = INITIAL_DASHBOARD_STATS }: SectionCardsProps) {
+export function SectionCards({
+  stats = INITIAL_DASHBOARD_STATS,
+}: SectionCardsProps) {
   return (
-    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-4 @5xl/main:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       {stats.map((item) => (
-        <Card key={item.id} className="@container/card relative overflow-hidden bg-sidebar shadow-xs">
-          <CardHeader>
-            <CardDescription className="text-[11px] font-bold tracking-wider text-muted-foreground uppercase">
+        <Card
+          key={item.id}
+          className="@container/card relative overflow-hidden
+             rounded-2xl
+            border border-border
+             bg-card text-card-foreground
+             shadow-lg shadow-black/10"
+        >
+          <CardHeader className="gap-1">
+            <CardDescription className="text-[11px] font-medium uppercase tracking-wider text-card-foreground">
               {item.title}
             </CardDescription>
 
-            <CardTitle className="text-2xl font-bold tracking-tight text-foreground tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-3xl font-bold tabular-nums text-card-foreground @[250px]/card:text-4xl">
               {item.id === "sca_score" ? (
                 <>
                   {item.value}
-                  <span className="text-sm font-normal text-muted-foreground"> / 100</span>
+                  <span className="text-sm font-normal text-card-foreground">
+                    {" "}
+                    / 100
+                  </span>
                 </>
               ) : (
                 item.value
@@ -82,46 +115,32 @@ export function SectionCards({ stats = INITIAL_DASHBOARD_STATS }: SectionCardsPr
             </CardAction>
           </CardHeader>
 
-          {/* Badge Trend / Alert */}
           <div className="px-6 pb-2">
-            <Badge
-              variant="outline"
-              className={`border-none px-2 py-0.5 text-xs font-semibold ${
-                item.trend === "positive"
-                  ? "bg-emerald-50 text-emerald-600"
-                  : item.trend === "warning"
-                  ? "bg-orange-100 text-orange-700"
-                  : "bg-slate-100 text-slate-600"
-              }`}
-            >
-              {item.trend === "positive" && <TrendingUpIcon className="mr-1 size-3.5" />}
-              {item.trend === "warning" && <AlertTriangleIcon className="mr-1 size-3.5" />}
-              {item.badgeText}
-            </Badge>
+            <TrendBadge
+              trend={(item.trend ?? "neutral") as Trend}
+              text={item.badgeText ?? ""}
+            />
           </div>
 
-          {/* Footer Card */}
-          <CardFooter className="mt-4 flex items-center justify-between border-t border-border/40 pt-3 text-xs">
+          <CardFooter className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs">
             {item.progressValue !== undefined ? (
-              // Case 1: Progress bar untuk Revenue
               <div className="flex w-full items-center gap-3">
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full rounded-full bg-[#5D3A29]"
+                    className="h-full rounded-full bg-primary"
                     style={{ width: `${item.progressValue}%` }}
                   />
                 </div>
-                <span className="shrink-0 font-medium text-muted-foreground">
+                <span className="shrink-0 font-medium text-card-foreground">
                   {item.progressLabel}
                 </span>
               </div>
             ) : (
-              // Case 2: Dua kolom kiri dan kanan persis seperti di gambar
-              <div className="flex w-full items-center justify-between text-muted-foreground">
-                <span className="text-[11px] font-medium leading-tight max-w-25">
+              <div className="flex w-full items-center justify-between">
+                <span className="max-w-[60%] text-[11px] font-medium leading-tight text-card-foreground">
                   {item.footerLabel}
                 </span>
-                <span className="text-[11px] font-bold text-foreground text-right leading-tight max-w-25">
+                <span className="max-w-[40%] text-right text-[11px] font-bold leading-tight text-card-foreground">
                   {item.footerValue}
                 </span>
               </div>

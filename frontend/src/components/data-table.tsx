@@ -38,18 +38,11 @@ import {
   type Row,
   type SortingState,
 } from "@tanstack/react-table";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { toast } from "sonner";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Drawer,
@@ -69,8 +62,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -105,9 +96,8 @@ import {
   ChevronRightIcon,
   ClockIcon,
   XCircleIcon,
-  TrendingUpIcon,
 } from "lucide-react";
-import { orderSchema, type Order } from "@/types/order";
+import {type Order } from "@/types/order";
 
 // Fitur TanStack Table v9
 const features = tableFeatures({
@@ -132,10 +122,10 @@ function DragHandle({ id }: { id: string }) {
       {...listeners}
       variant="ghost"
       size="icon"
-      className="size-7 text-muted-foreground hover:bg-transparent"
+      className="size-7 text-card-foreground hover:bg-transparent"
     >
       <GripVerticalIcon className="size-3" />
-      <span className="sr-only">Drag to reorder</span>
+      <span className="sr-only text-card-foreground">Drag to reorder</span>
     </Button>
   );
 }
@@ -163,7 +153,7 @@ const columns = columnHelper.columns([
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center ">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -183,23 +173,23 @@ const columns = columnHelper.columns([
     header: "Pelanggan",
     cell: ({ row }) => (
       <div className="flex flex-col">
-        <span className="font-medium text-foreground">{row.original.customer}</span>
-        <span className="text-xs text-muted-foreground">{row.original.email}</span>
+        <span className="font-medium text-card-foreground">{row.original.customer}</span>
+        <span className="text-xs text-card-foreground">{row.original.email}</span>
       </div>
     ),
   }),
   columnHelper.accessor("product", {
     header: "Produk",
     cell: ({ row }) => (
-      <span className="font-medium text-sm">
-        {row.original.product} <span className="text-xs text-muted-foreground">x{row.original.quantity}</span>
+      <span className="font-medium text-sm text-card-foreground">
+        {row.original.product} <span className="text-xs text-card-foreground">x{row.original.quantity}</span>
       </span>
     ),
   }),
   columnHelper.accessor("amount", {
-    header: () => <div className="text-right">Total</div>,
+    header: () => <div className="text-right text-card-foreground">Total</div>,
     cell: ({ row }) => (
-      <div className="text-right font-bold text-foreground">
+      <div className="text-right font-bold text-card-foreground">
         {row.original.amount}
       </div>
     ),
@@ -211,20 +201,20 @@ const columns = columnHelper.columns([
       return (
         <Badge
           variant="outline"
-          className={`px-2 py-0.5 border-none font-medium ${
+          className={`px-2 py-0.5 border font-medium ${
             status === "Completed"
-              ? "bg-emerald-50 text-emerald-600"
+              ? "bg-card  text-emerald-600"
               : status === "Processing"
-              ? "bg-blue-50 text-blue-600"
+              ? "bg-card  text-blue-600"
               : status === "Pending"
-              ? "bg-amber-50 text-amber-600"
-              : "bg-rose-50 text-rose-600"
+              ? "bg-card  text-amber-600"
+              : "bg-card  text-rose-600"
           }`}
         >
-          {status === "Completed" && <CircleCheckIcon className="mr-1 size-3" />}
-          {status === "Processing" && <LoaderIcon className="mr-1 size-3 animate-spin" />}
-          {status === "Pending" && <ClockIcon className="mr-1 size-3" />}
-          {status === "Cancelled" && <XCircleIcon className="mr-1 size-3" />}
+          {status === "Completed" && <CircleCheckIcon className="mr-1 size-3 text-card-foreground" />}
+          {status === "Processing" && <LoaderIcon className="mr-1 size-3 animate-spin text-card-foreground" />}
+          {status === "Pending" && <ClockIcon className="mr-1 size-3 text-card-foreground" />}
+          {status === "Cancelled" && <XCircleIcon className="mr-1 size-3 text-card-foreground" />}
           {status}
         </Badge>
       );
@@ -233,7 +223,7 @@ const columns = columnHelper.columns([
   columnHelper.accessor("paymentMethod", {
     header: "Pembayaran",
     cell: ({ row }) => (
-      <Badge variant="secondary" className="text-xs">
+      <Badge variant="outline" className="text-xs text-card-foreground">
         {row.original.paymentMethod}
       </Badge>
     ),
@@ -359,9 +349,9 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger
-              render={<Button variant="outline" size="sm" />}
+              render={<Button variant="default" size="sm"/>}
             >
-              <Columns3Icon className="mr-2 size-4" />
+              <Columns3Icon className="mr-2 size-4 text-card-foreground" />
               Kolom
               <ChevronDownIcon className="ml-2 size-4" />
             </DropdownMenuTrigger>
@@ -388,15 +378,15 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button size="sm" onClick={() => toast.success("Membuka form pesanan baru")}>
-            <PlusIcon className="mr-1 size-4" />
-            <span className="hidden lg:inline">Place an Order</span>
+          <Button size="sm" onClick={() => toast.success("Membuka form pesanan baru")} variant="ghost">
+            <PlusIcon className="mr-1 size-4 text-card-foreground" />
+            <span className="hidden lg:inline text-card-foreground">Place an Order</span>
           </Button>
         </div>
       </div>
 
       <TabsContent value="all" className="relative  flex flex-col gap-4 overflow-auto px-2">
-        <div className="overflow-hidden rounded-lg border bg-sidebar">
+        <div className="overflow-hidden rounded-lg border bg-card">
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}
@@ -405,7 +395,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
             id={sortableId}
           >
             <Table>
-              <TableHeader className="sticky top-0 z-10 bg-muted/60">
+              <TableHeader className="sticky top-0 z-10 bg-card/80">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
@@ -432,7 +422,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
                   <TableRow>
                     <TableCell
                       colSpan={columns.length}
-                      className="h-24 text-center"
+                      className="h-24 text-center text-card-foreground"
                     >
                       There is no order data yet.
                     </TableCell>
@@ -445,7 +435,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
 
         {/* Pagination Footer */}
         <div className="flex items-center justify-between px-2 text-xs">
-          <div className="text-muted-foreground">
+          <div className="text-card-foreground">
             {table.getFilteredSelectedRowModel().rows.length} dari{" "}
             {table.getFilteredRowModel().rows.length} baris dipilih.
           </div>
@@ -507,8 +497,8 @@ function TableCellViewer({ item }: { item: Order }) {
       <DrawerTrigger
         render={
           <Button
-            variant="link"
-            className="w-fit px-0 font-bold text-foreground hover:underline"
+            variant="default"
+            className="w-fit px-0 font-bold text-card-foreground hover:underline"
           />
         }
       >
@@ -522,29 +512,29 @@ function TableCellViewer({ item }: { item: Order }) {
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 px-4 text-sm">
-          <div className="grid grid-cols-2 gap-4 rounded-lg border p-4 bg-muted/20">
+          <div className="grid grid-cols-2 gap-4 rounded-lg border p-4 bg-card">
             <div>
-              <span className="text-xs text-muted-foreground">Pelanggan</span>
-              <p className="font-medium">{item.customer}</p>
-              <p className="text-xs text-muted-foreground">{item.email}</p>
+              <span className="text-xs text-card-foreground">Pelanggan</span>
+              <p className="font-medium text-card-foreground">{item.customer}</p>
+              <p className="text-xs text-card-foreground">{item.email}</p>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground">Total Pembayaran</span>
-              <p className="font-bold text-lg text-primary">{item.amount}</p>
+              <span className="text-xs text-card-foreground">Total Pembayaran</span>
+              <p className="font-bold text-lg text-card-foreground">{item.amount}</p>
             </div>
           </div>
           <Separator />
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Produk:</span>
+              <span className="text-card-foreground">Produk:</span>
               <span className="font-medium">{item.product} (x{item.quantity})</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Metode Pembayaran:</span>
+              <span className="text-card-foreground">Metode Pembayaran:</span>
               <span className="font-medium">{item.paymentMethod}</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">Tanggal:</span>
+              <span className="text-card-foreground">Tanggal:</span>
               <span className="font-medium">{item.date}</span>
             </div>
           </div>

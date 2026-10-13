@@ -49,10 +49,10 @@ export default function DashboardPage() {
         </div>
 
         {/* 3. RECENT ORDERS DATA TABLE */}
-        <div className="rounded-xl border bg-sidebar p-4 text-card-foreground shadow-2xs md:p-6">
+        <div className="rounded-xl border bg-card p-4 text-card-foreground shadow-2xs md:p-6">
           <div className="mb-4">
-            <h2 className="text-lg font-bold tracking-tight">Latest Orders</h2>
-            <p className="text-xs text-muted-foreground">
+            <h2 className="text-lg text-card-foreground font-bold tracking-tight">Latest Orders</h2>
+            <p className="text-xs text-card-foreground">
               List of transactions and latest order status at the Coffesy store.
             </p>
           </div>
