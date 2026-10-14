@@ -35,7 +35,7 @@ const SpecialProductsClient = ({ products }: { products: Product[] }) => {
               <div className="relative w-full aspect-square rounded-2xl bg-secondary/40 flex items-center justify-center mb-6 overflow-visible">
                 <div className="relative w-full h-full z-10 transition-transform duration-500 ease-out group-hover:-translate-y-3 cursor-pointer">
                   <Image
-                    src={product.imageUrl}
+                    src={product.imageUrl!}
                     alt={product.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
