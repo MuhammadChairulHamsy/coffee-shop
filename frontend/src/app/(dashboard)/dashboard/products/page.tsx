@@ -21,20 +21,20 @@ export default function ProductsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-2xl text-sidebar-foreground font-bold tracking-tight">
             Katalog Produk Speciality
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-sidebar-foreground">
             There is no order data yet. Manage stock, prices, and the Coffeo
             coffee product list.
           </p>
         </div>
         <div className="flex flex-col gap-1">
-          <Button>
+          <Button variant="default">
             <Download className="mr-1 size-4" />
             Export data
           </Button>
-          <Button>
+          <Button variant="default">
             <PlusIcon className="mr-1 size-4" />
             New Product
           </Button>
@@ -46,7 +46,7 @@ export default function ProductsPage() {
             value={search}
             onChange={setSearch}
             placeholder="Search product..."
-            className="max-w-md"
+            className="max-w-md text-card-foreground"
           />
         </div>
         <div className="flex flex-wrap items-center gap-3 lg:ml-auto">

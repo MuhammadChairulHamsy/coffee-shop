@@ -122,7 +122,7 @@ function DragHandle({ id }: { id: string }) {
       {...listeners}
       variant="ghost"
       size="icon"
-      className="size-7 text-card-foreground hover:bg-transparent"
+      className="size-7 text-card-foreground border-transparent hover:bg-transparent"
     >
       <GripVerticalIcon className="size-3" />
       <span className="sr-only text-card-foreground">Drag to reorder</span>
@@ -166,7 +166,7 @@ const columns = columnHelper.columns([
   }),
   columnHelper.accessor("id", {
     header: "Order ID",
-    cell: ({ row }) => <TableCellViewer item={row.original} />,
+    cell: ({ row }) => <TableCellViewer item={row.original}  />,
     enableHiding: false,
   }),
   columnHelper.accessor("customer", {
@@ -230,13 +230,14 @@ const columns = columnHelper.columns([
   }),
   columnHelper.display({
     id: "actions",
+    header: "Action",
     cell: ({ row }) => (
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
             <Button
               variant="ghost"
-              className="flex size-8 text-muted-foreground data-open:bg-muted"
+              className="flex size-8 border-transparent text-card-foreground data-open:bg-muted"
               size="icon"
             />
           }
@@ -268,7 +269,7 @@ function DraggableRow({ row }: { row: Row<typeof features, Order> }) {
       data-state={row.getIsSelected() && "selected"}
       data-dragging={isDragging}
       ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
+      className="relative z-0  data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
@@ -353,7 +354,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
             >
               <Columns3Icon className="mr-2 size-4 text-card-foreground" />
               Kolom
-              <ChevronDownIcon className="ml-2 size-4" />
+              <ChevronDownIcon className="ml-2 size-4 text-card-foreground" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-36">
               {table
@@ -378,7 +379,7 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button size="sm" onClick={() => toast.success("Membuka form pesanan baru")} variant="ghost">
+          <Button size="sm" onClick={() => toast.success("Membuka form pesanan baru")} variant="default">
             <PlusIcon className="mr-1 size-4 text-card-foreground" />
             <span className="hidden lg:inline text-card-foreground">Place an Order</span>
           </Button>
@@ -464,22 +465,22 @@ export function DataTable({ data: initialData }: { data: Order[] }) {
             </div>
             <div className="flex items-center gap-1">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 className="size-7"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <ChevronLeftIcon className="size-4" />
+                <ChevronLeftIcon className="size-4 text-card-foreground" />
               </Button>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 className="size-7"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <ChevronRightIcon className="size-4" />
+                <ChevronRightIcon className="size-4 text-card-foreground" />
               </Button>
             </div>
           </div>
@@ -498,7 +499,7 @@ function TableCellViewer({ item }: { item: Order }) {
         render={
           <Button
             variant="default"
-            className="w-fit px-0 font-bold text-card-foreground hover:underline"
+            className="w-fit px-0 font-bold border-transparent text-card-foreground hover:underline"
           />
         }
       >

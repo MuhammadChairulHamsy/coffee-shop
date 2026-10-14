@@ -11,7 +11,7 @@ export const SearchBar = ({
 }: SearchBarProps) => {
   return (
     <div className={`relative ${className}`}>
-      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-card-foreground" />
       <Input
         type="text"
         placeholder={placeholder}
@@ -22,8 +22,8 @@ export const SearchBar = ({
       {value && (
         <Button
           onClick={() => onChange("")}
-          variant="ghost"
-          className="hover:bg-foreground transition-colors duration-500 ease-in-out w-7 h-7 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          variant="default"
+          className="hover:bg-card-foreground transition-colors duration-500 ease-in-out w-7 h-7 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
         >
           <X className="h-4 w-4" />
         </Button>

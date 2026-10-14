@@ -26,7 +26,7 @@ const LatestProductsClient = ({ products }: { products: Product[] }) => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group bg-card text-card-foreground border border-border/40 rounded-3xl p-5 w-full max-w-[320px] flex flex-col hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+              className="group bg-background text-card-foreground border border-border/40 rounded-3xl p-5 w-full max-w-[320px] flex flex-col hover:shadow-xl hover:border-primary/30 transition-all duration-300"
             >
               <div className="relative w-full aspect-square rounded-2xl bg-secondary/40 flex items-center justify-center mb-6 overflow-visible">
                 <div className="relative w-full h-full z-10 transition-transform duration-500 ease-out group-hover:-translate-y-3 cursor-pointer">

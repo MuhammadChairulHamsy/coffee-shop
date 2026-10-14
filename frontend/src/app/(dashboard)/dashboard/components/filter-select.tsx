@@ -38,7 +38,7 @@ export function FilterSelect<T extends string>({
   return (
     <Select value={value} onValueChange={(v) => onValueChange(v as T)}>
       <SelectTrigger
-        className={`h-11 w-auto min-w-44 gap-2 rounded-full border-0 bg-muted/50 px-5 text-sm font-medium text-foreground data-placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-border [&>svg:last-child]:hidden ${className ?? ""}`}
+        className={`h-11 w-auto min-w-44  gap-2 rounded-full border bg-card/50 px-5 text-sm font-medium text-card-foreground data-placeholder:text-card-foreground focus-visible:ring-1 focus-visible:ring-border [&>svg:last-child]:hidden ${className ?? ""}`}
       >
         {icon}
         <SelectValue placeholder={placeholder}>
@@ -47,9 +47,9 @@ export function FilterSelect<T extends string>({
 
         {/* Indicator kanan */}
         {indicator === "chevron" ? (
-          <ChevronDown className="ml-auto h-4 w-4 shrink-0 text-muted-foreground" />
+          <ChevronDown className="ml-auto h-4 w-4 shrink-0 text-card-foreground" />
         ) : (
-          <ArrowUpDown className="ml-auto h-4 w-4 shrink-0 text-muted-foreground" />
+          <ArrowUpDown className="ml-auto h-4 w-4 shrink-0 text-card-foreground" />
         )}
       </SelectTrigger>
 

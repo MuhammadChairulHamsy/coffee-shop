@@ -58,7 +58,7 @@ function TrendBadge({ trend, text }: { trend: Trend; text: string }) {
     positive: "text-emerald-400 border-emerald-400/30 bg-emerald-400/5",
     negative: "text-rose-400 border-rose-400/30 bg-rose-400/5",
     warning: "text-orange-400 border-orange-400/30 bg-orange-400/5",
-    neutral: "text-muted-foreground border-border bg-muted/30",
+    neutral: "text-card-foreground border-border bg-muted/30",
   };
   return (
     <Badge
