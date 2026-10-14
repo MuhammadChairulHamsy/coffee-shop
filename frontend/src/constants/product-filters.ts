@@ -23,3 +23,5 @@ export const SORT_OPTIONS: { value: ProductSort; label: string }[] = [
   { value: "harga-desc", label: "Urutan: Harga Tertinggi" },
   { value: "rating", label: "Urutan: Rating" },
 ];
+
+export const PAGE_SIZE = 20;

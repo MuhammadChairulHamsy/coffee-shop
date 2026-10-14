@@ -1,15 +1,17 @@
 import type { Request, Response, NextFunction } from "express";
 import * as productService from "../services/product.service.js";
-import type { ToggleLikeBody } from "../schemas/product.schema.js";
+import type { ListProductsQuery, ToggleLikeBody } from "../schemas/product.schema.js";
+
 
 export const getAllProducts = async (
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const data = await productService.getAllProducts();
-    res.status(200).json({ success: true, data });
+    const query = req.validated!.query as ListProductsQuery;
+    const result = await productService.getAllProducts(query);
+    res.status(200).json({ success: true, ...result });
   } catch (error) {
     next(error);
   }

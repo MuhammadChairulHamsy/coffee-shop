@@ -1,10 +1,38 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
+import type { ListProductsQuery } from "@/schemas/product.schema.js";
 
-export const getAllProducts = async () => {
-  return prisma.products.findMany({ orderBy: { createdAt: "desc" } });
+export const getAllProducts = async (params: ListProductsQuery) => {
+  const { page, limit, search, category } = params;
+  const skip = (page - 1) * limit;
+
+  const where = {
+    ...(search && {
+      name: { contains: search, mode: "insensitive" as const },
+    }),
+    ...(category && { category }),
+  };
+
+  const [data, total] = await prisma.$transaction([
+    prisma.products.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: limit,
+    }),
+    prisma.products.count({ where }),
+  ]);
+
+  return {
+    data,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
 };
-
 export const getLatestProducts = async () => {
   return prisma.products.findMany({
     where: { is_special: false },

@@ -1,5 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
+/* ---------- UI-only types ---------- */
+
 export interface QualityItem {
   id: number;
   icon: LucideIcon;
@@ -7,19 +9,15 @@ export interface QualityItem {
   description: string;
 }
 
-export type Product = {
-  id: number;
-  name: string;
-  imageUrl: string;
-  description: string | null;
-  price: number;
-  type: string;
-  category: string;
-  is_liked: boolean;
-  is_special: boolean;
-  created_at?: string;
-};
+/* ---------- Product — re-export dari Zod schema ---------- */
 
-// Aliases
-export type LatestProduct = Product;
-export type SpecialProduct = Product;
+export type {
+  Product,
+  PaginatedProducts,
+  ListProductsQuery,
+} from "@/schemas/product.schema";
+
+/* ---------- Aliases ---------- */
+
+export type { Product as LatestProduct } from "@/schemas/product.schema";
+export type { Product as SpecialProduct } from "@/schemas/product.schema";

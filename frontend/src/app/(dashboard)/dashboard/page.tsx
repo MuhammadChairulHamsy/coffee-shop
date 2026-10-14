@@ -6,7 +6,7 @@ import { SectionCards } from "@/components/section-cards";
 import { DataTable } from "@/components/data-table";
 import { recentOrdersData } from "@/constants/recent-order-data";
 import { LatestOrdersCard } from "./components/latest-order-card";
-import { FormatDate } from "@/utils/format-date";
+import { formatDate } from "@/utils/format";
 
 export default function DashboardPage() {
   const [formattedDate, setFormattedDate] = React.useState<string>("");
@@ -29,7 +29,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="w-fit rounded-full border bg-muted/40 px-4 py-1.5 text-xs font-medium text-sidebar-foreground shadow-2xs">
-          {formattedDate ? FormatDate(formattedDate) : "Memuat tanggal..."}
+          {formattedDate ? formatDate(formattedDate) : "Memuat tanggal..."}
         </div>
       </div>
 

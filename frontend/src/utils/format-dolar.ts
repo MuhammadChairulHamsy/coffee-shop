@@ -5,3 +5,4 @@ export const formatDolar = (price: number) => {
     minimumFractionDigits: 0,
   }).format(price);
 };
+
