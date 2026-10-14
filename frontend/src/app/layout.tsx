@@ -8,6 +8,7 @@ import ConditionalLayout from "@/components/layouts/conditional-layout";
 import Navbar from "@/components/layouts/navbar";
 import Footer from "@/components/layouts/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "sonner";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
@@ -55,6 +56,7 @@ export default function RootLayout({
               footer={<Footer />}
             >
               {children}
+              <Toaster position="top-right" richColors />
             </ConditionalLayout>
           </TooltipProvider>
         </QueryProvider>

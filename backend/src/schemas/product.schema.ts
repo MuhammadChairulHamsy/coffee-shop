@@ -1,5 +1,20 @@
 import { z } from "zod";
 
+export const productSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  description: z.string().nullable(),
+  price: z.number(),
+  type: z.string(),
+  category: z.string(),
+  imageUrl: z.string().nullable(),
+  is_liked: z.boolean(),
+  is_special: z.boolean(),
+  createdAt: z.string(),
+  updateAt: z.string()
+});
+
+export type Product = z.infer<typeof productSchema>;
 
 export const listProductsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
@@ -21,6 +36,22 @@ export const productIdParamSchema = z.object({
 });
 
 export type ProductIdParam = z.infer<typeof productIdParamSchema>;
+
+export const createProductBodySchema = z.object({
+  name: z.string().trim().min(2, "Nama minimal 2 karakter").max(200),
+  description: z.string().trim().max(2000).optional().nullable(),
+  price: z.coerce.number().int().positive("Harga harus lebih dari 0"),
+  type: z.string().trim().min(1, "Type wajib diisi").max(100),
+  category: z.string().trim().min(1, "Category wajib diisi").max(100),
+  imageUrl: z.string().url("URL gambar tidak valid").optional().nullable().or(z.literal("")),
+  is_special: z.boolean().default(false),
+});
+
+export type CreateProductBody = z.infer<typeof createProductBodySchema>;
+
+export const updateProductBodySchema = createProductBodySchema.partial();
+
+export type UpdateProductBody = z.infer<typeof updateProductBodySchema>;
 
 /** Body: PATCH /products/:id/like */
 export const toggleLikeBodySchema = z.object({

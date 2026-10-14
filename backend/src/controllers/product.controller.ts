@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import * as productService from "../services/product.service.js";
-import type { ListProductsQuery, ToggleLikeBody } from "../schemas/product.schema.js";
+import type { CreateProductBody, ListProductsQuery, ToggleLikeBody, UpdateProductBody } from "../schemas/product.schema.js";
 
 
 export const getAllProducts = async (
@@ -12,6 +12,20 @@ export const getAllProducts = async (
     const query = req.validated!.query as ListProductsQuery;
     const result = await productService.getAllProducts(query);
     res.status(200).json({ success: true, ...result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProductById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.validated!.params as { id: number };
+    const product = await productService.getProductById(id);
+    res.status(200).json({ success: true, data: product });
   } catch (error) {
     next(error);
   }
@@ -42,6 +56,51 @@ export const getLatestProducts = async (
     next(error);
   }
 };
+
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const body = req.validated!.body as CreateProductBody;
+    const product = await productService.createProduct(body);
+    res.status(201).json({ success: true, data: product });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.validated!.params as { id: number };
+    const body = req.validated!.body as UpdateProductBody;
+    const product = await productService.updateProduct(id, body);
+    res.status(200).json({ success: true, data: product });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.validated!.params as { id: number };
+    await productService.deleteProduct(id);
+    res.status(200).json({ success: true, message: "Produk berhasil dihapus" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export const toggleLike = async (
   req: Request,

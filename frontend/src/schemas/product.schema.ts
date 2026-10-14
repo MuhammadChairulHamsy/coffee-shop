@@ -13,6 +13,7 @@ export const productSchema = z.object({
   is_liked: z.boolean(),
   is_special: z.boolean(),
   createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export type Product = z.infer<typeof productSchema>;

@@ -1,11 +1,11 @@
 "use client";
 
-import { useFilteredProducts } from "@/hooks/useFilteredProducts";
+import { useFilteredProducts } from "@/hooks/use-filtered-products";
 import { PRODUCT_FILTERS } from "@/constants/product-filters";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Coffee, Heart, ShoppingBag } from "lucide-react";
-import { useProducts } from "@/hooks/useProducts";
+import { useProducts } from "@/hooks/use-products";
 import { ProductSkeleton } from "@/app/(marketing)/product/product-skeleton";
 
 const formatDolar = (price: number) =>

@@ -51,6 +51,8 @@ export function ProductRow({
               <Image
                 src={product.imageUrl!}
                 alt={product.name}
+                width={48}
+                height={48}
                 loading="lazy"
                 unoptimized
                 className="size-12 rounded-md border border-neutral-800 object-cover"

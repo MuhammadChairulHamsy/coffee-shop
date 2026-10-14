@@ -1,6 +1,6 @@
 "use client"
 
-import { useLatestProducts } from "@/hooks/useProducts";
+import { useLatestProducts } from "@/hooks/use-products";
 import LatestProductsClient from "./latestProductsClient";
 
 const LatestProducts = () => {

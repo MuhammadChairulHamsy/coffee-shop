@@ -7,14 +7,16 @@ import { SearchBar } from "@//app/(dashboard)/dashboard/components/search-bar";
 import { FilterSelect } from "@/app/(dashboard)/dashboard/components/filter-select";
 import { ViewToggle } from "@/app/(dashboard)/dashboard/components/view-toggle";
 import ProductTable from "@/app/(dashboard)/dashboard/components/product/product-table";
-import { useProducts } from "@/hooks/useProducts";
+import { ProductFormDialog } from "@/app/(dashboard)/dashboard/components/product/product-form-dialog";
+import { ProductDeleteDialog } from "@/app/(dashboard)/dashboard/components/product/product-delete-dialog";
+import { useProducts } from "@/hooks/use-products";
 import { useDebounce } from "@/hooks/use-debounce";
 import {
   PAGE_SIZE,
   PROFILE_OPTIONS,
   SORT_OPTIONS,
 } from "@/constants/product-filters";
-import type { Product } from "@/types/product";
+import type { Product } from "@/schemas/product.schema";
 import type {
   ProfileFilter,
   ProductSort,
@@ -29,19 +31,28 @@ export default function ProductsPage() {
   const [view, setView] = React.useState<ViewMode>("grid");
   const [page, setPage] = React.useState(1);
 
-  // ⬇️ Simpan pilihan user mentah (tanpa sync ke products)
+  /* ---------- Dialog State ---------- */
+  const [formOpen, setFormOpen] = React.useState(false);
+  const [editingProduct, setEditingProduct] = React.useState<Product | null>(
+    null,
+  );
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [deletingProduct, setDeletingProduct] = React.useState<Product | null>(
+    null,
+  );
+
+  /* ---------- Selection ---------- */
   const [pickedIds, setPickedIds] = React.useState<number[]>([]);
 
   const debouncedSearch = useDebounce(search, 300);
 
-  /* ---------- Data Fetching ---------- */
+  /* ---------- Data ---------- */
   const { products, meta, status, error, refetch } = useProducts({
     page,
     limit: PAGE_SIZE,
     search: debouncedSearch || undefined,
   });
 
-  /* ---------- Derived: selectedIds yang valid saja ---------- */
   const selectedIds = React.useMemo(
     () => pickedIds.filter((id) => products.some((p) => p.id === id)),
     [pickedIds, products],
@@ -61,15 +72,21 @@ export default function ProductsPage() {
     [products],
   );
 
+  const handleCreate = React.useCallback(() => {
+    setEditingProduct(null);
+    setFormOpen(true);
+  }, []);
+
   const handleEdit = React.useCallback((product: Product) => {
-    // TODO
+    setEditingProduct(product);
+    setFormOpen(true);
   }, []);
 
   const handleDelete = React.useCallback((product: Product) => {
-    // TODO
+    setDeletingProduct(product);
+    setDeleteOpen(true);
   }, []);
 
-  /* ---------- Effect: reset page saat search berubah ---------- */
   React.useEffect(() => {
     setPage(1);
   }, [debouncedSearch]);
@@ -80,10 +97,10 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-2xl text-sidebar-foreground font-bold tracking-tight">
             Katalog Produk Speciality
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-sidebar-foreground">
             Kelola stok, harga, dan daftar produk kopi Coffeo.
           </p>
         </div>
@@ -92,7 +109,7 @@ export default function ProductsPage() {
             <Download className="mr-1 size-4" />
             Export
           </Button>
-          <Button>
+          <Button onClick={handleCreate}>
             <PlusIcon className="mr-1 size-4" />
             New Product
           </Button>
@@ -126,7 +143,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Info count */}
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <div className="flex items-center gap-2 text-xs text-sidebar-foreground">
         <span>
           Menampilkan {meta?.total ?? 0} produk
           {selectedIds.length > 0 && ` · ${selectedIds.length} dipilih`}
@@ -172,6 +189,22 @@ export default function ProductsPage() {
           </Button>
         </div>
       )}
+
+      {/* Dialogs */}
+      <ProductFormDialog
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        product={editingProduct}
+      />
+
+      <ProductDeleteDialog
+        product={deletingProduct}
+        open={deleteOpen}
+        onOpenChange={(open) => {
+          setDeleteOpen(open);
+          if (!open) setDeletingProduct(null);
+        }}
+      />
     </div>
   );
 }

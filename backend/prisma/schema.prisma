@@ -76,7 +76,12 @@ model Products {
   type        String
   category    String
   imageUrl    String?
-  is_liked    Boolean
-  is_special  Boolean
+  is_liked    Boolean @default(false) 
+  is_special  Boolean @default(false) 
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([is_special])
+  @@index([createdAt])
 }

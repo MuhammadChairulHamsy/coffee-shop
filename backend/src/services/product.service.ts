@@ -1,6 +1,6 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
-import type { ListProductsQuery } from "@/schemas/product.schema.js";
+import type { CreateProductBody, ListProductsQuery, UpdateProductBody } from "@/schemas/product.schema.js";
 
 export const getAllProducts = async (params: ListProductsQuery) => {
   const { page, limit, search, category } = params;
@@ -33,6 +33,13 @@ export const getAllProducts = async (params: ListProductsQuery) => {
     },
   };
 };
+
+export const getProductById = async (id: number) => {
+  const product = await prisma.products.findUnique({ where: { id } });
+  if (!product) throw new NotFoundError("Produk tidak ditemukan");
+  return product;
+};
+
 export const getLatestProducts = async () => {
   return prisma.products.findMany({
     where: { is_special: false },
@@ -47,6 +54,46 @@ export const getSpecialProducts = async () => {
     orderBy: { createdAt: "desc" },
   });
 };
+
+export const createProduct = async (body: CreateProductBody) => {
+  return prisma.products.create({
+    data: {
+      name: body.name,
+      description: body.description || null,
+      price: body.price,
+      type: body.type,
+      category: body.category,
+      imageUrl: body.imageUrl || null,
+      is_special: body.is_special ?? false,
+    },
+  });
+};
+
+export const updateProduct = async (id: number, body: UpdateProductBody) => {
+  await getProductById(id); // throw 404 kalau tidak ada
+
+  return prisma.products.update({
+    where: { id },
+    data: {
+      ...(body.name !== undefined && { name: body.name }),
+      ...(body.description !== undefined && {
+        description: body.description || null,
+      }),
+      ...(body.price !== undefined && { price: body.price }),
+      ...(body.type !== undefined && { type: body.type }),
+      ...(body.category !== undefined && { category: body.category }),
+      ...(body.imageUrl !== undefined && { imageUrl: body.imageUrl || null }),
+      ...(body.is_special !== undefined && { is_special: body.is_special }),
+    },
+  });
+};
+
+export const deleteProduct = async (id: number) => {
+  await getProductById(id);
+
+  return prisma.products.delete({ where: { id } });
+};
+
 
 export const setProductLike = async (id: number, isLiked: boolean) => {
   const exists = await prisma.products.findUnique({
