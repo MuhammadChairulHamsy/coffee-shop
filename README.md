@@ -135,15 +135,15 @@ pnpm install
 ```
 
 ### Buat file .env:
-# Database
+#### Database
 DATABASE_URL="your-database-name"
 
-# Auth
+#### Auth
 BETTER_AUTH_SECRET="minimal-32-karakter-secret-key-anda"
 GOOGLE_CLIENT_ID="xxxxx.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET="GOCSPX-xxxxxxxxxxxx"
 
-# App
+#### App
 PORT=3001
 NODE_ENV="development"
 
@@ -164,13 +164,13 @@ cd ../frontend
 pnpm install
 ```
 
-### Buat file .env.local:
+#### Buat file .env.local:
 NEXT_PUBLIC_API_URL="http://localhost:3001"
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
 CLOUDINARY_API_KEY="123456789012345"
 CLOUDINARY_API_SECRET="your-api-secret"
 
-### Start frontend:
+#### Start frontend:
 ```
 pnpm dev
 ```
