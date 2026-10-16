@@ -139,9 +139,11 @@ pnpm install
 DATABASE_URL="your-database-name".
 
 #### Auth
+``` env
 BETTER_AUTH_SECRET="minimal-32-karakter-secret-key-anda".
 GOOGLE_CLIENT_ID="xxxxx.apps.googleusercontent.com".
 GOOGLE_CLIENT_SECRET="GOCSPX-xxxxxxxxxxxx".
+```
 
 #### App
 PORT=3001
@@ -165,10 +167,12 @@ pnpm install
 ```
 
 #### Buat file .env.local:
+``` env
 NEXT_PUBLIC_API_URL="http://localhost:3001".
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name".
 CLOUDINARY_API_KEY="123456789012345".
 CLOUDINARY_API_SECRET="your-api-secret".
+```
 
 #### Start frontend:
 ```
