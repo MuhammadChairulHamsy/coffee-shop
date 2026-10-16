@@ -77,6 +77,7 @@ Project ini dibangun dengan **arsitektur monorepo** yang memisahkan **frontend**
 ---
 
 ## 📁 Struktur Project
+```
 coffee-shop/
 ├── frontend/ # Next.js app
 │ ├── src/
@@ -107,7 +108,7 @@ coffee-shop/
 │ └── seed.ts
 │
 └── README.md
-
+```
 
 ---
 
@@ -125,7 +126,51 @@ coffee-shop/
 ```bash
 git clone https://github.com/yourusername/coffee-shop.git
 cd coffee-shop
+```
 
-## Setup backend
+## 2. Setup backend
+```
 cd backend
 pnpm install
+```
+
+### Buat file .env:
+# Database
+DATABASE_URL="your-database-name"
+
+# Auth
+BETTER_AUTH_SECRET="minimal-32-karakter-secret-key-anda"
+GOOGLE_CLIENT_ID="xxxxx.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="GOCSPX-xxxxxxxxxxxx"
+
+# App
+PORT=3001
+NODE_ENV="development"
+
+### Jalankan migrasi & seed:
+```
+pnpm prisma migrate dev
+pnpm prisma db seed
+```
+
+### Start backend:
+```
+pnpm dev
+```
+
+## 3. Setup Frontend
+```
+cd ../frontend
+pnpm install
+```
+
+### Buat file .env.local:
+NEXT_PUBLIC_API_URL="http://localhost:3001"
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="123456789012345"
+CLOUDINARY_API_SECRET="your-api-secret"
+
+### Start frontend:
+```
+pnpm dev
+```
