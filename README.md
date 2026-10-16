@@ -146,8 +146,10 @@ GOOGLE_CLIENT_SECRET="GOCSPX-xxxxxxxxxxxx".
 ```
 
 #### App
+```
 PORT=3001
 NODE_ENV="development"
+```
 
 ### Jalankan migrasi & seed:
 ```
