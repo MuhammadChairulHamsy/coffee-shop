@@ -1,4 +1,4 @@
-// src/lib/auth.ts
+import { env } from "./env.js";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma.js";
@@ -8,12 +8,12 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   baseURL: "http://localhost:3001",
-  secret: process.env.BETTER_AUTH_SECRET,
+  secret: env.BETTER_AUTH_SECRET,
   trustedOrigins: ["http://localhost:3000"],
   socialProviders: {
     google: { 
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
       redirectURI: "http://localhost:3001/api/auth/callback/google",
     },
   },

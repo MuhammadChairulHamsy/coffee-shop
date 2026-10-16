@@ -61,6 +61,7 @@ export const formSchema = z.object({
     .trim()
     .url("URL gambar tidak valid")
     .optional()
+    .nullable()
     .or(z.literal("")),
   is_special: z.boolean().default(false),
 });

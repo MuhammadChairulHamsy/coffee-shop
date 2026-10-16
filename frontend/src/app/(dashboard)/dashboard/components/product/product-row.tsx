@@ -47,7 +47,6 @@ export function ProductRow({
         <div className="flex items-center gap-3">
           <div className="shrink-0">
             {hasValidImage ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <Image
                 src={product.imageUrl!}
                 alt={product.name}
@@ -75,7 +74,7 @@ export function ProductRow({
       </TableCell>
 
       <TableCell className="hidden max-w-xs px-4 py-3 lg:table-cell">
-        <p className="line-clamp-2 text-xs text-neutral-400">
+        <p className="truncate text-xs text-neutral-400">
           {product.description || "—"}
         </p>
       </TableCell>

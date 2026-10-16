@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "./lib/env.js";
 import express, { type Express } from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
@@ -10,6 +11,7 @@ import { pinoHttp } from "pino-http";
 import { logger } from "./lib/logger.js";
 import helmet from "helmet";
 import { prisma } from "./lib/prisma.js";
+import { env } from "./lib/env.js"; 
 
 const app: Express = express();
 
@@ -59,7 +61,7 @@ app.get("/health", async (_req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

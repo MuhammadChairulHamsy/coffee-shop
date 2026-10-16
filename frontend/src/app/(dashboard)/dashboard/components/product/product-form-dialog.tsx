@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -16,11 +15,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { useCreateProduct, useUpdateProduct } from "@/hooks/use-products";
 import { toApiError } from "@/lib/api-error";
-import { formSchema, type FormInput, type FormOutput, type Product } from "@/schemas/product.schema";
+import {
+  formSchema,
+  type FormInput,
+  type FormOutput,
+  type Product,
+} from "@/schemas/product.schema";
+import { ImageUpload } from "./image-upload";
 
 /* ---------- Props ---------- */
 
@@ -64,17 +69,15 @@ export function ProductFormDialog({
         is_special: product?.is_special ?? false,
       });
     }
-  }, [open, product, form]);
+  }, [open, product?.id]);
 
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = form.handleSubmit(async (values) => {
+    console.log("🔴 [Submit] Values:", values);
     try {
       if (isEdit && product) {
-        await updateMutation.mutateAsync({
-          id: product.id,
-          payload: values,
-        });
+        await updateMutation.mutateAsync({ id: product.id, payload: values });
         toast.success("Produk berhasil diperbarui");
       } else {
         await createMutation.mutateAsync(values);
@@ -90,7 +93,9 @@ export function ProductFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Produk" : "Tambah Produk Baru"}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? "Edit Produk" : "Tambah Produk Baru"}
+          </DialogTitle>
           <DialogDescription>
             {isEdit
               ? "Perbarui informasi produk di bawah ini."
@@ -99,68 +104,98 @@ export function ProductFormDialog({
         </DialogHeader>
 
         <form onSubmit={onSubmit} className="space-y-4">
-          <FormField
-            label="Nama Produk"
-            error={form.formState.errors.name?.message}
-            required
-          >
+          {/* ---------- Nama ---------- */}
+          <Field data-invalid={!!form.formState.errors.name}>
+            <FieldLabel htmlFor="name">
+              Nama Produk <span className="text-destructive">*</span>
+            </FieldLabel>
             <Input
+              id="name"
               placeholder="Ethiopia Guji Highland"
+              aria-invalid={!!form.formState.errors.name}
               {...form.register("name")}
             />
-          </FormField>
+            <FieldError errors={[form.formState.errors.name]} />
+          </Field>
 
-          <FormField label="Deskripsi">
+          {/* ---------- Deskripsi ---------- */}
+          <Field>
+            <FieldLabel htmlFor="description">Deskripsi</FieldLabel>
             <Textarea
+              id="description"
               placeholder="Floral, Bergamot, Peach..."
               rows={3}
               {...form.register("description")}
             />
-          </FormField>
+          </Field>
 
-          <FormField
-            label="Harga (IDR)"
-            error={form.formState.errors.price?.message}
-            required
-          >
+          {/* ---------- Harga ---------- */}
+          <Field data-invalid={!!form.formState.errors.price}>
+            <FieldLabel htmlFor="price">
+              Harga (IDR) <span className="text-destructive">*</span>
+            </FieldLabel>
             <Input
+              id="price"
               type="number"
               min={0}
               placeholder="145000"
+              aria-invalid={!!form.formState.errors.price}
               {...form.register("price")}
             />
-          </FormField>
+            <FieldError errors={[form.formState.errors.price]} />
+          </Field>
 
+          {/* ---------- Type & Category ---------- */}
           <div className="grid grid-cols-2 gap-3">
-            <FormField
-              label="Type"
-              error={form.formState.errors.type?.message}
-              required
-            >
-              <Input placeholder="Filter Roast" {...form.register("type")} />
-            </FormField>
+            <Field data-invalid={!!form.formState.errors.type}>
+              <FieldLabel htmlFor="type">
+                Type <span className="text-destructive">*</span>
+              </FieldLabel>
+              <Input
+                id="type"
+                placeholder="Filter Roast"
+                aria-invalid={!!form.formState.errors.type}
+                {...form.register("type")}
+              />
+              <FieldError errors={[form.formState.errors.type]} />
+            </Field>
 
-            <FormField
-              label="Category"
-              error={form.formState.errors.category?.message}
-              required
-            >
-              <Input placeholder="Single Origin" {...form.register("category")} />
-            </FormField>
+            <Field data-invalid={!!form.formState.errors.category}>
+              <FieldLabel htmlFor="category">
+                Category <span className="text-destructive">*</span>
+              </FieldLabel>
+              <Input
+                id="category"
+                placeholder="Single Origin"
+                aria-invalid={!!form.formState.errors.category}
+                {...form.register("category")}
+              />
+              <FieldError errors={[form.formState.errors.category]} />
+            </Field>
           </div>
 
-          <FormField
-            label="URL Gambar"
-            error={form.formState.errors.imageUrl?.message}
-          >
-            <Input
-              type="url"
-              placeholder="https://..."
-              {...form.register("imageUrl")}
+          {/* ---------- URL Gambar ---------- */}
+         <Field data-invalid={!!form.formState.errors.imageUrl}>
+            <FieldLabel>Gambar Produk</FieldLabel>
+            <ImageUpload
+              value={form.watch("imageUrl") ?? null}
+              onChange={(url) => {
+                console.log("🟡 [Form] URL dari ImageUpload:", url);
+                form.setValue("imageUrl", url ?? "", {
+                  shouldValidate: true,
+                  shouldDirty: true,   // ⬅️ tandai form sebagai dirty
+                });
+                console.log(
+                  "🟢 [Form] form.imageUrl sekarang:",
+                  form.getValues("imageUrl"),
+                );
+              }}
             />
-          </FormField>
+            <FieldError errors={[form.formState.errors.imageUrl]} />
+          </Field>
 
-          <div className="flex items-center gap-2">
+          {/* ---------- is_special ---------- */}
+          <Field orientation="horizontal">
             <Checkbox
               id="is_special"
               checked={form.watch("is_special")}
@@ -168,16 +203,19 @@ export function ProductFormDialog({
                 form.setValue("is_special", Boolean(checked))
               }
             />
-            <Label htmlFor="is_special" className="cursor-pointer">
+            <FieldLabel
+              htmlFor="is_special"
+              className="cursor-pointer font-normal"
+            >
               Tandai sebagai produk special
-            </Label>
-          </div>
+            </FieldLabel>
+          </Field>
         </form>
 
         <DialogFooter>
           <Button
             type="button"
-            variant="outline"
+            variant="default"
             onClick={() => onOpenChange(false)}
             disabled={isPending}
           >
@@ -193,29 +231,5 @@ export function ProductFormDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-}
-
-/* ---------- Sub-component: FormField ---------- */
-
-function FormField({
-  label,
-  error,
-  required,
-  children,
-}: {
-  label: string;
-  error?: string;
-  required?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label>
-        {label} {required && <span className="text-rose-400">*</span>}
-      </Label>
-      {children}
-      {error && <p className="text-xs text-rose-400">{error}</p>}
-    </div>
   );
 }
