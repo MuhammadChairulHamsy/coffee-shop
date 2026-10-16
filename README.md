@@ -136,7 +136,9 @@ pnpm install
 
 ### Buat file .env:
 #### Database
+```
 DATABASE_URL="your-database-name".
+```
 
 #### Auth
 ``` env
