@@ -20,27 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCreateProduct, useUpdateProduct } from "@/hooks/use-products";
 import { toApiError } from "@/lib/api-error";
-import type { Product } from "@/schemas/product.schema";
-
-/* ---------- Form Schema ---------- */
-
-const formSchema = z.object({
-  name: z.string().trim().min(2, "Nama minimal 2 karakter").max(200),
-  description: z.string().trim().max(2000).optional(),
-  price: z.coerce.number().int().positive("Harga harus lebih dari 0"),
-  type: z.string().trim().min(1, "Type wajib diisi").max(100),
-  category: z.string().trim().min(1, "Category wajib diisi").max(100),
-  imageUrl: z
-    .string()
-    .trim()
-    .url("URL gambar tidak valid")
-    .optional()
-    .or(z.literal("")),
-  is_special: z.boolean().default(false),
-});
-
-type FormInput = z.input<typeof formSchema>;
-type FormOutput = z.output<typeof formSchema>;
+import { formSchema, type FormInput, type FormOutput, type Product } from "@/schemas/product.schema";
 
 /* ---------- Props ---------- */
 

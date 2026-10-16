@@ -70,7 +70,7 @@ export const createProduct = async (body: CreateProductBody) => {
 };
 
 export const updateProduct = async (id: number, body: UpdateProductBody) => {
-  await getProductById(id); // throw 404 kalau tidak ada
+  await getProductById(id); 
 
   return prisma.products.update({
     where: { id },

@@ -46,3 +46,24 @@ export const paginatedProductsSchema = z.object({
 });
 
 export type PaginatedProducts = z.infer<typeof paginatedProductsSchema>;
+
+
+/* ---------- Form Schema ---------- */
+
+export const formSchema = z.object({
+  name: z.string().trim().min(2, "Nama minimal 2 karakter").max(200),
+  description: z.string().trim().max(2000).optional(),
+  price: z.coerce.number().int().positive("Harga harus lebih dari 0"),
+  type: z.string().trim().min(1, "Type wajib diisi").max(100),
+  category: z.string().trim().min(1, "Category wajib diisi").max(100),
+  imageUrl: z
+    .string()
+    .trim()
+    .url("URL gambar tidak valid")
+    .optional()
+    .or(z.literal("")),
+  is_special: z.boolean().default(false),
+});
+
+export type FormInput = z.input<typeof formSchema>;
+export type FormOutput = z.output<typeof formSchema>;
