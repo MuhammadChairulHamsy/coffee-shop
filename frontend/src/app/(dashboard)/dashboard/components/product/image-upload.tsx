@@ -57,8 +57,6 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
         throw new Error(json.message ?? "Upload gagal");
       }
 
-      console.log("🔵 [ImageUpload] Upload sukses, URL:", json.data.url);
-
       onChange(json.data.url);
       setPreview(json.data.url);
 
@@ -105,7 +103,6 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
           <Image
             src={preview}
             alt="Preview"
-            fill
             unoptimized={preview.startsWith("blob:")}
             className="object-cover"
           />
@@ -124,7 +121,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={isUploading}
-          className="flex aspect-square w-full max-w-48 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-800 text-neutral-500 transition-colors hover:border-neutral-700 hover:text-neutral-400"
+          className="flex aspect-square w-full max-w-36 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-800 text-neutral-500 transition-colors hover:border-neutral-700 hover:text-neutral-400 cursor-pointer"
         >
           {isUploading ? (
             <>

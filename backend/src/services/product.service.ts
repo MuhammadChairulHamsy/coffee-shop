@@ -1,25 +1,43 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
 import type { CreateProductBody, ListProductsQuery, UpdateProductBody } from "@/schemas/product.schema.js";
+import type { Prisma } from "@/generated/prisma/index.js";
 
 export const getAllProducts = async (params: ListProductsQuery) => {
-  const { page, limit, search, category } = params;
+  const { page, limit, search, category, sort, profile } = params;
   const skip = (page - 1) * limit;
 
-  const where = {
+  /* ---------- Where ---------- */
+  const where: Prisma.ProductsWhereInput = {
     ...(search && {
-      name: { contains: search, mode: "insensitive" as const },
+      name: { contains: search, mode: "insensitive" },
     }),
     ...(category && { category }),
+    ...(profile !== "semua-sangrai" && {
+      // Asumsi: field `type` berisi "Light Roast", "Medium Roast", dll
+      type: { contains: profile, mode: "insensitive" },
+    }),
   };
 
+  /* ---------- Order By ---------- */
+  const orderBy: Prisma.ProductsOrderByWithRelationInput = (() => {
+    switch (sort) {
+      case "terbaru":
+        return { createdAt: "desc" };
+      case "harga-asc":
+        return { price: "asc" };
+      case "harga-desc":
+        return { price: "desc" };
+      case "terlaris":
+      case "rating":
+      default:
+        // Fallback: produk yang di-like dianggap populer
+        return { is_liked: "desc" };
+    }
+  })();
+
   const [data, total] = await prisma.$transaction([
-    prisma.products.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip,
-      take: limit,
-    }),
+    prisma.products.findMany({ where, orderBy, skip, take: limit }),
     prisma.products.count({ where }),
   ]);
 

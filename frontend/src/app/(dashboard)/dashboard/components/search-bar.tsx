@@ -23,7 +23,7 @@ export const SearchBar = ({
         <Button
           onClick={() => onChange("")}
           variant="default"
-          className="hover:bg-card-foreground transition-colors duration-500 ease-in-out w-7 h-7 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          className="hover:bg-card-foreground duration-500 ease-in-out w-7 h-7 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
         >
           <X className="h-4 w-4" />
         </Button>

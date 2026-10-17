@@ -74,7 +74,6 @@ export function ProductFormDialog({
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = form.handleSubmit(async (values) => {
-    console.log("🔴 [Submit] Values:", values);
     try {
       if (isEdit && product) {
         await updateMutation.mutateAsync({ id: product.id, payload: values });
@@ -91,7 +90,14 @@ export function ProductFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg">
+      <DialogContent
+        className="
+          w-[calc(100vw-2rem)] max-w-3xl
+          sm:w-full sm:max-w-3xl
+          max-h-[90vh] flex flex-col
+          gap-4 p-4 sm:p-6
+        "
+      >
         <DialogHeader>
           <DialogTitle>
             {isEdit ? "Edit Produk" : "Tambah Produk Baru"}
@@ -103,125 +109,153 @@ export function ProductFormDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={onSubmit} className="space-y-4">
-          {/* ---------- Nama ---------- */}
-          <Field data-invalid={!!form.formState.errors.name}>
-            <FieldLabel htmlFor="name">
-              Nama Produk <span className="text-destructive">*</span>
-            </FieldLabel>
-            <Input
-              id="name"
-              placeholder="Ethiopia Guji Highland"
-              aria-invalid={!!form.formState.errors.name}
-              {...form.register("name")}
-            />
-            <FieldError errors={[form.formState.errors.name]} />
-          </Field>
-
-          {/* ---------- Deskripsi ---------- */}
-          <Field>
-            <FieldLabel htmlFor="description">Deskripsi</FieldLabel>
-            <Textarea
-              id="description"
-              placeholder="Floral, Bergamot, Peach..."
-              rows={3}
-              {...form.register("description")}
-            />
-          </Field>
-
-          {/* ---------- Harga ---------- */}
-          <Field data-invalid={!!form.formState.errors.price}>
-            <FieldLabel htmlFor="price">
-              Harga (IDR) <span className="text-destructive">*</span>
-            </FieldLabel>
-            <Input
-              id="price"
-              type="number"
-              min={0}
-              placeholder="145000"
-              aria-invalid={!!form.formState.errors.price}
-              {...form.register("price")}
-            />
-            <FieldError errors={[form.formState.errors.price]} />
-          </Field>
-
-          {/* ---------- Type & Category ---------- */}
-          <div className="grid grid-cols-2 gap-3">
-            <Field data-invalid={!!form.formState.errors.type}>
-              <FieldLabel htmlFor="type">
-                Type <span className="text-destructive">*</span>
+        {/* ============ FORM: responsive ============ */}
+        <form
+          onSubmit={onSubmit}
+          className="
+            flex flex-col gap-5
+            md:flex-row md:gap-6
+            flex-1 overflow-y-auto pr-1
+            lg:overflow-hidden
+          "
+        >
+          {/* ============ KOLOM KIRI: Info Teks ============ */}
+          <div className="flex flex-1 flex-col gap-4 min-w-0">
+            {/* Nama */}
+            <Field data-invalid={!!form.formState.errors.name}>
+              <FieldLabel htmlFor="name">
+                Nama Produk <span className="text-destructive">*</span>
               </FieldLabel>
               <Input
-                id="type"
-                placeholder="Filter Roast"
-                aria-invalid={!!form.formState.errors.type}
-                {...form.register("type")}
+                id="name"
+                placeholder="Ethiopia Guji Highland"
+                aria-invalid={!!form.formState.errors.name}
+                autoFocus
+                {...form.register("name")}
               />
-              <FieldError errors={[form.formState.errors.type]} />
+              <FieldError errors={[form.formState.errors.name]} />
             </Field>
 
-            <Field data-invalid={!!form.formState.errors.category}>
-              <FieldLabel htmlFor="category">
-                Category <span className="text-destructive">*</span>
+            {/* Type + Category — 1 kolom di mobile, 2 kolom di sm+ */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field data-invalid={!!form.formState.errors.type}>
+                <FieldLabel htmlFor="type">
+                  Type <span className="text-destructive">*</span>
+                </FieldLabel>
+                <Input
+                  id="type"
+                  placeholder="Filter Roast"
+                  aria-invalid={!!form.formState.errors.type}
+                  {...form.register("type")}
+                />
+                <FieldError errors={[form.formState.errors.type]} />
+              </Field>
+
+              <Field data-invalid={!!form.formState.errors.category}>
+                <FieldLabel htmlFor="category">
+                  Category <span className="text-destructive">*</span>
+                </FieldLabel>
+                <Input
+                  id="category"
+                  placeholder="Single Origin"
+                  aria-invalid={!!form.formState.errors.category}
+                  {...form.register("category")}
+                />
+                <FieldError errors={[form.formState.errors.category]} />
+              </Field>
+            </div>
+
+            {/* Harga */}
+            <Field data-invalid={!!form.formState.errors.price}>
+              <FieldLabel htmlFor="price">
+                Harga (IDR) <span className="text-destructive">*</span>
               </FieldLabel>
               <Input
-                id="category"
-                placeholder="Single Origin"
-                aria-invalid={!!form.formState.errors.category}
-                {...form.register("category")}
+                id="price"
+                type="number"
+                min={0}
+                placeholder="145000"
+                aria-invalid={!!form.formState.errors.price}
+                {...form.register("price")}
               />
-              <FieldError errors={[form.formState.errors.category]} />
+              <FieldError errors={[form.formState.errors.price]} />
+            </Field>
+
+            {/* Deskripsi */}
+            <Field>
+              <FieldLabel htmlFor="description">Deskripsi</FieldLabel>
+              <Textarea
+                id="description"
+                placeholder="Floral, Bergamot, Peach..."
+                rows={3}
+                {...form.register("description")}
+              />
+            </Field>
+
+            {/* is_special */}
+            <Field orientation="horizontal">
+              <Checkbox
+                id="is_special"
+                checked={form.watch("is_special")}
+                onCheckedChange={(checked) =>
+                  form.setValue("is_special", Boolean(checked))
+                }
+              />
+              <FieldLabel
+                htmlFor="is_special"
+                className="cursor-pointer font-normal"
+              >
+                Tandai sebagai produk special
+              </FieldLabel>
             </Field>
           </div>
 
-          {/* ---------- URL Gambar ---------- */}
-         <Field data-invalid={!!form.formState.errors.imageUrl}>
+          {/* ============ KOLOM KANAN: Gambar ============ */}
+          <div
+            className="
+              flex flex-col gap-2
+              w-full shrink-0
+              md:w-52
+            "
+          >
             <FieldLabel>Gambar Produk</FieldLabel>
             <ImageUpload
               value={form.watch("imageUrl") ?? null}
               onChange={(url) => {
-                console.log("🟡 [Form] URL dari ImageUpload:", url);
                 form.setValue("imageUrl", url ?? "", {
                   shouldValidate: true,
-                  shouldDirty: true,   // ⬅️ tandai form sebagai dirty
+                  shouldDirty: true,
                 });
-                console.log(
-                  "🟢 [Form] form.imageUrl sekarang:",
-                  form.getValues("imageUrl"),
-                );
               }}
             />
-            <FieldError errors={[form.formState.errors.imageUrl]} />
-          </Field>
-
-          {/* ---------- is_special ---------- */}
-          <Field orientation="horizontal">
-            <Checkbox
-              id="is_special"
-              checked={form.watch("is_special")}
-              onCheckedChange={(checked) =>
-                form.setValue("is_special", Boolean(checked))
-              }
-            />
-            <FieldLabel
-              htmlFor="is_special"
-              className="cursor-pointer font-normal"
-            >
-              Tandai sebagai produk special
-            </FieldLabel>
-          </Field>
+            {form.formState.errors.imageUrl && (
+              <FieldError errors={[form.formState.errors.imageUrl]} />
+            )}
+          </div>
         </form>
 
-        <DialogFooter>
+        {/* ============ FOOTER: stack di mobile, row di sm+ ============ */}
+        <DialogFooter
+          className="
+            flex-col-reverse gap-2
+            sm:flex-row sm:justify-end
+          "
+        >
           <Button
             type="button"
             variant="default"
             onClick={() => onOpenChange(false)}
             disabled={isPending}
+            className="w-full sm:w-auto"
           >
             Batal
           </Button>
-          <Button type="button" onClick={onSubmit} disabled={isPending}>
+          <Button
+            type="button"
+            onClick={onSubmit}
+            disabled={isPending}
+            className="w-full sm:w-auto"
+          >
             {isPending
               ? "Menyimpan..."
               : isEdit

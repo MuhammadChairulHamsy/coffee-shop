@@ -1,6 +1,6 @@
-// @/components/filter-select.tsx
 "use client";
 
+import * as React from "react";
 import {
   Select,
   SelectContent,
@@ -9,18 +9,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ChevronDown, ArrowUpDown } from "lucide-react";
-import * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface FilterSelectProps<T extends string> {
   value: T;
   onValueChange: (value: T) => void;
   options: { value: T; label: string }[];
-  /** Ikon di kiri trigger */
   icon?: React.ReactNode;
-  /** Placeholder kalau value kosong */
   placeholder?: string;
   className?: string;
-  /** Pakai chevron ke bawah (default) atau arrow up-down (untuk sort) */
   indicator?: "chevron" | "sort";
 }
 
@@ -38,14 +35,17 @@ export function FilterSelect<T extends string>({
   return (
     <Select value={value} onValueChange={(v) => onValueChange(v as T)}>
       <SelectTrigger
-        className={`h-11 w-auto min-w-44  gap-2 rounded-full border bg-card/50 px-5 text-sm font-medium text-card-foreground data-placeholder:text-card-foreground focus-visible:ring-1 focus-visible:ring-border [&>svg:last-child]:hidden ${className ?? ""}`}
+        className={cn(
+          "h-11 w-auto min-w-44 gap-2 rounded-full border bg-card/50 px-5",
+          "text-sm font-medium text-card-foreground",
+          "data-placeholder:text-card-foreground",
+          "focus-visible:ring-1 focus-visible:ring-border",
+          "[&>svg:last-child]:hidden",
+          className,
+        )}
       >
         {icon}
-        <SelectValue placeholder={placeholder}>
-          {selectedLabel}
-        </SelectValue>
-
-        {/* Indicator kanan */}
+        <SelectValue placeholder={placeholder}>{selectedLabel}</SelectValue>
         {indicator === "chevron" ? (
           <ChevronDown className="ml-auto h-4 w-4 shrink-0 text-card-foreground" />
         ) : (

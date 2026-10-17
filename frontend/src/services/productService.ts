@@ -16,8 +16,9 @@ const parseOrThrow = <T>(
   if (!result.success) {
     throw new Error(
       `Response validation failed: ${result.error.issues
-        .map((i: { path: (string | number)[]; message: string }) =>
-          `${i.path.join(".")}: ${i.message}`,
+        .map(
+          (i: { path: (string | number)[]; message: string }) =>
+            `${i.path.join(".")}: ${i.message}`,
         )
         .join(", ")}`,
     );
@@ -45,7 +46,16 @@ export type UpdateProductPayload = Partial<CreateProductPayload>;
 export const productService = {
   /* READ */
   getAll: async (params?: ListProductsQuery): Promise<PaginatedProducts> => {
-    const { data } = await apiClient.get("/products", { params });
+    const { data } = await apiClient.get("/products", {
+      params: {
+        ...(params?.page && { page: params.page }),
+        ...(params?.limit && { limit: params.limit }),
+        ...(params?.search && { search: params.search }),
+        ...(params?.category && { category: params.category }),
+        ...(params?.sort && { sort: params.sort }),
+        ...(params?.profile && { profile: params.profile }),
+      },
+    });
     return parseOrThrow<PaginatedProducts>(paginatedProductsSchema, data);
   },
 
@@ -56,18 +66,12 @@ export const productService = {
 
   getLatest: async (): Promise<Product[]> => {
     const { data } = await apiClient.get("/products/latest");
-    return parseOrThrow<Product[]>(
-      productSchema.array(),
-      data.data ?? [],
-    );
+    return parseOrThrow<Product[]>(productSchema.array(), data.data ?? []);
   },
 
   getSpecial: async (): Promise<Product[]> => {
     const { data } = await apiClient.get("/products/special");
-    return parseOrThrow<Product[]>(
-      productSchema.array(),
-      data.data ?? [],
-    );
+    return parseOrThrow<Product[]>(productSchema.array(), data.data ?? []);
   },
 
   /* CREATE */

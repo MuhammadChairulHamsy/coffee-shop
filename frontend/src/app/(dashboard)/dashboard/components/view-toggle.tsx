@@ -28,6 +28,7 @@ export function ViewToggle({ value, onChange }: ViewToggleProps) {
       <button
         type="button"
         aria-label="Tampilan grid"
+        suppressHydrationWarning
         onClick={() => onChange("grid")}
         className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors cursor-pointer ${
           value === "grid"

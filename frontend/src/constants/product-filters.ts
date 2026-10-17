@@ -1,4 +1,5 @@
-import { ProductSort, ProfileFilter } from "@/types/product-filter";
+import type { RoastProfile, ProductSort } from "@/schemas/product.schema";
+
 
 export const PRODUCT_FILTERS = [
   { label: "All", value: "All" },
@@ -9,7 +10,7 @@ export const PRODUCT_FILTERS = [
   { label: "Bundle", value: "Bundle" },
 ] as const;
 
-export const PROFILE_OPTIONS: { value: ProfileFilter; label: string }[] = [
+export const PROFILE_OPTIONS: { value: RoastProfile; label: string }[] = [
   { value: "semua-sangrai", label: "Profil: Semua Sangrai" },
   { value: "light", label: "Profil: Light Roast" },
   { value: "medium", label: "Profil: Medium Roast" },

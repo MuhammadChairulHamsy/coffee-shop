@@ -16,13 +16,32 @@ export const productSchema = z.object({
 
 export type Product = z.infer<typeof productSchema>;
 
+export const productSortEnum = z.enum([
+  "terlaris",
+  "terbaru",
+  "harga-asc",
+  "harga-desc",
+  "rating",
+]);
+
+export const roastProfileEnum = z.enum([
+  "semua-sangrai",
+  "light",
+  "medium",
+  "dark",
+]);
+
+export type ProductSort = z.infer<typeof productSortEnum>;
+export type RoastProfile = z.infer<typeof roastProfileEnum>;
+
+
 export const listProductsQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   search: z.string().trim().optional(),
   category: z.string().trim().optional(),
-  sort: z.enum(["terbaru", "harga-asc", "harga-desc", "terlaris"]).optional(),
-  roastProfile: z.enum(["light", "medium", "dark"]).optional(),
+  sort: productSortEnum.optional(),
+  profile: roastProfileEnum.optional(),
 });
 
 export type ListProductsQuery = z.infer<typeof listProductsQuerySchema>; 
