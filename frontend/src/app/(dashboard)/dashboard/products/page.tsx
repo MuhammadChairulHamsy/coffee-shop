@@ -18,7 +18,6 @@ import {
 } from "@/constants/product-filters";
 import type { Product, RoastProfile } from "@/schemas/product.schema";
 import type {
-  ProfileFilter,
   ProductSort,
   ViewMode,
 } from "@/types/product-filter";
@@ -95,8 +94,8 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Katalog Produk Speciality</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl text-sidebar-foreground font-bold tracking-tight">Katalog Produk Speciality</h1>
+          <p className="text-sm text-sidebar-foreground">
             Kelola stok, harga, dan daftar produk kopi Coffeo.
           </p>
         </div>
@@ -133,7 +132,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Info count */}
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <div className="flex items-center gap-2 text-xs text-sidebar-foreground">
         <span>
           Menampilkan {meta?.total ?? 0} produk
           {selectedIds.length > 0 && ` · ${selectedIds.length} dipilih`}

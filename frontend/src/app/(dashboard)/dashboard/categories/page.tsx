@@ -1,3 +1,5 @@
+import { CategoryStatCards } from "../components/categories/category-stat-cards";
+
 export default function CategoriesPage() {
   return (
     <div className="space-y-6">
@@ -9,9 +11,7 @@ export default function CategoriesPage() {
           Atur kategori seperti Coffee Beans, Accessories, dan Apparel.
         </p>
       </div>
-      <div className="rounded-lg border border-border p-8 text-center text-sidebar-foreground">
-        Daftar kategori produk akan ditampilkan di sini.
-      </div>
+      <CategoryStatCards/>
     </div>
   );
 }
