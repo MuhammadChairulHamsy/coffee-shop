@@ -42,7 +42,7 @@ export function LatestOrdersCard({
   orders = INITIAL_LATEST_ORDERS,
 }: LatestOrdersCardProps) {
   return (
-    <Card className="flex flex-col justify-between rounded-2xl border border-border/60 bg-card p-5 shadow-xs">
+    <Card className="flex flex-col justify-between rounded-2xl border-2 bg-card p-5 shadow-xs">
       {/* --- HEADER CARDS --- */}
       <CardHeader className="p-0 pb-4 flex flex-row items-center justify-between space-y-0">
         <div className="flex items-center gap-2">

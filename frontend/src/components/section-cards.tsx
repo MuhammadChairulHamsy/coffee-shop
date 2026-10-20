@@ -86,8 +86,7 @@ export function SectionCards({
         <Card
           key={item.id}
           className="@container/card relative overflow-hidden
-             rounded-2xl
-            border border-border
+             rounded-2xl border-2
              bg-card text-card-foreground
              shadow-lg shadow-black/10"
         >
