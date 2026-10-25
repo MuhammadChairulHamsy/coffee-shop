@@ -22,7 +22,7 @@ export function useFilteredProducts(initialProducts: Product[] = []) {
     activeFilter.toLowerCase() === "all"
       ? optimisticProducts
       : optimisticProducts.filter(
-          (p) => p.category?.toLowerCase() === activeFilter.toLowerCase()
+          (p) => p.category?.name?.toLowerCase() === activeFilter.toLowerCase()
         );
 
   // Handler klik ikon Heart

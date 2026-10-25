@@ -45,7 +45,7 @@ const LatestProductsClient = ({ products }: { products: Product[] }) => {
 
               <div className="flex flex-col flex-1">
                 <span className="text-[11px] font-bold text-primary tracking-widest uppercase mb-2">
-                  {product.category} • {product.type}
+                  {product.categoryId} • {product.type}
                 </span>
                 <h3 className="font-playfair font-bold text-xl text-foreground line-clamp-1 mb-1">
                   {product.name}
