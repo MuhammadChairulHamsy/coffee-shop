@@ -12,35 +12,9 @@ import { ProductRow } from "./product-row";
 import { ProductTableSkeleton } from "./product-table-skeleton";
 import { ProductEmptyState } from "./product-empty-state";
 import { ProductErrorState } from "./product-error-state";
-import type { Product } from "@/types/product";
-import type { ApiError } from "@/lib/api-error";
+import type { ProductTableProps } from "@/types/product";
+import { COLUMNS_TABLE_PRODUCT } from "@/constants/product";
 
-const COLUMNS = [
-  { key: "name", label: "Product Name", className: "" },
-  {
-    key: "description",
-    label: "Description",
-    className: "hidden lg:table-cell",
-  },
-  { key: "price", label: "Retail Price", className: "text-center" },
-  { key: "type", label: "Type", className: "hidden lg:table-cell" },
-  { key: "category", label: "Category", className: "hidden lg:table-cell" },
-  { key: "status", label: "Status", className: "hidden xl:table-cell" },
-  { key: "actions", label: "Aksi", className: "text-right" },
-] as const;
-
-type ProductTableProps = {
-  products: Product[];
-  isLoading: boolean;
-  isError: boolean;
-  error: ApiError | null;
-  selectedIds: number[];
-  onSelectOne: (id: number, checked: boolean) => void;
-  onSelectAll: (checked: boolean) => void;
-  onEdit?: (product: Product) => void;
-  onDelete?: (product: Product) => void;
-  onRetry?: () => void;
-};
 
 export default function ProductTable({
   products,
@@ -72,7 +46,7 @@ export default function ProductTable({
                   aria-label="Pilih semua produk"
                 />
               </TableHead>
-              {COLUMNS.map((col) => (
+              {COLUMNS_TABLE_PRODUCT.map((col) => (
                 <TableHead
                   key={col.key}
                   className={`px-4 py-3 text-xs font-semibold uppercase tracking-wide text-neutral-400 ${col.className}`}

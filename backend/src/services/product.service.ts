@@ -1,6 +1,10 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
-import type { CreateProductBody, ListProductsQuery, UpdateProductBody } from "@/schemas/product.schema.js";
+import type {
+  CreateProductBody,
+  ListProductsQuery,
+  UpdateProductBody,
+} from "@/schemas/product.schema.js";
 import type { Prisma } from "@/generated/prisma/index.js";
 
 export const getAllProducts = async (params: ListProductsQuery) => {
@@ -14,7 +18,6 @@ export const getAllProducts = async (params: ListProductsQuery) => {
     }),
     ...(category && { category }),
     ...(profile !== "semua-sangrai" && {
-      // Asumsi: field `type` berisi "Light Roast", "Medium Roast", dll
       type: { contains: profile, mode: "insensitive" },
     }),
   };
@@ -31,7 +34,6 @@ export const getAllProducts = async (params: ListProductsQuery) => {
       case "terlaris":
       case "rating":
       default:
-        // Fallback: produk yang di-like dianggap populer
         return { is_liked: "desc" };
     }
   })();
@@ -50,6 +52,28 @@ export const getAllProducts = async (params: ListProductsQuery) => {
       totalPages: Math.ceil(total / limit),
     },
   };
+};
+
+export const getAllCategories = async (search?: string) => {
+  const grouped = await prisma.products.groupBy({
+    by: ["category"],
+    where: search
+      ? { category: { contains: search, mode: "insensitive" } }
+      : {},
+    _count: { id: true },
+    _sum: { price: true },
+    _max: { updatedAt: true, createdAt: true },
+  });
+
+  return grouped.map((g) => ({
+    name: g.category,
+    description: null,
+    productCount: g._count.id,
+    totalValue: g._sum.price ?? 0,
+    lastUpdated:
+      g._max.updatedAt ?? g._max.createdAt ?? new Date().toISOString(),
+    status: g._count.id > 0 ? "active" : "empty",
+  }));
 };
 
 export const getProductById = async (id: number) => {
@@ -88,7 +112,7 @@ export const createProduct = async (body: CreateProductBody) => {
 };
 
 export const updateProduct = async (id: number, body: UpdateProductBody) => {
-  await getProductById(id); 
+  await getProductById(id);
 
   return prisma.products.update({
     where: { id },
@@ -111,7 +135,6 @@ export const deleteProduct = async (id: number) => {
 
   return prisma.products.delete({ where: { id } });
 };
-
 
 export const setProductLike = async (id: number, isLiked: boolean) => {
   const exists = await prisma.products.findUnique({

@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import * as productService from "../services/product.service.js";
-import type { CreateProductBody, ListProductsQuery, ToggleLikeBody, UpdateProductBody } from "../schemas/product.schema.js";
+import type { CreateProductBody, ListProductsQuery, listCategoriesQuery, ToggleLikeBody, UpdateProductBody } from "../schemas/product.schema.js";
 
 
 export const getAllProducts = async (
@@ -12,6 +12,20 @@ export const getAllProducts = async (
     const query = req.validated!.query as ListProductsQuery;
     const result = await productService.getAllProducts(query);
     res.status(200).json({ success: true, ...result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCategories = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { search } = req.validated!.query as listCategoriesQuery;
+    const categories = await productService.getAllCategories(search);
+    res.status(200).json({ success: true, data: categories });
   } catch (error) {
     next(error);
   }

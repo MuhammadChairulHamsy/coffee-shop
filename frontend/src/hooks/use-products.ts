@@ -1,12 +1,13 @@
 "use client";
 
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Product, ListProductsQuery } from "@/schemas/product.schema";
-import {
-  productService,
-  type CreateProductPayload,
-  type UpdateProductPayload,
-} from "@/services/productService";
+import type { 
+  Product, 
+  ListProductsQuery,
+  CreateProductPayload,
+  UpdateProductPayload,
+} from "@/schemas/product.schema";
+import { productService } from "@/services/product-service";
 import { toApiError } from "@/lib/api-error";
 
 /* ---------- Query Keys ---------- */
@@ -18,6 +19,7 @@ export const productKeys = {
   detail: (id: number) => [...productKeys.all, "detail", id] as const,
   latest: () => [...productKeys.all, "latest"] as const,
   special: () => [...productKeys.all, "special"] as const,
+  categories: (search?: string) => [...productKeys.all, "categories", search] as const,
 };
 
 /* ---------- Queries (Data Layer) ---------- */
@@ -38,6 +40,24 @@ export function useProducts(params?: ListProductsQuery) {
       isFetching: query.isFetching,
       isError: query.isError,
       isSuccess: query.isSuccess,
+    },
+    error: query.error ? toApiError(query.error) : null,
+    refetch: query.refetch,
+  };
+}
+
+export function useCategories(search?: string) {
+  const query = useQuery({
+    queryKey: productKeys.categories(search),
+    queryFn: () => productService.getCategories(search),
+    staleTime: 60_000,
+  });
+
+  return {
+    categories: query.data ?? [],
+    status: {
+      isLoading: query.isLoading,
+      isError: query.isError,
     },
     error: query.error ? toApiError(query.error) : null,
     refetch: query.refetch,

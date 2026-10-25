@@ -46,6 +46,13 @@ export const listProductsQuerySchema = z.object({
 
 export type ListProductsQuery = z.infer<typeof listProductsQuerySchema>; 
 
+
+export const listCategoriesQuerySchema = z.object({
+  search: z.string().trim().optional(),
+})
+
+export type listCategoriesQuery = z.infer<typeof listCategoriesQuerySchema>;
+
 /** Params: /products/:id */
 export const productIdParamSchema = z.object({
   id: z.coerce

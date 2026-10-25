@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import {
   getAllProducts,
+  getCategories,
   getLatestProducts,
   getSpecialProducts,
   getProductById,
@@ -13,6 +14,7 @@ import { requireAuth } from "../middlewares/require-auth.js";
 import { validate } from "../middlewares/validate.js";
 import {
   createProductBodySchema,
+  listCategoriesQuerySchema,
   listProductsQuerySchema,
   productIdParamSchema,
   toggleLikeBodySchema,
@@ -24,6 +26,11 @@ const router: IRouter = Router();
 router.get("/", validate({ query: listProductsQuerySchema }), getAllProducts);
 router.get("/latest", getLatestProducts);
 router.get("/special", getSpecialProducts);
+router.get(
+  "/categories",
+  validate({ query: listCategoriesQuerySchema }),
+  getCategories
+);
 router.get("/:id", validate({ params: productIdParamSchema }), getProductById);
 
 router.post(

@@ -67,6 +67,23 @@ export const paginatedProductsSchema = z.object({
 
 export type PaginatedProducts = z.infer<typeof paginatedProductsSchema>;
 
+/* ---------- Payload Schemas ---------- */
+
+export const createProductPayloadSchema = z.object({
+  name: z.string().min(2),
+  description: z.string().nullable().optional(),
+  price: z.number().positive(),
+  type: z.string(),
+  category: z.string(),
+  imageUrl: z.string().url().nullable().optional().or(z.literal("")),
+  is_special: z.boolean().optional(),
+  is_liked: z.boolean().optional(),
+});
+
+export const updateProductPayloadSchema = createProductPayloadSchema.partial();
+
+export type CreateProductPayload = z.infer<typeof createProductPayloadSchema>;
+export type UpdateProductPayload = z.infer<typeof updateProductPayloadSchema>;
 
 /* ---------- Form Schema ---------- */
 

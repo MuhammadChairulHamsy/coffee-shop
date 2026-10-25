@@ -2,10 +2,14 @@ import { apiClient } from "@/utils/api";
 import {
   paginatedProductsSchema,
   productSchema,
+  type CreateProductPayload,
+  type UpdateProductPayload,
   type ListProductsQuery,
   type PaginatedProducts,
   type Product,
 } from "@/schemas/product.schema";
+import { CategoryStats } from "@/types/category";
+import { categoryStatsSchema } from "@/schemas/category.schema";
 
 /* Helper: parse response dengan Zod */
 const parseOrThrow = <T>(
@@ -26,20 +30,6 @@ const parseOrThrow = <T>(
   return result.data as T;
 };
 
-/* ---------- Types untuk payload ---------- */
-
-export type CreateProductPayload = {
-  name: string;
-  description?: string | null;
-  price: number;
-  type: string;
-  category: string;
-  imageUrl?: string | null;
-  is_special?: boolean;
-  is_liked?: boolean;
-};
-
-export type UpdateProductPayload = Partial<CreateProductPayload>;
 
 /* ---------- Service ---------- */
 
@@ -92,6 +82,18 @@ export const productService = {
   /* DELETE */
   delete: async (id: number): Promise<void> => {
     await apiClient.delete(`/products/${id}`);
+  },
+
+  /* READ: Categories */
+  getCategories: async (search?: string): Promise<CategoryStats[]> => {
+    const { data } = await apiClient.get("/products/categories", {
+      params: { search },
+    });
+    // ⬇️ Validasi array of categoryStats dengan Zod
+    return parseOrThrow<CategoryStats[]>(
+      categoryStatsSchema.array(),
+      data.data ?? [],
+    );
   },
 
   /* LIKE */
