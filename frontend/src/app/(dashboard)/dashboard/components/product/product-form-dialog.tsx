@@ -17,7 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { useCreateProduct, useUpdateProduct } from "@/hooks/use-products";
+import {
+  useCategories,
+  useCreateProduct,
+  useUpdateProduct,
+} from "@/hooks/use-products";
 import { toApiError } from "@/lib/api-error";
 import {
   formSchema,
@@ -26,6 +30,13 @@ import {
   type Product,
 } from "@/schemas/product.schema";
 import { ImageUpload } from "./image-upload";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 /* ---------- Props ---------- */
 
@@ -44,6 +55,8 @@ export function ProductFormDialog({
   const createMutation = useCreateProduct();
   const updateMutation = useUpdateProduct();
 
+  const { categories } = useCategories();
+
   const form = useForm<FormInput, any, FormOutput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,7 +64,7 @@ export function ProductFormDialog({
       description: "",
       price: 0,
       type: "",
-      category: "",
+      categoryId: undefined,
       imageUrl: "",
       is_special: false,
     },
@@ -64,7 +77,7 @@ export function ProductFormDialog({
         description: product?.description ?? "",
         price: product?.price ?? 0,
         type: product?.type ?? "",
-        category: product?.category ?? "",
+        categoryId: product?.categoryId ?? undefined,
         imageUrl: product?.imageUrl ?? "",
         is_special: product?.is_special ?? false,
       });
@@ -151,17 +164,37 @@ export function ProductFormDialog({
                 <FieldError errors={[form.formState.errors.type]} />
               </Field>
 
-              <Field data-invalid={!!form.formState.errors.category}>
-                <FieldLabel htmlFor="category">
-                  Category <span className="text-destructive">*</span>
+              <Field data-invalid={!!form.formState.errors.categoryId}>
+                <FieldLabel htmlFor="categoryId">
+                  Kategori <span className="text-destructive">*</span>
                 </FieldLabel>
-                <Input
-                  id="category"
-                  placeholder="Single Origin"
-                  aria-invalid={!!form.formState.errors.category}
-                  {...form.register("category")}
-                />
-                <FieldError errors={[form.formState.errors.category]} />
+                <Select
+                  value={
+                    form.watch("categoryId") !== undefined
+                      ? String(form.watch("categoryId"))
+                      : undefined
+                  }
+                  onValueChange={(value) => {
+                    form.setValue("categoryId", Number(value), {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    });
+                  }}
+                >
+                  <SelectTrigger
+                    aria-invalid={!!form.formState.errors.categoryId}
+                  >
+                    <SelectValue placeholder="Pilih kategori..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={String(cat.id)}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FieldError errors={[form.formState.errors.categoryId]} />
               </Field>
             </div>
 

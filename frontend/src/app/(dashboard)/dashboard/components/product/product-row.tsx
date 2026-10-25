@@ -93,7 +93,7 @@ export function ProductRow({
 
       <TableCell className="hidden px-4 py-3 lg:table-cell">
         <Badge variant="outline" className="rounded-md border-neutral-800 bg-transparent text-xs font-normal text-neutral-300">
-          {product.category}
+          {product.category?.name || "Uncategorized"}
         </Badge>
       </TableCell>
 

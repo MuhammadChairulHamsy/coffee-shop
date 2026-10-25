@@ -12,19 +12,19 @@ datasource db {
 
 // model untuk database
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
+  id            String   @id @default(uuid())
+  email         String   @unique
   name          String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean  @default(false)
   image         String?
-  password      String?   
-  role          String    @default("admin") 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  password      String?
+  role          String   @default("admin")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // Relasi ke tabel Better Auth
-  sessions      Session[]
-  accounts      Account[]
+  sessions Session[]
+  accounts Account[]
 }
 
 model Session {
@@ -54,9 +54,9 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
-  
+
   // Tambahkan baris ini agar Better Auth bisa menyimpan data issuer Google
-  issuer                String?   
+  issuer String?
 }
 
 model Verification {
@@ -68,20 +68,33 @@ model Verification {
   updatedAt  DateTime? @updatedAt
 }
 
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Products[]
+}
+
 model Products {
-  id          Int   @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String?
   price       Int
   type        String
-  category    String
-  imageUrl    String?
-  is_liked    Boolean @default(false) 
-  is_special  Boolean @default(false) 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 
-  @@index([category])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  imageUrl   String?
+  is_liked   Boolean  @default(false)
+  is_special Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([categoryId])
   @@index([is_special])
   @@index([createdAt])
 }

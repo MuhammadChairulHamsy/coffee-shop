@@ -6,12 +6,12 @@ export const productSchema = z.object({
   description: z.string().nullable(),
   price: z.number(),
   type: z.string(),
-  category: z.string(),
+  categoryId: z.number(),
   imageUrl: z.string().nullable(),
   is_liked: z.boolean(),
   is_special: z.boolean(),
   createdAt: z.string(),
-  updateAt: z.string()
+  updatedAt: z.string()
 });
 
 export type Product = z.infer<typeof productSchema>;
@@ -53,6 +53,12 @@ export const listCategoriesQuerySchema = z.object({
 
 export type listCategoriesQuery = z.infer<typeof listCategoriesQuerySchema>;
 
+export const createCategoryBodySchema = z.object({
+  name: z.string().trim().min(2, "Nama minimal 2 karakter"),
+  description: z.string().trim().optional().nullable(),
+});
+export type CreateCategoryBody = z.infer<typeof createCategoryBodySchema>;
+
 /** Params: /products/:id */
 export const productIdParamSchema = z.object({
   id: z.coerce
@@ -68,7 +74,7 @@ export const createProductBodySchema = z.object({
   description: z.string().trim().max(2000).optional().nullable(),
   price: z.coerce.number().int().positive("Harga harus lebih dari 0"),
   type: z.string().trim().min(1, "Type wajib diisi").max(100),
-  category: z.string().trim().min(1, "Category wajib diisi").max(100),
+   categoryId: z.coerce.number().int().positive("Kategori wajib dipilih"),
   imageUrl: z.string().url("URL gambar tidak valid").optional().nullable().or(z.literal("")),
   is_special: z.boolean().default(false),
 });

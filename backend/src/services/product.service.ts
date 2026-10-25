@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
 import type {
+  CreateCategoryBody,
   CreateProductBody,
   ListProductsQuery,
   UpdateProductBody,
@@ -13,10 +14,10 @@ export const getAllProducts = async (params: ListProductsQuery) => {
 
   /* ---------- Where ---------- */
   const where: Prisma.ProductsWhereInput = {
-    ...(search && {
-      name: { contains: search, mode: "insensitive" },
+    ...(search && { name: { contains: search, mode: "insensitive" } }),
+    ...(category && {
+      category: { name: { equals: category, mode: "insensitive" } },
     }),
-    ...(category && { category }),
     ...(profile !== "semua-sangrai" && {
       type: { contains: profile, mode: "insensitive" },
     }),
@@ -39,7 +40,13 @@ export const getAllProducts = async (params: ListProductsQuery) => {
   })();
 
   const [data, total] = await prisma.$transaction([
-    prisma.products.findMany({ where, orderBy, skip, take: limit }),
+    prisma.products.findMany({
+      where,
+      orderBy,
+      skip,
+      take: limit,
+      include: { category: true },
+    }),
     prisma.products.count({ where }),
   ]);
 
@@ -55,25 +62,37 @@ export const getAllProducts = async (params: ListProductsQuery) => {
 };
 
 export const getAllCategories = async (search?: string) => {
-  const grouped = await prisma.products.groupBy({
-    by: ["category"],
-    where: search
-      ? { category: { contains: search, mode: "insensitive" } }
-      : {},
-    _count: { id: true },
-    _sum: { price: true },
-    _max: { updatedAt: true, createdAt: true },
+  const grouped = await prisma.category.findMany({
+    include: {
+      _count: {
+        select: { products: true },
+      },
+        products: {
+        select: {
+          price: true,
+        },
+      },
+    },
+    orderBy: { name: "asc" },
   });
 
-  return grouped.map((g) => ({
-    name: g.category,
-    description: null,
-    productCount: g._count.id,
-    totalValue: g._sum.price ?? 0,
-    lastUpdated:
-      g._max.updatedAt ?? g._max.createdAt ?? new Date().toISOString(),
-    status: g._count.id > 0 ? "active" : "empty",
-  }));
+  return grouped.map((c) => {
+    const totalValue = c.products.reduce((sum, product) => sum + product.price, 0);
+
+    return {
+      id: c.id,
+      name: c.name,
+      description: c.description,
+      productCount: c._count.products,
+      totalValue: totalValue,
+      lastUpdated: c.updatedAt.toISOString(),
+      status: c._count.products > 0 ? "active" : "empty",
+    }
+  });
+};
+
+export const createCategory = async (data: CreateCategoryBody) => {
+  return prisma.category.create({ data });
 };
 
 export const getProductById = async (id: number) => {
@@ -87,6 +106,7 @@ export const getLatestProducts = async () => {
     where: { is_special: false },
     orderBy: { createdAt: "desc" },
     take: 4,
+    include: { category: true },
   });
 };
 
@@ -94,6 +114,7 @@ export const getSpecialProducts = async () => {
   return prisma.products.findMany({
     where: { is_special: true },
     orderBy: { createdAt: "desc" },
+    include: { category: true },
   });
 };
 
@@ -104,7 +125,7 @@ export const createProduct = async (body: CreateProductBody) => {
       description: body.description || null,
       price: body.price,
       type: body.type,
-      category: body.category,
+      categoryId: body.categoryId,
       imageUrl: body.imageUrl || null,
       is_special: body.is_special ?? false,
     },
@@ -123,7 +144,7 @@ export const updateProduct = async (id: number, body: UpdateProductBody) => {
       }),
       ...(body.price !== undefined && { price: body.price }),
       ...(body.type !== undefined && { type: body.type }),
-      ...(body.category !== undefined && { category: body.category }),
+      ...(body.categoryId !== undefined && { categoryId: body.categoryId }),
       ...(body.imageUrl !== undefined && { imageUrl: body.imageUrl || null }),
       ...(body.is_special !== undefined && { is_special: body.is_special }),
     },

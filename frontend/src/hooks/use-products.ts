@@ -138,3 +138,14 @@ export function useDeleteProduct() {
     },
   });
 }
+
+export function useCreateCategory() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: { name: string; description?: string | null }) =>
+      productService.createCategory(payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: productKeys.categories() });
+    },
+  });
+}

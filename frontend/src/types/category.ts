@@ -1,4 +1,5 @@
 export type CategoryStats = {
+  id: number;
   name: string;
   description: string | null;
   productCount: number;

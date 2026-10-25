@@ -1,5 +1,13 @@
 import { z } from "zod";
 
+export const categorySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  description: z.string().nullable().optional(),
+});
+
+export type Category = z.infer<typeof categorySchema>;
+
 /* ---------- Entity Schema ---------- */
 
 export const productSchema = z.object({
@@ -8,7 +16,8 @@ export const productSchema = z.object({
   description: z.string().nullable(),
   price: z.number(),
   type: z.string(),
-  category: z.string(),
+  categoryId: z.number(),
+  category: categorySchema,
   imageUrl: z.string().nullable(),
   is_liked: z.boolean(),
   is_special: z.boolean(),
@@ -74,7 +83,7 @@ export const createProductPayloadSchema = z.object({
   description: z.string().nullable().optional(),
   price: z.number().positive(),
   type: z.string(),
-  category: z.string(),
+  categoryId: z.number(),
   imageUrl: z.string().url().nullable().optional().or(z.literal("")),
   is_special: z.boolean().optional(),
   is_liked: z.boolean().optional(),
@@ -92,7 +101,7 @@ export const formSchema = z.object({
   description: z.string().trim().max(2000).optional(),
   price: z.coerce.number().int().positive("Harga harus lebih dari 0"),
   type: z.string().trim().min(1, "Type wajib diisi").max(100),
-  category: z.string().trim().min(1, "Category wajib diisi").max(100),
+  categoryId: z.coerce.number().min(1, "Kategori wajib dipilih"),
   imageUrl: z
     .string()
     .trim()

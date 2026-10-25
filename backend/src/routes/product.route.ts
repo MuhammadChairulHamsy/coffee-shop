@@ -9,10 +9,12 @@ import {
   deleteProduct,
   createProduct,
   toggleLike,
+  createCategory,
 } from "../controllers/product.controller.js";
 import { requireAuth } from "../middlewares/require-auth.js";
 import { validate } from "../middlewares/validate.js";
 import {
+  createCategoryBodySchema,
   createProductBodySchema,
   listCategoriesQuerySchema,
   listProductsQuerySchema,
@@ -29,7 +31,13 @@ router.get("/special", getSpecialProducts);
 router.get(
   "/categories",
   validate({ query: listCategoriesQuerySchema }),
-  getCategories
+  getCategories,
+);
+router.post(
+  "/categories",
+  requireAuth,
+  validate({ body: createCategoryBodySchema }),
+  createCategory,
 );
 router.get("/:id", validate({ params: productIdParamSchema }), getProductById);
 

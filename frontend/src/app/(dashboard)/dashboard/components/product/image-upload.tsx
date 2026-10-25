@@ -103,6 +103,8 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
           <Image
             src={preview}
             alt="Preview"
+            width={400}
+            height={400}
             unoptimized={preview.startsWith("blob:")}
             className="object-cover"
           />

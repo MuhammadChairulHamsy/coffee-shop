@@ -30,7 +30,6 @@ const parseOrThrow = <T>(
   return result.data as T;
 };
 
-
 /* ---------- Service ---------- */
 
 export const productService = {
@@ -94,6 +93,15 @@ export const productService = {
       categoryStatsSchema.array(),
       data.data ?? [],
     );
+  },
+
+  /* CREATE */
+  createCategory: async (payload: {
+    name: string;
+    description?: string | null;
+  }) => {
+    const { data } = await apiClient.post("/products/categories", payload);
+    return data.data;
   },
 
   /* LIKE */

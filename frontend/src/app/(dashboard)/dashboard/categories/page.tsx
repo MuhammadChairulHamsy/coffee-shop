@@ -8,9 +8,11 @@ import CategoryTable from "@/app/(dashboard)/dashboard/components/categories/cat
 import { useCategories } from "@/hooks/use-products";
 import { useDebounce } from "@/hooks/use-debounce";
 import { toast } from "sonner";
+import { CategoryFormDialog } from "../components/categories/category-form-dialog";
 
 export default function CategoriesPage() {
   const [search, setSearch] = React.useState("");
+  const [isFormOpen, setIsFormOpen] = React.useState(false);
   const debouncedSearch = useDebounce(search, 300);
 
   // Ambil data asli dari API
@@ -40,7 +42,9 @@ export default function CategoriesPage() {
           <Button variant="outline">
             <Download className="mr-1 size-4" /> Export
           </Button>
-          <Button>
+          <Button onClick={() => setIsFormOpen
+            (true)
+          }>
             <PlusIcon className="mr-1 size-4" /> Add Category
           </Button>
         </div>
@@ -76,6 +80,8 @@ export default function CategoriesPage() {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+
+       <CategoryFormDialog open={isFormOpen} onOpenChange={setIsFormOpen} />
     </div>
   );
 }
