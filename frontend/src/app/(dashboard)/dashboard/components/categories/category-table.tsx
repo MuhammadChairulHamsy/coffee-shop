@@ -6,41 +6,46 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  TableCell,
 } from "@/components/ui/table";
 import { CategoryRow } from "./category-row";
-import type { CategoryStats } from "@/types/category";
+import type { CategoryTableProps } from "@/types/category";
 import { FolderOpen } from "lucide-react";
-
-const COLUMNS = [
-  { key: "name", label: "Category Name", className: "w-[25%]" },
-  { key: "description", label: "Description", className: "hidden lg:table-cell" },
-  { key: "price", label: "Products", className: "text-center w-[10%]" },
-  { key: "type", label: "Total Value", className: "hidden lg:table-cell" },
-  { key: "category", label: "Status", className: "hidden lg:table-cell" },
-  { key: "status", label: "Last Updated", className: "hidden xl:table-cell" },
-  { key: "actions", label: "Actions", className: "text-right" },
-] as const;
-
-type CategoryTableProps = {
-  categories: CategoryStats[];
-  isLoading?: boolean;
-  onEdit?: (name: string) => void;
-  onDelete?: (name: string) => void;
-};
+import { COLUMNS } from "@/constants/categories";
+import { Checkbox } from "@/components/ui/checkbox";
+import { CategoryErrorState } from "./category-error-state";
+import { CategoryEmptyState } from "./category-empty-state";
+import { CategoryTableSkeleton } from "./category-table-skeleton";
 
 export default function CategoryTable({
   categories,
   isLoading,
+  isError,
+  error,
+  selectedIds,
+  onSelectOne,
+  onSelectAll,
   onEdit,
   onDelete,
+  onRetry,
 }: CategoryTableProps) {
+  const allSelected =
+    categories.length > 0 && selectedIds.length === categories.length;
+  const someSelected = selectedIds.length > 0 && !allSelected;
+
   return (
     <div className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950">
       <div className="overflow-x-auto">
         <Table className="w-full">
           <TableHeader>
             <TableRow className="border-neutral-800 hover:bg-transparent">
+              <TableHead className="w-12 px-4 py-3">
+                <Checkbox
+                  checked={allSelected}
+                  onCheckedChange={(checked) => onSelectAll(Boolean(checked))}
+                  disabled={categories.length === 0}
+                  aria-label="Pilih semua categories"
+                />
+              </TableHead>
               {COLUMNS.map((col) => (
                 <TableHead
                   key={col.key}
@@ -51,40 +56,27 @@ export default function CategoryTable({
               ))}
             </TableRow>
           </TableHeader>
-          
+
           <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell colSpan={7} className="h-32 text-center text-neutral-500">
-                  Memuat data...
-                </TableCell>
-              </TableRow>
-            ) : categories.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} className="h-48 text-center">
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <div className="flex size-12 items-center justify-center rounded-full bg-neutral-900">
-                      <FolderOpen className="size-6 text-neutral-600" />
-                    </div>
-                    <p className="text-sm font-medium text-neutral-300">
-                      Belum ada kategori
-                    </p>
-                    <p className="text-xs text-neutral-500">
-                      Tambahkan kategori pertama Anda.
-                    </p>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ) : (
+             {isLoading && <CategoryTableSkeleton />}
+            {!isLoading && isError && error && (
+              <CategoryErrorState error={error} onRetry={onRetry} />
+            )}
+            {!isLoading && !isError && categories.length === 0 && (
+              <CategoryEmptyState />
+            )}
+            {!isLoading &&
+              !isError &&
               categories.map((category) => (
                 <CategoryRow
                   key={category.name}
                   category={category}
+                  isSelected={selectedIds.includes(category.id)}
+                  onSelectOne={onSelectOne}
                   onEdit={onEdit}
                   onDelete={onDelete}
                 />
-              ))
-            )}
+              ))}
           </TableBody>
         </Table>
       </div>

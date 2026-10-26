@@ -8,8 +8,8 @@ import {
   type PaginatedProducts,
   type Product,
 } from "@/schemas/product.schema";
-import { CategoryStats } from "@/types/category";
-import { categoryStatsSchema } from "@/schemas/category.schema";
+import { CategoryStats, ListCategoriesQuery } from "@/types/category";
+import { CategoryFormValues, categoryStatsSchema, PaginatedCategories, paginatedCategoriesSchema } from "@/schemas/category.schema";
 
 /* Helper: parse response dengan Zod */
 const parseOrThrow = <T>(
@@ -84,24 +84,26 @@ export const productService = {
   },
 
   /* READ: Categories */
-  getCategories: async (search?: string): Promise<CategoryStats[]> => {
-    const { data } = await apiClient.get("/products/categories", {
-      params: { search },
-    });
-    // ⬇️ Validasi array of categoryStats dengan Zod
-    return parseOrThrow<CategoryStats[]>(
-      categoryStatsSchema.array(),
-      data.data ?? [],
-    );
+  getCategories: async (params?: ListCategoriesQuery): Promise<PaginatedCategories> => {
+  const { data } = await apiClient.get("/products/categories", { params });
+  return parseOrThrow<PaginatedCategories>(paginatedCategoriesSchema, data);
+},
+
+  /* ---------- CREATE: Category ---------- */
+  createCategory: async (payload: CategoryFormValues): Promise<any> => {
+    const { data } = await apiClient.post("/products/categories", payload);
+    return data; // Kembalikan response API
   },
 
-  /* CREATE */
-  createCategory: async (payload: {
-    name: string;
-    description?: string | null;
-  }) => {
-    const { data } = await apiClient.post("/products/categories", payload);
-    return data.data;
+  /* ---------- UPDATE: Category ---------- */
+  updateCategory: async (id: number, payload: CategoryFormValues): Promise<any> => {
+    const { data } = await apiClient.patch(`/products/categories/${id}`, payload);
+    return data;
+  },
+
+  /* ---------- DELETE: Category ---------- */
+  deleteCategory: async (id: number): Promise<void> => {
+    await apiClient.delete(`/products/categories/${id}`);
   },
 
   /* LIKE */

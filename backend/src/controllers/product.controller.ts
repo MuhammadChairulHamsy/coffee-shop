@@ -1,7 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
 import * as productService from "../services/product.service.js";
-import type { CreateProductBody, ListProductsQuery, listCategoriesQuery, ToggleLikeBody, UpdateProductBody, CreateCategoryBody } from "../schemas/product.schema.js";
-
+import type {
+  CreateProductBody,
+  ListProductsQuery,
+  listCategoriesQuery,
+  ToggleLikeBody,
+  UpdateProductBody,
+  CreateCategoryBody,
+} from "../schemas/product.schema.js";
 
 export const getAllProducts = async (
   req: Request,
@@ -20,7 +26,7 @@ export const getAllProducts = async (
 export const getCategories = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { search } = req.validated!.query as listCategoriesQuery;
@@ -31,7 +37,11 @@ export const getCategories = async (
   }
 };
 
-export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
+export const createCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const body = req.validated!.body as CreateCategoryBody;
     const category = await productService.createCategory(body);
@@ -110,7 +120,6 @@ export const updateProduct = async (
   }
 };
 
-
 export const deleteProduct = async (
   req: Request,
   res: Response,
@@ -124,7 +133,6 @@ export const deleteProduct = async (
     next(error);
   }
 };
-
 
 export const toggleLike = async (
   req: Request,

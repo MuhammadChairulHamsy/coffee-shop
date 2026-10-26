@@ -1,14 +1,21 @@
 "use client";
 
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { 
-  Product, 
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import type {
+  Product,
   ListProductsQuery,
   CreateProductPayload,
   UpdateProductPayload,
 } from "@/schemas/product.schema";
 import { productService } from "@/services/product-service";
 import { toApiError } from "@/lib/api-error";
+import { ListCategoriesQuery } from "@/types/category";
+import { CategoryFormValues } from "@/schemas/category.schema";
 
 /* ---------- Query Keys ---------- */
 
@@ -19,7 +26,8 @@ export const productKeys = {
   detail: (id: number) => [...productKeys.all, "detail", id] as const,
   latest: () => [...productKeys.all, "latest"] as const,
   special: () => [...productKeys.all, "special"] as const,
-  categories: (search?: string) => [...productKeys.all, "categories", search] as const,
+  categories: (params?: ListCategoriesQuery) =>
+    [...productKeys.all, "categories", params] as const,
 };
 
 /* ---------- Queries (Data Layer) ---------- */
@@ -46,23 +54,28 @@ export function useProducts(params?: ListProductsQuery) {
   };
 }
 
-export function useCategories(search?: string) {
+export function useCategories(params?: ListCategoriesQuery) {
   const query = useQuery({
-    queryKey: productKeys.categories(search),
-    queryFn: () => productService.getCategories(search),
+    queryKey: productKeys.categories(params),
+    queryFn: () => productService.getCategories(params),
     staleTime: 60_000,
+    placeholderData: keepPreviousData,
   });
 
   return {
-    categories: query.data ?? [],
+    categories: query.data?.data ?? [], 
+    meta: query.data?.meta, 
     status: {
       isLoading: query.isLoading,
+      isFetching: query.isFetching,
       isError: query.isError,
+      isSuccess: query.isSuccess,
     },
     error: query.error ? toApiError(query.error) : null,
     refetch: query.refetch,
   };
 }
+
 
 export function useLatestProducts() {
   const query = useQuery({
@@ -139,11 +152,33 @@ export function useDeleteProduct() {
   });
 }
 
+
 export function useCreateCategory() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (payload: { name: string; description?: string | null }) =>
       productService.createCategory(payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: productKeys.categories() });
+    },
+  });
+}
+
+export function useUpdateCategory() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: number; payload: CategoryFormValues }) =>
+      productService.updateCategory(id, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: productKeys.categories() });
+    },
+  });
+}
+
+export function useDeleteCategory() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => productService.deleteCategory(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: productKeys.categories() });
     },
