@@ -8,8 +8,8 @@ import {
   type PaginatedProducts,
   type Product,
 } from "@/schemas/product.schema";
-import { CategoryStats, ListCategoriesQuery } from "@/types/category";
-import { CategoryFormValues, categoryStatsSchema, PaginatedCategories, paginatedCategoriesSchema } from "@/schemas/category.schema";
+import { ListCategoriesQuery } from "@/types/category";
+import { CategoryFormValues, PaginatedCategories, paginatedCategoriesSchema } from "@/schemas/category.schema";
 
 /* Helper: parse response dengan Zod */
 const parseOrThrow = <T>(
@@ -92,7 +92,7 @@ export const productService = {
   /* ---------- CREATE: Category ---------- */
   createCategory: async (payload: CategoryFormValues): Promise<any> => {
     const { data } = await apiClient.post("/products/categories", payload);
-    return data; // Kembalikan response API
+    return data; 
   },
 
   /* ---------- UPDATE: Category ---------- */

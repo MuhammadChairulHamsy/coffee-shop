@@ -17,10 +17,7 @@ import {
   SORT_OPTIONS,
 } from "@/constants/product-filters";
 import type { Product, RoastProfile } from "@/schemas/product.schema";
-import type {
-  ProductSort,
-  ViewMode,
-} from "@/types/product-filter";
+import type { ProductSort, ViewMode } from "@/types/product-filter";
 
 export default function ProductsPage() {
   /* ---------- Filter State ---------- */
@@ -35,9 +32,13 @@ export default function ProductsPage() {
 
   /* ---------- Dialog State ---------- */
   const [formOpen, setFormOpen] = React.useState(false);
-  const [editingProduct, setEditingProduct] = React.useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = React.useState<Product | null>(
+    null,
+  );
   const [deleteOpen, setDeleteOpen] = React.useState(false);
-  const [deletingProduct, setDeletingProduct] = React.useState<Product | null>(null);
+  const [deletingProduct, setDeletingProduct] = React.useState<Product | null>(
+    null,
+  );
 
   const debouncedSearch = useDebounce(search, 300);
 
@@ -63,7 +64,9 @@ export default function ProductsPage() {
 
   /* ---------- Handlers ---------- */
   const handleSelectOne = React.useCallback((id: number, checked: boolean) => {
-    setPickedIds((prev) => (checked ? [...prev, id] : prev.filter((x) => x !== id)));
+    setPickedIds((prev) =>
+      checked ? [...prev, id] : prev.filter((x) => x !== id),
+    );
   }, []);
 
   const handleSelectAll = React.useCallback(
@@ -94,7 +97,9 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <h1 className="text-2xl text-sidebar-foreground font-bold tracking-tight">Katalog Produk Speciality</h1>
+          <h1 className="text-2xl text-sidebar-foreground font-bold tracking-tight">
+            Katalog Produk Speciality
+          </h1>
           <p className="text-sm text-sidebar-foreground">
             Kelola stok, harga, dan daftar produk kopi Coffeo.
           </p>
@@ -112,7 +117,11 @@ export default function ProductsPage() {
       {/* Toolbar */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative max-w-md flex-1">
-          <SearchBar value={search} onChange={setSearch} placeholder="Search product..." />
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+            placeholder="Search product..."
+          />
         </div>
         <div className="flex flex-wrap items-center gap-3 sm:ml-auto">
           <FilterSelect<RoastProfile>
@@ -157,7 +166,12 @@ export default function ProductsPage() {
       {/* Pagination */}
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-center gap-2">
-          <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(page - 1)}>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page <= 1}
+            onClick={() => setPage(page - 1)}
+          >
             Sebelumnya
           </Button>
           <span className="text-xs text-muted-foreground">
@@ -175,7 +189,11 @@ export default function ProductsPage() {
       )}
 
       {/* Dialogs */}
-      <ProductFormDialog open={formOpen} onOpenChange={setFormOpen} product={editingProduct} />
+      <ProductFormDialog
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        product={editingProduct}
+      />
       <ProductDeleteDialog
         product={deletingProduct}
         open={deleteOpen}

@@ -152,14 +152,17 @@ export function useDeleteProduct() {
   });
 }
 
+export const categoryKeys = {
+  all: ["categories"] as const,
+};
 
 export function useCreateCategory() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (payload: { name: string; description?: string | null }) =>
+    mutationFn: (payload: CategoryFormValues) =>
       productService.createCategory(payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: productKeys.categories() });
+      qc.invalidateQueries({ queryKey: categoryKeys.all });
     },
   });
 }
@@ -170,7 +173,7 @@ export function useUpdateCategory() {
     mutationFn: ({ id, payload }: { id: number; payload: CategoryFormValues }) =>
       productService.updateCategory(id, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: productKeys.categories() });
+      qc.invalidateQueries({ queryKey: categoryKeys.all });
     },
   });
 }
@@ -180,7 +183,7 @@ export function useDeleteCategory() {
   return useMutation({
     mutationFn: (id: number) => productService.deleteCategory(id),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: productKeys.categories() });
+      qc.invalidateQueries({ queryKey: categoryKeys.all });
     },
   });
 }

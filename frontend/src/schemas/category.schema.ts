@@ -6,8 +6,8 @@ export const categoryStatsSchema = z.object({
   description: z.string().nullable(),
   productCount: z.number(),
   totalValue: z.number(),
-  lastUpdated: z.string(),
   status: z.enum(["active", "empty"]),
+  lastUpdated: z.string(),
 });
 
 export type CategoryStats = z.infer<typeof categoryStatsSchema>;

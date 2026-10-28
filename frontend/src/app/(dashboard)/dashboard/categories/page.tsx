@@ -11,6 +11,7 @@ import { CategoryFormDialog } from "../components/categories/category-form-dialo
 import { PAGE_SIZE } from "@/constants/product-filters";
 import type { CategoryStats } from "@/schemas/category.schema";
 import { CategoryDeleteDialog } from "../components/categories/category-delete-dialog";
+import { SearchBar } from "../components/search-bar";
 
 export default function CategoriesPage() {
   const [search, setSearch] = React.useState("");
@@ -28,7 +29,7 @@ export default function CategoriesPage() {
   /* ---------- Debounce & Data Fetching (Urutan sudah benar) ---------- */
   const debouncedSearch = useDebounce(search, 300);
 
-  const { categories, meta, status, error, refetch } = useCategories({
+  const { categories, status, error, refetch } = useCategories({
     page,
     limit: PAGE_SIZE,
     search: debouncedSearch || undefined,
@@ -39,6 +40,11 @@ export default function CategoriesPage() {
     () => pickedIds.filter((id) => categories.some((c) => c.id === id)),
     [pickedIds, categories],
   );
+
+   /* ---------- Reset page saat filter berubah ---------- */
+  React.useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch]);
 
   /* ---------- Handlers ---------- */
   const handleSelectOne = React.useCallback((id: number, checked: boolean) => {
@@ -89,13 +95,13 @@ export default function CategoriesPage() {
 
       {/* Search Bar */}
       <div className="flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Cari kategori..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="h-10 w-full max-w-md rounded-md border border-neutral-800 bg-neutral-900 px-4 text-sm text-neutral-50 placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-700"
-        />
+         <div className="relative max-w-md flex-1">
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+            placeholder="Search category name, description..."
+          />
+        </div>
       </div>
 
       {/* Table */}

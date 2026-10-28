@@ -63,11 +63,19 @@ export const getAllProducts = async (params: ListProductsQuery) => {
 
 export const getAllCategories = async (search?: string) => {
   const grouped = await prisma.category.findMany({
+    where: search
+      ? {
+          OR: [
+            { name: { contains: search, mode: "insensitive" } },
+            { description: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : undefined,
     include: {
       _count: {
         select: { products: true },
       },
-        products: {
+      products: {
         select: {
           price: true,
         },
@@ -77,7 +85,10 @@ export const getAllCategories = async (search?: string) => {
   });
 
   return grouped.map((c) => {
-    const totalValue = c.products.reduce((sum, product) => sum + product.price, 0);
+    const totalValue = c.products.reduce(
+      (sum, product) => sum + product.price,
+      0,
+    );
 
     return {
       id: c.id,
@@ -87,7 +98,7 @@ export const getAllCategories = async (search?: string) => {
       totalValue: totalValue,
       lastUpdated: c.updatedAt.toISOString(),
       status: c._count.products > 0 ? "active" : "empty",
-    }
+    };
   });
 };
 
