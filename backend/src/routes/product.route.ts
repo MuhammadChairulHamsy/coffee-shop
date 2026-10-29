@@ -28,6 +28,7 @@ const router: IRouter = Router();
 router.get("/", validate({ query: listProductsQuerySchema }), getAllProducts);
 router.get("/latest", getLatestProducts);
 router.get("/special", getSpecialProducts);
+
 router.get(
   "/categories",
   validate({ query: listCategoriesQuerySchema }),

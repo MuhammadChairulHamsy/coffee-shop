@@ -8,30 +8,38 @@ import CategoryTable from "@/app/(dashboard)/dashboard/components/categories/cat
 import { useCategories } from "@/hooks/use-products";
 import { useDebounce } from "@/hooks/use-debounce";
 import { CategoryFormDialog } from "../components/categories/category-form-dialog";
-import { PAGE_SIZE } from "@/constants/product-filters";
-import type { CategoryStats } from "@/schemas/category.schema";
+import { CATEGORY_SORT_OPTIONS, PAGE_SIZE } from "@/constants/category-filters";
+import type { CategorySort, CategoryStats } from "@/schemas/category.schema";
 import { CategoryDeleteDialog } from "../components/categories/category-delete-dialog";
 import { SearchBar } from "../components/search-bar";
+import { FilterSelect } from "../components/filter-select";
+import { ViewToggle } from "../components/view-toggle";
+import { ViewMode } from "@/types/ui";
 
 export default function CategoriesPage() {
   const [search, setSearch] = React.useState("");
   const [page, setPage] = React.useState(1);
+  const [sort, setSort] = React.useState<CategorySort>("all");
+  const [view, setView] = React.useState<ViewMode>("grid");
 
   /* ---------- Dialog State ---------- */
   const [formOpen, setFormOpen] = React.useState(false);
-  const [editingCategory, setEditingCategory] = React.useState<CategoryStats | null>(null);
+  const [editingCategory, setEditingCategory] =
+    React.useState<CategoryStats | null>(null);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
-  const [deletingCategory, setDeletingCategory] = React.useState<CategoryStats | null>(null);
+  const [deletingCategory, setDeletingCategory] =
+    React.useState<CategoryStats | null>(null);
 
   /* ---------- Selection State ---------- */
   const [pickedIds, setPickedIds] = React.useState<number[]>([]);
 
-  /* ---------- Debounce & Data Fetching (Urutan sudah benar) ---------- */
+  /* ---------- Debounce & Data Fetching ---------- */
   const debouncedSearch = useDebounce(search, 300);
 
   const { categories, status, error, refetch } = useCategories({
     page,
     limit: PAGE_SIZE,
+    sort,
     search: debouncedSearch || undefined,
   });
 
@@ -41,14 +49,16 @@ export default function CategoriesPage() {
     [pickedIds, categories],
   );
 
-   /* ---------- Reset page saat filter berubah ---------- */
+  /* ---------- Reset page saat filter berubah ---------- */
   React.useEffect(() => {
     setPage(1);
-  }, [debouncedSearch]);
+  }, [debouncedSearch, sort]);
 
   /* ---------- Handlers ---------- */
   const handleSelectOne = React.useCallback((id: number, checked: boolean) => {
-    setPickedIds((prev) => (checked ? [...prev, id] : prev.filter((x) => x !== id)));
+    setPickedIds((prev) =>
+      checked ? [...prev, id] : prev.filter((x) => x !== id),
+    );
   }, []);
 
   const handleSelectAll = React.useCallback(
@@ -61,13 +71,12 @@ export default function CategoriesPage() {
   const handleEdit = React.useCallback((category: CategoryStats) => {
     setEditingCategory(category);
     setFormOpen(true);
-  }, []); // ✅ Tambahkan [] agar sesuai kaidah useCallback
+  }, []);
 
   const handleDelete = React.useCallback((category: CategoryStats) => {
     setDeletingCategory(category);
     setDeleteOpen(true);
   }, []);
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -84,7 +93,12 @@ export default function CategoriesPage() {
           <Button variant="outline">
             <Download className="mr-1 size-4" /> Export
           </Button>
-          <Button onClick={() => { setEditingCategory(null); setFormOpen(true); }}>
+          <Button
+            onClick={() => {
+              setEditingCategory(null);
+              setFormOpen(true);
+            }}
+          >
             <PlusIcon className="mr-1 size-4" /> Add Category
           </Button>
         </div>
@@ -93,24 +107,37 @@ export default function CategoriesPage() {
       {/* Stat Cards */}
       <CategoryStatCards categories={categories} isLoading={status.isLoading} />
 
-      {/* Search Bar */}
-      <div className="flex items-center gap-3">
-         <div className="relative max-w-md flex-1">
+      {/* Search Bar & Filters */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative max-w-md flex-1">
           <SearchBar
             value={search}
             onChange={setSearch}
             placeholder="Search category name, description..."
           />
         </div>
+
+        <div className="flex flex-wrap items-center gap-3 sm:ml-auto">
+          {/* Filter Sort Menggunakan Opsi Kategori */}
+          <FilterSelect
+            value={sort}
+            onValueChange={setSort}
+            options={CATEGORY_SORT_OPTIONS}
+            indicator="sort"
+          />
+          <ViewToggle value={view} onChange={setView} />
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs text-sidebar-foreground">
+        <span>
+          Menampilkan {categories.length} category
+          {selectedIds.length > 0 && ` · ${selectedIds.length} dipilih`}
+        </span>
+        {status.isFetching && <span>· Memuat…</span>}
       </div>
 
       {/* Table */}
-      {status.isError && (
-        <div className="rounded-lg border border-rose-900/50 bg-rose-900/10 p-4 text-center text-sm text-rose-400">
-          Gagal memuat kategori: {error?.message}
-        </div>
-      )}
-
       <CategoryTable
         categories={categories}
         isLoading={status.isLoading}
@@ -124,15 +151,20 @@ export default function CategoriesPage() {
         onRetry={refetch}
       />
 
+      {/* Dialogs */}
       <CategoryFormDialog
         open={formOpen}
         onOpenChange={setFormOpen}
         category={editingCategory}
       />
-      <CategoryDeleteDialog category={deletingCategory} open={deleteOpen} onOpenChange={(open) => {
-        setDeleteOpen(open);
-        if(!open) setDeletingCategory(null)
-      }}/>
+      <CategoryDeleteDialog
+        category={deletingCategory}
+        open={deleteOpen}
+        onOpenChange={(open) => {
+          setDeleteOpen(open);
+          if (!open) setDeletingCategory(null);
+        }}
+      />
     </div>
   );
 }

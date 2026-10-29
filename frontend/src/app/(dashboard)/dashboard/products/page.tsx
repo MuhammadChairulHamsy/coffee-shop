@@ -16,8 +16,8 @@ import {
   PROFILE_OPTIONS,
   SORT_OPTIONS,
 } from "@/constants/product-filters";
-import type { Product, RoastProfile } from "@/schemas/product.schema";
-import type { ProductSort, ViewMode } from "@/types/product-filter";
+import type { Product, ProductSort, RoastProfile } from "@/schemas/product.schema";
+import { ViewMode } from "@/types/ui";
 
 export default function ProductsPage() {
   /* ---------- Filter State ---------- */

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/table";
 import { CategoryRow } from "./category-row";
 import type { CategoryTableProps } from "@/types/category";
-import { FolderOpen } from "lucide-react";
 import { COLUMNS } from "@/constants/categories";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CategoryErrorState } from "./category-error-state";

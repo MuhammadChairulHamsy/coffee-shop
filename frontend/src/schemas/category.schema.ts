@@ -12,6 +12,15 @@ export const categoryStatsSchema = z.object({
 
 export type CategoryStats = z.infer<typeof categoryStatsSchema>;
 
+export const categorySortEnum = z.enum([
+  "all",
+  "most-products",
+  "least-products",
+  "name-asc",
+]);
+
+export type CategorySort = z.infer<typeof categorySortEnum>;
+
 export const paginatedCategoriesSchema = z.object({
   data: z.array(categoryStatsSchema),
   meta: z

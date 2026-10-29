@@ -47,11 +47,19 @@ export const listProductsQuerySchema = z.object({
 export type ListProductsQuery = z.infer<typeof listProductsQuerySchema>; 
 
 
+export const categorySortEnum = z.enum([
+  "all",
+  "most-products",
+  "least-products",
+  "name-asc",
+]);
+
 export const listCategoriesQuerySchema = z.object({
   search: z.string().trim().optional(),
+  sort: categorySortEnum.optional().default("all"),
 })
 
-export type listCategoriesQuery = z.infer<typeof listCategoriesQuerySchema>;
+export type ListCategoriesQuery = z.infer<typeof listCategoriesQuerySchema>;
 
 export const createCategoryBodySchema = z.object({
   name: z.string().trim().min(2, "Nama minimal 2 karakter"),
