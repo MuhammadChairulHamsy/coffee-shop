@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Download, PlusIcon } from "lucide-react";
 import { CategoryStatCards } from "../components/categories/category-stat-cards";
 import CategoryTable from "@/app/(dashboard)/dashboard/components/categories/category-table";
-import { useCategories } from "@/hooks/use-products";
+import { useCategories } from "@/hooks/use-categories";
 import { useDebounce } from "@/hooks/use-debounce";
 import { CategoryFormDialog } from "../components/categories/category-form-dialog";
 import { CATEGORY_SORT_OPTIONS, PAGE_SIZE } from "@/constants/category-filters";

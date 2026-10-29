@@ -8,8 +8,6 @@ import {
   type PaginatedProducts,
   type Product,
 } from "@/schemas/product.schema";
-import { ListCategoriesQuery } from "@/types/category";
-import { CategoryFormValues, PaginatedCategories, paginatedCategoriesSchema } from "@/schemas/category.schema";
 
 /* Helper: parse response dengan Zod */
 const parseOrThrow = <T>(
@@ -83,28 +81,6 @@ export const productService = {
     await apiClient.delete(`/products/${id}`);
   },
 
-  /* READ: Categories */
-  getCategories: async (params?: ListCategoriesQuery): Promise<PaginatedCategories> => {
-  const { data } = await apiClient.get("/categories", { params });
-  return parseOrThrow<PaginatedCategories>(paginatedCategoriesSchema, data);
-},
-
-  /* ---------- CREATE: Category ---------- */
-  createCategory: async (payload: CategoryFormValues): Promise<any> => {
-    const { data } = await apiClient.post("/categories", payload);
-    return data; 
-  },
-
-  /* ---------- UPDATE: Category ---------- */
-  updateCategory: async (id: number, payload: CategoryFormValues): Promise<any> => {
-    const { data } = await apiClient.patch(`/categories/${id}`, payload);
-    return data;
-  },
-
-  /* ---------- DELETE: Category ---------- */
-  deleteCategory: async (id: number): Promise<void> => {
-    await apiClient.delete(`/categories/${id}`);
-  },
 
   /* LIKE */
   toggleLike: async (id: number, isLiked?: boolean): Promise<Product> => {

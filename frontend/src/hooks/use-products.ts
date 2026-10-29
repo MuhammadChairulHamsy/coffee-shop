@@ -15,7 +15,6 @@ import type {
 import { productService } from "@/services/product-service";
 import { toApiError } from "@/lib/api-error";
 import { ListCategoriesQuery } from "@/types/category";
-import { CategoryFormValues } from "@/schemas/category.schema";
 
 /* ---------- Query Keys ---------- */
 
@@ -43,28 +42,6 @@ export function useProducts(params?: ListProductsQuery) {
   return {
     products: query.data?.data ?? [],
     meta: query.data?.meta,
-    status: {
-      isLoading: query.isLoading,
-      isFetching: query.isFetching,
-      isError: query.isError,
-      isSuccess: query.isSuccess,
-    },
-    error: query.error ? toApiError(query.error) : null,
-    refetch: query.refetch,
-  };
-}
-
-export function useCategories(params?: ListCategoriesQuery) {
-  const query = useQuery({
-    queryKey: productKeys.categories(params),
-    queryFn: () => productService.getCategories(params),
-    staleTime: 60_000,
-    placeholderData: keepPreviousData,
-  });
-
-  return {
-    categories: query.data?.data ?? [], 
-    meta: query.data?.meta, 
     status: {
       isLoading: query.isLoading,
       isFetching: query.isFetching,
@@ -148,42 +125,6 @@ export function useDeleteProduct() {
     mutationFn: (id: number) => productService.delete(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: productKeys.all });
-    },
-  });
-}
-
-export const categoryKeys = {
-  all: ["categories"] as const,
-};
-
-export function useCreateCategory() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (payload: CategoryFormValues) =>
-      productService.createCategory(payload),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: categoryKeys.all });
-    },
-  });
-}
-
-export function useUpdateCategory() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, payload }: { id: number; payload: CategoryFormValues }) =>
-      productService.updateCategory(id, payload),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: categoryKeys.all });
-    },
-  });
-}
-
-export function useDeleteCategory() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (id: number) => productService.deleteCategory(id),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: categoryKeys.all });
     },
   });
 }
