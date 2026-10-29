@@ -12,6 +12,7 @@ import { logger } from "./lib/logger.js";
 import helmet from "helmet";
 import { prisma } from "./lib/prisma.js";
 import { env } from "./lib/env.js"; 
+import { categoryRouter } from "./routes/category.route.js";
 
 const app: Express = express();
 
@@ -38,6 +39,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/products", productRouter);
+app.use("/api/categories", categoryRouter);
 
 // 4. Error handler PALING AKHIR
 app.use(errorHandler);

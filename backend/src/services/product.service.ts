@@ -1,9 +1,7 @@
 import { prisma } from "../lib/prisma.js";
 import { NotFoundError } from "../lib/errors.js";
 import type {
-  CreateCategoryBody,
   CreateProductBody,
-  ListCategoriesQuery,
   ListProductsQuery,
   UpdateProductBody,
 } from "@/schemas/product.schema.js";
@@ -62,64 +60,6 @@ export const getAllProducts = async (params: ListProductsQuery) => {
   };
 };
 
-export const getAllCategories = async (params?: ListCategoriesQuery) => {
-  const { search, sort } = params ?? {};
-
-  let orderBy: Prisma.CategoryOrderByWithRelationInput = { name: "asc" };
-
-  if (sort === "most-products") {
-    // Urutkan berdasarkan jumlah produk terbanyak
-    orderBy = { products: { _count: "desc" } };
-  } else if (sort === "least-products") {
-    // Urutkan berdasarkan jumlah produk tersedikit
-    orderBy = { products: { _count: "asc" } };
-  } else if (sort === "name-asc") {
-    orderBy = { name: "asc" };
-  }
-
-  const grouped = await prisma.category.findMany({
-    where: search
-      ? {
-          OR: [
-            { name: { contains: search, mode: "insensitive" } },
-            { description: { contains: search, mode: "insensitive" } },
-          ],
-        }
-      : undefined,
-    include: {
-      _count: {
-        select: { products: true },
-      },
-      products: {
-        select: {
-          price: true,
-        },
-      },
-    },
-    orderBy: orderBy,
-  });
-
-  return grouped.map((c) => {
-    const totalValue = c.products.reduce(
-      (sum, product) => sum + product.price,
-      0,
-    );
-
-    return {
-      id: c.id,
-      name: c.name,
-      description: c.description,
-      productCount: c._count.products,
-      totalValue: totalValue,
-      lastUpdated: c.updatedAt.toISOString(),
-      status: c._count.products > 0 ? "active" : "empty",
-    };
-  });
-};
-
-export const createCategory = async (data: CreateCategoryBody) => {
-  return prisma.category.create({ data });
-};
 
 export const getProductById = async (id: number) => {
   const product = await prisma.products.findUnique({ where: { id } });

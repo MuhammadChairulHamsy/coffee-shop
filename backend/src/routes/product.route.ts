@@ -1,7 +1,6 @@
 import { Router, type IRouter } from "express";
 import {
   getAllProducts,
-  getCategories,
   getLatestProducts,
   getSpecialProducts,
   getProductById,
@@ -9,14 +8,11 @@ import {
   deleteProduct,
   createProduct,
   toggleLike,
-  createCategory,
 } from "../controllers/product.controller.js";
 import { requireAuth } from "../middlewares/require-auth.js";
 import { validate } from "../middlewares/validate.js";
 import {
-  createCategoryBodySchema,
   createProductBodySchema,
-  listCategoriesQuerySchema,
   listProductsQuerySchema,
   productIdParamSchema,
   toggleLikeBodySchema,
@@ -29,17 +25,6 @@ router.get("/", validate({ query: listProductsQuerySchema }), getAllProducts);
 router.get("/latest", getLatestProducts);
 router.get("/special", getSpecialProducts);
 
-router.get(
-  "/categories",
-  validate({ query: listCategoriesQuerySchema }),
-  getCategories,
-);
-router.post(
-  "/categories",
-  requireAuth,
-  validate({ body: createCategoryBodySchema }),
-  createCategory,
-);
 router.get("/:id", validate({ params: productIdParamSchema }), getProductById);
 
 router.post(
