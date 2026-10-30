@@ -35,32 +35,6 @@ export const getProductById = async (
   }
 };
 
-export const getSpecialProducts = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const data = await productService.getSpecialProducts();
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getLatestProducts = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const data = await productService.getLatestProducts();
-    res.status(200).json({ success: true, data });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const createProduct = async (
   req: Request,
   res: Response,
@@ -103,6 +77,33 @@ export const deleteProduct = async (
     next(error);
   }
 };
+
+export const getSpecialProducts = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await productService.getSpecialProducts();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getLatestProducts = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await productService.getLatestProducts();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export const toggleLike = async (
   req: Request,

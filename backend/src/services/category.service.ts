@@ -1,8 +1,10 @@
 import { prisma } from "../lib/prisma.js";
 import type { Prisma } from "@/generated/prisma/index.js";
+import { NotFoundError } from "@/lib/errors.js";
 import type {
   ListCategoriesQuery,
   CreateCategoryBody,
+  UpdateCategoryBody,
 } from "@/schemas/category.schema.js";
 
 export const getAllCategories = async (params: ListCategoriesQuery) => {
@@ -39,10 +41,10 @@ export const getAllCategories = async (params: ListCategoriesQuery) => {
         products: { select: { price: true } },
       },
       orderBy: orderBy,
-      skip: skip,   
-      take: limit, 
+      skip: skip,
+      take: limit,
     }),
-    prisma.category.count({ where }), 
+    prisma.category.count({ where }),
   ]);
 
   /* ---------- 4. Format Response ---------- */
@@ -70,6 +72,36 @@ export const getAllCategories = async (params: ListCategoriesQuery) => {
   };
 };
 
-export const createCategory = async (data: CreateCategoryBody) => {
-  return prisma.category.create({ data });
+export const getCategoryById = async (id: number) => {
+  const category = await prisma.category.findUnique({ where: { id } });
+  if (!category) throw new NotFoundError("Category tidak ditemukan");
+  return category;
+};
+
+export const createCategory = async (body: CreateCategoryBody) => {
+  return prisma.category.create({
+    data: {
+      name: body.name,
+      description: body.description || null,
+    },
+  });
+};
+
+export const updateCategory = async (id: number, body: UpdateCategoryBody) => {
+  await getCategoryById(id);
+
+  return prisma.category.update({
+    where: { id },
+    data: {
+      ...(body.name !== undefined && { name: body.name }),
+      ...(body.description !== undefined && {
+        description: body.description || null,
+      }),
+    },
+  });
+};
+
+export const deleteCategory = async (id: number) => {
+  await getCategoryById(id);
+  return prisma.category.delete({ where: { id } });
 };

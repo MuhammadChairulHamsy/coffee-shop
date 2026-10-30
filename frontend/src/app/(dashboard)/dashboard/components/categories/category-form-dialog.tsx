@@ -140,7 +140,7 @@ export function CategoryFormDialog({
           <DialogFooter className="pt-2">
             <Button
               type="button"
-              variant="outline"
+              variant="default"
               onClick={() => onOpenChange(false)}
               disabled={isPending}
             >
