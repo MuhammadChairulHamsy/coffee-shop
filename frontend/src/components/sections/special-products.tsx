@@ -1,7 +1,7 @@
 "use client";
 
 import { useSpecialProducts } from "@/hooks/use-products";
-import SpecialProductsFilter from "./specialProductsClient";
+import SpecialProductsFilter from "./special-products-client";
 
 const SpecialProducts =  () => {
   const { specialProducts, status} = useSpecialProducts();

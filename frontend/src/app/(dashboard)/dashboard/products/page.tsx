@@ -18,6 +18,7 @@ import {
 } from "@/constants/product-filters";
 import type { Product, ProductSort, RoastProfile } from "@/schemas/product.schema";
 import { ViewMode } from "@/types/ui";
+import { DataPagination } from "@/components/data-pagination";
 
 export default function ProductsPage() {
   /* ---------- Filter State ---------- */
@@ -164,28 +165,13 @@ export default function ProductsPage() {
       />
 
       {/* Pagination */}
-      {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={page <= 1}
-            onClick={() => setPage(page - 1)}
-          >
-            Sebelumnya
-          </Button>
-          <span className="text-xs text-muted-foreground">
-            Halaman {page} dari {meta.totalPages}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={page >= meta.totalPages}
-            onClick={() => setPage(page + 1)}
-          >
-            Selanjutnya
-          </Button>
-        </div>
+      {meta && (
+        <DataPagination
+          currentPage={page}
+          totalPages={meta.totalPages}
+          onPageChange={setPage}
+          className="mt-8"
+        />
       )}
 
       {/* Dialogs */}

@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { useDeleteCategory } from "@/hooks/use-products";
+import { useDeleteCategory } from "@/hooks/use-categories";
 import { toApiError } from "@/lib/api-error";
 import { CategoryStats } from "@/schemas/category.schema";
 

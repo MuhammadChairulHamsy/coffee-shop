@@ -18,10 +18,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
-  useCategories,
   useCreateProduct,
   useUpdateProduct,
 } from "@/hooks/use-products";
+import { useCategories } from "@/hooks/use-categories";
 import { toApiError } from "@/lib/api-error";
 import {
   formSchema,

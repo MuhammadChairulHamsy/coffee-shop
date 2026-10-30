@@ -7,4 +7,4 @@ export const CATEGORY_SORT_OPTIONS: { value: CategorySort; label: string }[] = [
   { value: "name-asc", label: "Sort by: Name (A-Z)" },
 ];
 
-export const PAGE_SIZE = 20;
+export const PAGE_SIZE = 2;

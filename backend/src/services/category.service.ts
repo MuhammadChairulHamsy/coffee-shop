@@ -5,9 +5,11 @@ import type {
   CreateCategoryBody,
 } from "@/schemas/category.schema.js";
 
-export const getAllCategories = async (params?: ListCategoriesQuery) => {
-  const { search, sort } = params ?? {};
+export const getAllCategories = async (params: ListCategoriesQuery) => {
+  const { page, limit, search, sort } = params;
+  const skip = (page - 1) * limit;
 
+  /* ---------- 1. Tentukan Urutan (Order By) ---------- */
   let orderBy: Prisma.CategoryOrderByWithRelationInput = { name: "asc" };
 
   if (sort === "most-products") {
@@ -18,23 +20,33 @@ export const getAllCategories = async (params?: ListCategoriesQuery) => {
     orderBy = { name: "asc" };
   }
 
-  const grouped = await prisma.category.findMany({
-    where: search
-      ? {
-          OR: [
-            { name: { contains: search, mode: "insensitive" } },
-            { description: { contains: search, mode: "insensitive" } },
-          ],
-        }
-      : undefined,
-    include: {
-      _count: { select: { products: true } },
-      products: { select: { price: true } },
-    },
-    orderBy: orderBy,
-  });
+  /* ---------- 2. Where Clause ---------- */
+  const where: Prisma.CategoryWhereInput = search
+    ? {
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { description: { contains: search, mode: "insensitive" } },
+        ],
+      }
+    : {};
 
-  return grouped.map((c) => {
+  /* ---------- 3. Query Prisma (Transaction) ---------- */
+  const [categories, total] = await prisma.$transaction([
+    prisma.category.findMany({
+      where,
+      include: {
+        _count: { select: { products: true } },
+        products: { select: { price: true } },
+      },
+      orderBy: orderBy,
+      skip: skip,   
+      take: limit, 
+    }),
+    prisma.category.count({ where }), 
+  ]);
+
+  /* ---------- 4. Format Response ---------- */
+  const data = categories.map((c) => {
     const totalValue = c.products.reduce((sum, p) => sum + p.price, 0);
     return {
       id: c.id,
@@ -46,6 +58,16 @@ export const getAllCategories = async (params?: ListCategoriesQuery) => {
       status: c._count.products > 0 ? "active" : "empty",
     };
   });
+
+  return {
+    data,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
 };
 
 export const createCategory = async (data: CreateCategoryBody) => {

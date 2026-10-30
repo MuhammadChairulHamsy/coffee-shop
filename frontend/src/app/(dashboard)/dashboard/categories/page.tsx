@@ -15,6 +15,7 @@ import { SearchBar } from "../components/search-bar";
 import { FilterSelect } from "../components/filter-select";
 import { ViewToggle } from "../components/view-toggle";
 import { ViewMode } from "@/types/ui";
+import { DataPagination } from "@/components/data-pagination";
 
 export default function CategoriesPage() {
   const [search, setSearch] = React.useState("");
@@ -36,7 +37,7 @@ export default function CategoriesPage() {
   /* ---------- Debounce & Data Fetching ---------- */
   const debouncedSearch = useDebounce(search, 300);
 
-  const { categories, status, error, refetch } = useCategories({
+  const { categories, meta, status, error, refetch } = useCategories({
     page,
     limit: PAGE_SIZE,
     sort,
@@ -150,6 +151,16 @@ export default function CategoriesPage() {
         onDelete={handleDelete}
         onRetry={refetch}
       />
+
+       {/* Pagination */}
+       {meta && (
+        <DataPagination
+          currentPage={page}
+          totalPages={meta.totalPages}
+          onPageChange={setPage}
+          className="mt-8"
+        />
+      )}
 
       {/* Dialogs */}
       <CategoryFormDialog

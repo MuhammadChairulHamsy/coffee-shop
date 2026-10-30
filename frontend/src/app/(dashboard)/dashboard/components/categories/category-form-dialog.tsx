@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useCreateCategory, useUpdateCategory } from "@/hooks/use-products";
+import { useCreateCategory, useUpdateCategory } from "@/hooks/use-categories";
 import { toast } from "sonner";
 import { toApiError } from "@/lib/api-error";
 import {

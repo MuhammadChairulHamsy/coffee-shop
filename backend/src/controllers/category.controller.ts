@@ -12,8 +12,8 @@ export const getCategories = async (
 ) => {
   try {
     const query = req.validated!.query as ListCategoriesQuery;
-    const categories = await categoryService.getAllCategories(query);
-    res.status(200).json({ success: true, data: categories });
+    const category = await categoryService.getAllCategories(query);
+    res.status(200).json({ success: true, ...category });
   } catch (error) {
     next(error);
   }

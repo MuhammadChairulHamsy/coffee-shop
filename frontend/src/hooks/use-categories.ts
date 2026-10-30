@@ -21,7 +21,7 @@ export const categoryKeys = {
 /* ---------- Queries ---------- */
 export function useCategories(params?: ListCategoriesQuery) {
   const query = useQuery({
-    queryKey: categoryKeys.list(params), // ✅ Sekarang queryKey dipisah dengan rapi
+    queryKey: categoryKeys.list(params),
     queryFn: () => categoryService.getAll(params),
     staleTime: 60_000,
     placeholderData: keepPreviousData,

@@ -1,7 +1,7 @@
 "use client";
 
 import { LayoutGrid, Rows3 } from "lucide-react";
-import type { ViewMode } from "@/types/product-filter";
+import type { ViewMode } from "@/types/ui";
 
 interface ViewToggleProps {
   value: ViewMode;

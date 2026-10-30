@@ -8,6 +8,8 @@ export const categorySortEnum = z.enum([
 ]);
 
 export const listCategoriesQuerySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(10),
   search: z.string().trim().optional(),
   sort: categorySortEnum.optional().default("all"),
 });

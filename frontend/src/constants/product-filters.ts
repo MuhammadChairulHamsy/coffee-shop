@@ -25,4 +25,4 @@ export const SORT_OPTIONS: { value: ProductSort; label: string }[] = [
   { value: "rating", label: "Urutan: Rating" },
 ];
 
-export const PAGE_SIZE = 20;
+export const PAGE_SIZE = 3;

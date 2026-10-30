@@ -12,7 +12,7 @@ type CategoryRowProps = {
   category: CategoryStats;
   isSelected: boolean;
   onSelectOne: (id: number, checked: boolean) => void;
-   onEdit?: (category: CategoryStats) => void;  
+  onEdit?: (category: CategoryStats) => void;
   onDelete?: (category: CategoryStats) => void;
 };
 
@@ -23,15 +23,22 @@ export function CategoryRow({
   onEdit,
   onDelete,
 }: CategoryRowProps) {
-  // Logika status yang benar
   const isActive = category.productCount > 0;
 
   return (
-    <TableRow className={isSelected ? "bg-neutral-900/50 transition-colors" : ""}>
+    <TableRow
+      className={
+        isSelected
+          ? "border-neutral-800 bg-neutral-900/50 transition-colors"
+          : "border-neutral-800 transition-colors"
+      }
+    >
       <TableCell className="px-4 py-3">
         <Checkbox
           checked={isSelected}
-          onCheckedChange={(checked) => onSelectOne(category.id, Boolean(checked))}
+          onCheckedChange={(checked) =>
+            onSelectOne(category.id, Boolean(checked))
+          }
         />
       </TableCell>
       <TableCell className="px-4 py-3">
