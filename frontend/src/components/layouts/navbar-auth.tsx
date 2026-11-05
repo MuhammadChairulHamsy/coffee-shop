@@ -1,17 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import type { NavbarAuthProps } from "@/types/navigation";
 import { signOut } from "@/lib/auth-client";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const NavbarAuth = ({ user }: NavbarAuthProps) => {
   const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [imageError, setImageError] = useState(false);
 
   if (!user) {
     return (
@@ -27,8 +26,7 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
   }
 
   const userInitial = user.name?.charAt(0).toUpperCase() ?? "U";
-  const showAvatarImage = Boolean(user.avatar) && !imageError;
-
+  
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
@@ -44,21 +42,13 @@ const NavbarAuth = ({ user }: NavbarAuthProps) => {
     <div className="flex items-center gap-3">
       {/* Avatar */}
       <div className="flex items-center gap-2">
-        {showAvatarImage ? (
-          <Image
-            src={user.avatar!}
-            alt={user.name ?? "avatar"}
-            width={32}
-            height={32}
-            unoptimized
-            className="rounded-full object-cover border border-border"
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold">
+        <Avatar>
+          <AvatarImage src={user.avatar ?? undefined} alt={user.name ?? "avatar"}  />
+          <AvatarFallback>
             {userInitial}
-          </div>
-        )}
+          </AvatarFallback>
+        </Avatar>
+        
         <span className="hidden lg:block text-sm font-medium text-foreground">
           {user.name}
         </span>
