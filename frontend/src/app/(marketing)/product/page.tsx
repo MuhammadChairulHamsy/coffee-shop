@@ -25,12 +25,22 @@ const ProductPage = () => {
   return (
     <section className="container mx-auto mt-10 mb-20 lg:mt-20">
       {/* Header */}
-      <div className="flex flex-col items-center justify-between gap-5 lg:mb-5 lg:flex-col">
-        <h1 className="font-playfair text-5xl font-extrabold text-primary sm:text-6xl lg:text-7xl">
-          OUR MENU
+      <div className="flex flex-col mb-12 mx-2 gap-5 lg:mb-5 lg:flex-col">
+        <div className="bg-secondary max-w-fit py-1.5 px-4 rounded-full flex items-center gap-2 text-primary tracking-widest ">
+          <span className=" bg-primary rounded-full w-1.5 h-1.5"></span>
+          <p className="text-[10px] lg:text-xs font-bold">
+            DIRECT FARM SOURCING MICRO BATH ROASTED
+          </p>
+        </div>
+        <h1 className="text-foreground font-inter text-2xl lg:text-5xl xl:text-6xl lg:leading-[1.15] font-bold wrap-break-word">
+          Speciality Roasted Beans & <br /> Curated Brewing Gear
         </h1>
         <p className="text-sm font-medium text-muted-foreground lg:text-base">
-          Temukan kopi favoritmu dari berbagai pilihan biji kopi premium kami.
+          Sourced directly from high-elevation smallsolders, roasted to order
+          within 24{" "}
+          <span className="md:block lg:block">
+            hours,and delivered at peak degassing for pure cup clarity.
+          </span>
         </p>
       </div>
 
@@ -64,7 +74,7 @@ const ProductPage = () => {
             <ProductCard
               key={product.id}
               product={product}
-              priority={index < 2} // Hanya render 2 gambar pertama dengan priority
+              priority={index < 2}
               onLike={handleLikeClick}
             />
           ))}
