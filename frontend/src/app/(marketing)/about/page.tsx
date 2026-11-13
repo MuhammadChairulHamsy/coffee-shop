@@ -26,7 +26,7 @@ const AboutPage = () => {
   return (
     <section className="mt-10 lg:mt-24 mb-24">
       {/* Container utama untuk teks dan gambar */}
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container mx-auto px-4 md:px-5">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
           {/* --- BAGIAN KIRI: TEKS & STATISTIK --- */}
           <div className="flex w-full lg:w-[55%] xl:w-[60%] flex-col justify-start gap-6 lg:pr-8">
