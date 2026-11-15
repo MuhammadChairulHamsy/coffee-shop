@@ -7,7 +7,6 @@ export default function PackingSection() {
     <section className="mb-24 mt-10 overflow-hidden lg:mt-24">
       <div className="container mx-auto px-4 md:px-5">
         <div className="flex flex-col items-center justify-between gap-16 lg:flex-row lg:gap-12">
-          
           {/* Kolom Kiri: Teks & CTA */}
           <div className="flex w-full flex-col items-start gap-6 lg:w-1/2">
             <div className="flex max-w-fit items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
@@ -41,25 +40,21 @@ export default function PackingSection() {
 
           {/* Kolom Kanan: Gambar Premium (Fixed) */}
           <div className="relative flex w-full justify-center lg:w-1/2">
-            
             {/* Efek Cahaya di Belakang (Glow) */}
             <div className="absolute inset-0 m-auto h-[80%] w-[80%] rounded-full bg-primary/20 blur-[120px]" />
 
             {/* Bingkai Utama */}
             <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-3xl border border-border/60 bg-card shadow-2xl">
-              
-              {/* Gambar (Menggunakan layout natural agar tidak terpotong) */}
-              <div className="relative w-full">
+              <div className="relative aspect-video sm:aspect-square w-full">
                 <Image
-                  src="/image/packing-coffee.jpg"
+                  src="/image/packing.jpg"
                   alt="Sustainable coffee packaging"
-                  width={600} // Angka proporsi untuk landscape
-                  height={400}
+                  fill
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  className="h-auto w-full object-cover"
+                  className="object-cover"
                 />
-                
+
                 {/* Overlay Gradient Halus */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-black/10" />
               </div>
@@ -84,7 +79,6 @@ export default function PackingSection() {
                   </span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
