@@ -47,7 +47,7 @@ export default function PackingSection() {
             <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-3xl border border-border/60 bg-card shadow-2xl">
               <div className="relative aspect-video sm:aspect-square w-full">
                 <Image
-                  src="/image/packing.jpg"
+                  src="/image/packing/packing.jpg"
                   alt="Sustainable coffee packaging"
                   fill
                   priority
