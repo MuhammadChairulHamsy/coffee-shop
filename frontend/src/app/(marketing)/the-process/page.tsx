@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* ---------- DATA DUMMY ---------- */
 const PROCESS_STATS = [
   { value: "1,800+", label: "MASL ELEVATION" },
   { value: "86+", label: "SCA CUPPING SCORE" },
@@ -18,7 +17,7 @@ const PROCESS_STEPS = [
     description:
       "Sourced exclusively from single-origin volcanic smallholders above 1,800m. Cold maturation yields dense beans bursting with natural sugars and crisp florals.",
     tags: ["1,800+ MASL", "Direct Fair Trade"],
-    imageUrl: "/imag/process-coffee-2.jpg",
+    imageUrl: "/image/the-process/process-coffee-1.webp",
     overlayLabel: "ORIGIN & SELECTION",
     overlayValue: "Terrazu & Guji Highlands",
   },
@@ -29,27 +28,28 @@ const PROCESS_STEPS = [
     description:
       "Small 12kg cast-iron batches tracked in real time. We precisely control convective heat through the Maillard reaction to highlight origin acidity without char or smoke.",
     tags: ["Small-Batch 12kg", "Agtron Monitored"],
-    imageUrl: "/image/process-coffee-2.jpg",
+    imageUrl: "/image/the-process/process-coffee-2.jpg",
     overlayLabel: "CRAFTSMANSHIP",
     overlayValue: "Adaptive Roast Curves",
   },
-  // {
-  //   step: "03",
-  //   category: "PEAK DELIVERY",
-  //   title: "Fresh Dispatch Guarantee",
-  //   description:
-  //     "Zero shelf storage. Every bag is roasted to order, nitrogen-flushed to freeze oxidation, and shipped within 24 hours stamped with roast date and cupping notes.",
-  //   tags: ["24h Roast-to-Ship", "Nitrogen Sealed"],
-  //   imageUrl: "/image/the-process/process-coffee-3.jpg",
-  //   overlayLabel: "FRESHNESS STAMPED",
-  //   overlayValue: "Dispatched in 24h",
-  // },
+  {
+    step: "03",
+    category: "PEAK DELIVERY",
+    title: "Fresh Dispatch Guarantee",
+    description:
+      "Zero shelf storage. Every bag is roasted to order, nitrogen-flushed to freeze oxidation, and shipped within 24 hours stamped with roast date and cupping notes.",
+    tags: ["24h Roast-to-Ship", "Nitrogen Sealed"],
+    imageUrl: "/image/the-process/process-coffee-3.jpg",
+    overlayLabel: "FRESHNESS STAMPED",
+    overlayValue: "Dispatched in 24h",
+  },
 ];
 
 export default function TheProcessPage() {
   return (
     <section className="mb-24 mt-10 overflow-hidden lg:mt-24">
       <div className="container mx-auto px-4 md:px-5">
+        
         {/* 1. Header Section */}
         <div className="flex flex-col items-center justify-center gap-6 lg:gap-8">
           <div className="flex max-w-fit items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
@@ -58,12 +58,10 @@ export default function TheProcessPage() {
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
             Zero Stale Storage
           </div>
-
           <h1 className="text-center font-inter text-3xl font-bold leading-[1.15] text-foreground sm:text-4xl lg:text-5xl xl:text-6xl">
             From High-Altitude Crop to Your <br className="hidden md:block" />
             Morning Cup.
           </h1>
-
           <p className="text-center text-base text-muted-foreground md:text-lg">
             Discover the meticulous 3-stage artisanal journey behind every bag
             of Coffesy. <br className="hidden md:block" />
@@ -79,11 +77,7 @@ export default function TheProcessPage() {
                 key={index}
                 className="flex min-w-36 flex-1 flex-col items-center justify-center rounded-full bg-white px-6 py-3 shadow-sm transition-transform hover:scale-105 dark:bg-neutral-950 sm:py-4"
               >
-                <span
-                  className={`text-lg font-bold sm:text-xl ${
-                    stat.highlight ? "text-primary" : "text-foreground"
-                  }`}
-                >
+                <span className={cn("text-lg font-bold sm:text-xl", stat.highlight ? "text-primary" : "text-foreground")}>
                   {stat.value}
                 </span>
                 <span className="mt-1 text-center text-[10px] font-semibold uppercase tracking-wider text-muted-foreground sm:text-xs">
@@ -109,23 +103,24 @@ export default function TheProcessPage() {
             </p>
           </div>
 
-          {/* ✅ Layout: Selang-seling Kanan - Kiri - Kanan */}
           <div className="flex flex-col gap-6 sm:gap-8">
             {PROCESS_STEPS.map((item, index) => {
-              // Jika index 0 (Kanan), index 1 (Kiri), index 2 (Kanan)
+              // index 0 (Kanan), index 1 (Kiri), index 2 (Kanan)
               const isImageRight = index % 2 === 0;
 
               return (
+                // ✅ overflow-hidden Dihapus dari container ini
                 <div
                   key={item.step}
-                  className="overflow-hidden rounded-3xl bg-[#F5F0EB] p-6 sm:p-10 dark:bg-neutral-900/40"
+                  className="rounded-3xl bg-[#F5F0EB] p-6 sm:p-10 dark:bg-neutral-900/40"
                 >
                   <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+                    
                     {/* Kolom Teks */}
                     <div
                       className={cn(
                         "flex flex-col gap-5",
-                        isImageRight ? "lg:order-1" : "lg:order-2",
+                        isImageRight ? "lg:order-1" : "lg:order-2"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -149,7 +144,7 @@ export default function TheProcessPage() {
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold text-foreground sm:text-xs shadow-sm dark:bg-neutral-800"
+                            className="rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold text-foreground shadow-sm sm:text-xs dark:bg-neutral-800"
                           >
                             {tag}
                           </span>
@@ -161,22 +156,21 @@ export default function TheProcessPage() {
                     <div
                       className={cn(
                         "relative h-64 w-full overflow-hidden rounded-xl sm:h-72",
-                        isImageRight ? "lg:order-2" : "lg:order-1",
+                        isImageRight ? "lg:order-2" : "lg:order-1"
                       )}
                     >
                       <Image
                         src={item.imageUrl}
                         alt={item.title}
-                        fill
-                        unoptimized // ✅ Tambahkan ini
-                        className="object-cover"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        width={800}
+                        height={600}
+                        unoptimized
+                        className="absolute inset-0 h-full w-full object-cover"
                       />
-                      {/* Overlay Gradient (Lebih gelap di bawah untuk teks) */}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-
-                      {/* Text Overlay (Kiri Bawah) */}
-                      <div className="absolute bottom-4 left-4 flex flex-col text-white">
+                      
+                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
+                      
+                      <div className="absolute bottom-4 left-4 z-20 flex flex-col text-white">
                         <span className="mb-1 text-[9px] font-bold tracking-widest uppercase opacity-80 sm:text-[10px]">
                           {item.overlayLabel}
                         </span>
@@ -185,6 +179,7 @@ export default function TheProcessPage() {
                         </span>
                       </div>
                     </div>
+
                   </div>
                 </div>
               );
