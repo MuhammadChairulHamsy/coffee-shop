@@ -21,7 +21,7 @@ const NewsletterSection = () => {
         {/* Decorative Coffee Cup - Left */}
         <div className="hidden lg:block absolute -left-16 top-1/2 -translate-y-1/2 ">
           <Image
-            src="/image/Coffee-cup-removebg-preview.webp"
+            src="/image/Coffee-cup.webp"
             alt="Coffee Cup"
             width={400}
             height={400}

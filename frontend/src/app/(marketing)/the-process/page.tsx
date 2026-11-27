@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Leaf } from "lucide-react";
+import { ArrowRight, Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const PROCESS_STATS = [
   { value: "1,800+", label: "MASL ELEVATION" },
@@ -45,9 +46,57 @@ const PROCESS_STEPS = [
   },
 ];
 
+const SPECTRUM_DATA = [
+  {
+    id: "light",
+    roastName: "Light Roast",
+    agtron: "AGTRON 65-75",
+    dots: 1,
+    tags: "Terroir & Floral Acidity",
+    description:
+      "Halted right after the first crack to preserve the fragile aromatic chlorogenic acids. Boasts intense jasmine florals, bergamot sweetness, and crisp stone fruit vibrancy.",
+    details: [
+      { label: "Acidity", value: "Vibrant & High" },
+      { label: "Best Brewed With", value: "V60 / Chemex / Aeropress" },
+      { label: "Flagship Example", value: "Ethiopia Guji Micro-Lot" },
+    ],
+    imageUrl: "/image/the-process/spectrum-light.jpg", // Sesuaikan path gambarmu
+  },
+  {
+    id: "medium",
+    roastName: "Medium Roast",
+    agtron: "AGTRON 50-60",
+    dots: 2,
+    tags: "Caramelization & Truffle Body",
+    description:
+      "Developed through an extended Maillard period. Balancing juicy fruit sugars with warm milk chocolate, toasted macadamia, and velvety salted-caramel mouthfeel.",
+    details: [
+      { label: "Acidity", value: "Smooth & Rounded" },
+      { label: "Best Brewed With", value: "Drip / Espresso / Kalita" },
+      { label: "Flagship Example", value: "Honduras El Puente" },
+    ],
+    imageUrl: "/image/the-process/spectrum-medium.jpg",
+  },
+  {
+    id: "dark",
+    roastName: "Dark Roast",
+    agtron: "AGTRON 35-45",
+    dots: 3,
+    tags: "Smoky Molasses & Heavy Body",
+    description:
+      "Carefully guided to second crack without ever entering bitter carbon territory. Deep notes of 85% Belgian dark cacao, roasted hazelnut, toasted cedar, and rich crema.",
+    details: [
+      { label: "Acidity", value: "Mellow & Low" },
+      { label: "Best Brewed With", value: "French Press / Moka Pot / Milk" },
+      { label: "Flagship Example", value: "Coffeo Heritage Blend" },
+    ],
+    imageUrl: "/image/the-process/spectrum-dark.jpg",
+  },
+];
+
 export default function TheProcessPage() {
   return (
-    <section className="mb-24 mt-10 overflow-hidden lg:mt-24">
+    <section className="mt-10 overflow-hidden lg:mt-24">
       <div className="container mx-auto px-4 md:px-5">
         
         {/* 1. Header Section */}
@@ -184,6 +233,155 @@ export default function TheProcessPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+         {/* 4. Roasting Spectrum Section */}
+        <div className="mt-32">
+          {/* Header Spectrum */}
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div className="max-w-2xl">
+              <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                Sensory Science
+              </span>
+              <h2 className="font-inter text-3xl font-bold leading-[1.15] text-foreground sm:text-4xl lg:text-5xl">
+                Our Roasting Spectrum Guide
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                Roasting dictates whether you taste the fruit of the coffee plant or the caramelization of the seed. Choose the flavor horizon that matches your daily brew ritual.
+              </p>
+            </div>
+            
+            {/* Filter Tabs (Static UI) */}
+            <div className="flex w-fit items-center rounded-full bg-secondary p-1 dark:bg-neutral-900">
+              <button className="rounded-full bg-[#1C130C] px-5 py-2 text-xs font-semibold text-white shadow-sm">
+                All Spectra
+              </button>
+              <button className="rounded-full px-5 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground">
+                Light
+              </button>
+              <button className="rounded-full px-5 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground">
+                Medium
+              </button>
+              <button className="rounded-full px-5 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground">
+                Dark
+              </button>
+            </div>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {SPECTRUM_DATA.map((roast) => (
+              <div
+                key={roast.id}
+                className="flex flex-col rounded-[2rem] border border-border/40 bg-card-background p-6 shadow-sm transition-transform hover:-translate-y-1 hover:shadow-md dark:bg-neutral-900/40"
+              >
+                {/* Top Bar: Agtron & Dots */}
+                <div className="mb-8 flex items-center justify-between">
+                  <span className="rounded-full bg-accent px-3 py-1 text-[10px] font-bold tracking-widest text-foreground dark:bg-neutral-800">
+                    {roast.agtron}
+                  </span>
+                  <div className="flex gap-1.5">
+                    {[1, 2, 3].map((dot) => (
+                      <div
+                        key={dot}
+                        className={cn(
+                          "h-2 w-2 rounded-full",
+                          dot <= roast.dots
+                            ? "bg-[#5C3A21] dark:bg-primary"
+                            : "bg-neutral-200 dark:bg-neutral-700"
+                        )}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Image Container */}
+                <div className="relative mb-6 flex aspect-4/3 w-full items-center justify-center overflow-hidden rounded-3xl bg-secondary/50">
+                  <Image
+                    src={roast.imageUrl}
+                    alt={roast.roastName}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+
+                {/* Text Content */}
+                <div className="flex flex-1 flex-col">
+                  <h3 className="font-playfair text-2xl font-bold text-foreground">
+                    {roast.roastName}
+                  </h3>
+                  <span className="mb-4 mt-1 text-xs font-medium text-primary">
+                    {roast.tags}
+                  </span>
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {roast.description}
+                  </p>
+                </div>
+
+                {/* Details Table */}
+                <div className="mt-auto space-y-2.5 border-t border-border/50 pt-5 text-xs">
+                  {roast.details.map((detail, idx) => (
+                    <div key={idx} className="flex justify-between gap-4">
+                      <span className="text-muted-foreground">{detail.label}</span>
+                      <span className="text-right font-semibold text-foreground">
+                        {detail.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 5. CTA Section (Taste the Freshness) */}
+         <div className="mt-24 flex flex-col items-center gap-10 rounded-[2.5rem] bg-[#F5F0EB] p-8 sm:p-12 md:flex-row md:gap-16 lg:p-16 dark:bg-neutral-900/40">
+          
+          {/* Gambar di Kiri (Bulat) */}
+          <div className="relative shrink-0">
+            <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-white shadow-xl sm:h-72 sm:w-72 dark:border-neutral-800">
+              <Image
+                src="/image/Coffee-cup.webp" // Ganti dengan path gambar cangkir kopimu
+                alt="Freshly roasted coffee cup"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 300px"
+              />
+            </div>
+          </div>
+
+          {/* Teks & Tombol di Kanan */}
+          <div className="flex flex-col items-start text-center md:text-left">
+            {/* Label Kecil */}
+            <div className="mb-4 inline-flex items-center rounded-full bg-[#FADCD5] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#D16A55]">
+              Fresh Batches Roasting Daily
+            </div>
+            
+            {/* Judul */}
+            <h2 className="font-inter text-3xl font-bold leading-[1.15] text-foreground sm:text-4xl lg:text-5xl">
+              Taste the Freshness Difference.
+            </h2>
+            
+            {/* Deskripsi */}
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Elevate your daily ritual with ethically roasted micro-lots delivered right after drum cooling. Subscribe today and receive 20% off your first three recurring deliveries.
+            </p>
+
+            {/* Tombol */}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button className="group cursor-pointer rounded-full bg-[#2B140C] px-6 py-5 text-sm font-semibold text-white hover:bg-[#3d1c11]">
+                Explore our products
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+              <Button
+                variant="outline"
+                className="cursor-pointer rounded-full border-none bg-white px-6 py-5 text-sm font-semibold text-foreground shadow-sm hover:bg-neutral-50 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+              >
+                Join Tasting Club
+              </Button>
+            </div>
           </div>
         </div>
       </div>
